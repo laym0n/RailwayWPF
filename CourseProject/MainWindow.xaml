@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseProject"
         mc:Ignorable="d"
-        
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ListBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <materialDesignConverters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter"
+                                                             FalseValue="Visible"
+                                                             TrueValue="Collapsed" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="29*"></RowDefinition>
@@ -16,7 +35,75 @@
             <ColumnDefinition Width="711*"/>
             <ColumnDefinition Width="89*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Column="1" Grid.Row="0">
+
+        <materialDesign:PopupBox Grid.Column ="2"
+
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  
+  PlacementMode="BottomAndAlignCentres"
+  Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+  ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
+  ToolTipService.Placement="Right">
+            <materialDesign:PopupBox.ToggleContent>
+                <Ellipse >
+                    <Ellipse.Fill>
+                        <ImageBrush ImageSource="img.png" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+            </materialDesign:PopupBox.ToggleContent>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <system:Double x:Key="GridWidth">124</system:Double>
+                    <system:Double x:Key="ButtonHeight">50</system:Double>
+                </StackPanel.Resources>
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                        <TextBlock
+      Text="Мой профиль" />
+                    </Button>
+
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                        <TextBlock
+      Text="Мой профиль" />
+                    </Button>
+
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                        <TextBlock
+      Text="Купить билет" />
+                    </Button>
+
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                        <TextBlock
+      Text="Выйти" />
+                    </Button>
+            </StackPanel>
+        </materialDesign:PopupBox>
+
+
+        <!--<Menu Grid.Column="1" Grid.Row="0">
             <MenuItem>
                 <MenuItem.Header>
                     <Ellipse  Width="30" Height="30">
@@ -31,7 +118,10 @@
                 <MenuItem Header="Редактировать профиль"></MenuItem>
                 <MenuItem Header="Выйти"></MenuItem>
             </MenuItem>
-        </Menu>
+        </Menu>-->
         <Frame NavigationUIVisibility="Hidden" x:Name ="Main" Margin="0,0,0,0" Grid.RowSpan="2" Grid.Row="0"/>
     </Grid>
-</Window> 
+</Window>
+
+
+

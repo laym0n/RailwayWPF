@@ -24,7 +24,7 @@ namespace CourseProject
         public MainWindow()
         {
             InitializeComponent();
-            Main.Navigate(new Page1());
+            Main.Navigate(new BuyTicket());
         }
 
         private void load_main_page()
@@ -34,12 +34,12 @@ namespace CourseProject
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Main.Navigate(new Page2());
+            Main.Navigate(new Profile());
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-            Main.Navigate(new Page1());
+            Main.Navigate(new BuyTicket());
         }
     }
 }
