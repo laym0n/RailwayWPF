@@ -166,20 +166,45 @@
   Style="{StaticResource MaterialDesignCardGroupBox}">
                             <GroupBox.HeaderTemplate>
                                 <DataTemplate>
-                                    <StackPanel
-        Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon
           Width="32"
           Height="32"
           VerticalAlignment="Center"
           Kind="CardAccountDetails" />
                                         <TextBlock
+                                            Grid.Column="1"
           Margin="8,0,0,0"
           VerticalAlignment="Center"
           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding}" />
+          Text="Откуда" />
+                                        <TextBlock
+                                            Grid.Column="2"
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="Куда" />
+                                        <TextBlock
+                                            Grid.Column="3"
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="Дата отправлления" />
+                                        <TextBlock
+                                            Grid.Column="4"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="Дата прибытия" />
+                                    </Grid>
+                                    
 
-                                    </StackPanel>
 
                                 </DataTemplate>
 
@@ -194,16 +219,11 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
+                                    <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <TextBox
-                                            Grid.Row ="0"
-    MaxWidth="400"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="ФИО"
-    AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-    Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" />
+                                <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="ФИО" />
                                 <materialDesign:ColorZone
   Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
                                     <StackPanel
@@ -220,39 +240,30 @@
       IsChecked="False"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                     </StackPanel>
-                                </materialDesign:ColorZone>
-                                <DatePicker
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-  Width="140"
-  materialDesign:HintAssist.HelperText="Helper text"
-  materialDesign:HintAssist.Hint="Pick Date"
-  Style="{StaticResource MaterialDesignFilledDatePicker}" />
-                                <TextBox
-                                            Grid.Row ="1"
-    MaxWidth="400"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="Пасспорт"
-    AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-    Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" />
-                                <Button
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-  ToolTip="MaterialDesignFloatingActionDarkButton">
 
-                                    <Button.Resources>
-                                        <system:Double x:Key="IconSize">24</system:Double>
-                                        <system:Double x:Key="ButtonWidth">90</system:Double>
-                                    </Button.Resources>
-                                    <materialDesign:PackIcon
-    Width="{StaticResource IconSize}"
-    Height="{StaticResource IconSize}"
-    Kind="ContentSave" />
-                                </Button>
+                                </materialDesign:ColorZone>
+
+                                <TextBlock Grid.Column="1" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="День рождения" />
+                                <TextBlock Grid.Column="0" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Пасспорт" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="2"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Откуда" />
+                                <TextBlock Grid.Column="1" Grid.Row="2"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Куда" />
+                                <TextBlock Grid.Column="0" Grid.Row="3"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Дата отправления" />
+                                <TextBlock Grid.Column="1" Grid.Row="3"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Дата прибытия" />
+
+
                             </Grid>
 
                         </GroupBox>
