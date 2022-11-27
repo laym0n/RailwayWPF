@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,15 @@ namespace CourseProject.ViewModel.Tests
         {
 
         }
-        public bool SignIn()
+        public void SignIn()
         {
-            return true;
+
+        }
+        public void SignUp()
+        {
+        }
+        public void SignOut()
+        {
         }
     }
 }

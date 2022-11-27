@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +16,11 @@ using System.Windows.Shapes;
 namespace CourseProject
 {
     /// <summary>
-    /// Логика взаимодействия для Window1.xaml
+    /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class LoginWindow : Window
     {
-        public Window1()
+        public LoginWindow()
         {
             InitializeComponent();
         }

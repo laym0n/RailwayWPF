@@ -1,6 +1,10 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using CourseProject.Util;
+using CourseProject.ViewModel.Interfaces;
+using MaterialDesignThemes.Wpf;
+using Ninject;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,25 +25,18 @@ namespace CourseProject
     /// </summary>
     public partial class MainWindow : Window
     {
+        StandardKernel kernel = new StandardKernel(new NinjectRegistrations());
+        ISignIn signIn;
         public MainWindow()
         {
             InitializeComponent();
+            this.signIn = kernel.Get<ISignIn>();
+            MainMenu.DataContext = signIn;
             Main.Navigate(new BuyTicket());
         }
-
-        private void load_main_page()
+        private void PopupBox_Opened(object sender, RoutedEventArgs e)
         {
             
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            Main.Navigate(new Profile());
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            Main.Navigate(new BuyTicket());
         }
     }
 }

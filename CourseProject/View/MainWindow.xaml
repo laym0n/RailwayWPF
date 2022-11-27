@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseProject"
         mc:Ignorable="d"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
@@ -35,38 +36,71 @@
             <ColumnDefinition Width="711*"/>
             <ColumnDefinition Width="89*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
+        <Border CornerRadius="50" Margin="5" ></Border>
+        <!--<Menu Grid.Column="1">
+        <MenuItem
+            
+    Background="{DynamicResource PrimaryHueMidBrush}"
+    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
+            
+            <MenuItem
+      Background="{DynamicResource SecondaryHueMidBrush}"
+      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
+      Header="Item 1" />
+            <MenuItem
+      Background="{DynamicResource SecondaryHueMidBrush}"
+      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
+      Header="Item 2" />
+            <MenuItem
+      Background="{DynamicResource SecondaryHueMidBrush}"
+      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
+      Header="Item 3" />
+        </MenuItem>
+        </Menu>-->
         <materialDesign:PopupBox Grid.Column ="2"
-
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  
+                                
+  ToggleCheckedContentClick="PopupBox_Opened"
+  x:Name="MainMenu"                         
   PlacementMode="BottomAndAlignCentres"
   Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
-  ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox"
-  ToolTipService.Placement="Right">
+  ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox" 
+  ToolTipService.Placement="Right" Cursor="Hand" StaysOpen="True" Background="#FF8052D4">
+            <i:Interaction.Triggers>
+                <i:EventTrigger>
+
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
             <materialDesign:PopupBox.ToggleContent>
-                <Ellipse >
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="img.png" Stretch="UniformToFill"/>
-                    </Ellipse.Fill>
-                </Ellipse>
+                <materialDesign:PackIcon 
+      Width="24"
+      Height="24" Kind="Account" />
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel>
                 <StackPanel.Resources>
                     <system:Double x:Key="GridWidth">124</system:Double>
                     <system:Double x:Key="ButtonHeight">50</system:Double>
+                               
                 </StackPanel.Resources>
                 <Button
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners" 
+                    Content="Мой профиль"
+                    >
+                    
+                </Button>
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
-    ToolTip="MaterialDesignRaisedButton with Round Corners"
-                    Command="Help">
-                        <TextBlock
+    ToolTip="MaterialDesignRaisedButton with Round Corners">
+                    <TextBlock
       Text="Мой профиль" />
-                    </Button>
+                </Button>
 
                 <Button
                     Margin="10"
@@ -75,20 +109,9 @@
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners">
-                        <TextBlock
-      Text="Мой профиль" />
-                    </Button>
-
-                <Button
-                    Margin="10"
-    Height="{StaticResource ButtonHeight}"
-    materialDesign:ButtonAssist.CornerRadius="10"
-    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-    Style="{StaticResource MaterialDesignRaisedButton}"
-    ToolTip="MaterialDesignRaisedButton with Round Corners">
-                        <TextBlock
+                    <TextBlock
       Text="Купить билет" />
-                    </Button>
+                </Button>
 
                 <Button
                     Margin="10"
@@ -97,29 +120,11 @@
     IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners">
-                        <TextBlock
+                    <TextBlock
       Text="Выйти" />
-                    </Button>
+                </Button>
             </StackPanel>
         </materialDesign:PopupBox>
-
-
-        <!--<Menu Grid.Column="1" Grid.Row="0">
-            <MenuItem>
-                <MenuItem.Header>
-                    <Ellipse  Width="30" Height="30">
-                        <Ellipse.Fill>
-                            <ImageBrush ImageSource="img.png" Stretch="UniformToFill"/>
-                        </Ellipse.Fill>
-                    </Ellipse>
-                </MenuItem.Header>
-                <MenuItem Header="Мой профиль" Click="MenuItem_Click_1"></MenuItem>
-                <MenuItem Header="Купить билет" Click="MenuItem_Click"></MenuItem>
-                <MenuItem Header="Добавить пассажиров"></MenuItem>
-                <MenuItem Header="Редактировать профиль"></MenuItem>
-                <MenuItem Header="Выйти"></MenuItem>
-            </MenuItem>
-        </Menu>-->
         <Frame NavigationUIVisibility="Hidden" x:Name ="Main" Margin="0,0,0,0" Grid.RowSpan="2" Grid.Row="0"/>
     </Grid>
 </Window>

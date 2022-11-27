@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace CourseProject.ViewModel.Interfaces
 {
-    internal interface ISignIn
+    public interface ISignIn
     {
-        bool SignIn();
+        void SignIn();
+        void SignUp();
+        void SignOut();
     }
 }
