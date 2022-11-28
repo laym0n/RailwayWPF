@@ -1,4 +1,5 @@
-﻿using CourseProject.ViewModel.Interfaces;
+﻿using CourseProject.Model;
+using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +21,23 @@ namespace CourseProject
     /// </summary>
     public partial class LoginWindow : Window
     {
-        public LoginWindow()
+        private UserShow user;
+        public LoginWindow(UserShow user)
         {
             InitializeComponent();
+            passwordBox.Password = user.Password;
+            this.user = user;
+            DataContext = user;
+        }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            user.Password = passwordBox.Password;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

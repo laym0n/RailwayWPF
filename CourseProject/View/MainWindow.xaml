@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CourseProject"
+        xmlns:local="clr-namespace:CourseProject.Model"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:materialDesignThemesWPF="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        Title="MainWindow" Height="450" Width="800"
+        >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -36,27 +38,6 @@
             <ColumnDefinition Width="711*"/>
             <ColumnDefinition Width="89*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Border CornerRadius="50" Margin="5" ></Border>
-        <!--<Menu Grid.Column="1">
-        <MenuItem
-            
-    Background="{DynamicResource PrimaryHueMidBrush}"
-    Foreground="{DynamicResource PrimaryHueMidForegroundBrush}">
-            
-            <MenuItem
-      Background="{DynamicResource SecondaryHueMidBrush}"
-      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-      Header="Item 1" />
-            <MenuItem
-      Background="{DynamicResource SecondaryHueMidBrush}"
-      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-      Header="Item 2" />
-            <MenuItem
-      Background="{DynamicResource SecondaryHueMidBrush}"
-      Foreground="{DynamicResource SecondaryHueMidForegroundBrush}"
-      Header="Item 3" />
-        </MenuItem>
-        </Menu>-->
         <materialDesign:PopupBox Grid.Column ="2"
                                 
   ToggleCheckedContentClick="PopupBox_Opened"
@@ -65,63 +46,81 @@
   Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
   ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox" 
   ToolTipService.Placement="Right" Cursor="Hand" StaysOpen="True" Background="#FF8052D4">
-            <i:Interaction.Triggers>
-                <i:EventTrigger>
-
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
             <materialDesign:PopupBox.ToggleContent>
                 <materialDesign:PackIcon 
       Width="24"
-      Height="24" Kind="Account" />
+      Height="24"
+                  x:Name="iconMainMenu"     
+         Kind="AccountQuestion"
+                    />
+                <!--Kind="{StaticResource test}"-->
+                    <!--Kind= "{Binding Path=MenuShowButtons.IconMainMenu}"-->
+
             </materialDesign:PopupBox.ToggleContent>
-            <StackPanel>
+            <StackPanel x:Name="StackMenuButtons">
                 <StackPanel.Resources>
                     <system:Double x:Key="GridWidth">124</system:Double>
                     <system:Double x:Key="ButtonHeight">50</system:Double>
-                               
                 </StackPanel.Resources>
                 <Button
+                    Visibility="{Binding Path=MenuShowButtons.VisibleProfile}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners" 
-                    Content="Мой профиль"
-                    >
+                    Content="Мой профиль">
+                </Button>
+                <Button
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    Visibility="{Binding Path =MenuShowButtons.VisibleCreateTrain}"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Content="Создать поезд">
                     
                 </Button>
                 <Button
+                    Visibility="{Binding Path=MenuShowButtons.VisibleBuyTicket}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
-    ToolTip="MaterialDesignRaisedButton with Round Corners">
-                    <TextBlock
-      Text="Мой профиль" />
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Content="Купить билет">
                 </Button>
-
                 <Button
+                    Command="{Binding SignOut}"
+                    CommandParameter="{Binding ElementName=iconMainMenu}"
+                    Visibility="{Binding Path=MenuShowButtons.VisibleSignOut}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
-    ToolTip="MaterialDesignRaisedButton with Round Corners">
-                    <TextBlock
-      Text="Купить билет" />
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Content="Выйти">
                 </Button>
-
                 <Button
+                    Command="{Binding SignIn}"
+                    CommandParameter="{Binding ElementName=iconMainMenu}"
+                    Visibility="{Binding Path=MenuShowButtons.VisibleSignIn}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
     Style="{StaticResource MaterialDesignRaisedButton}"
-    ToolTip="MaterialDesignRaisedButton with Round Corners">
-                    <TextBlock
-      Text="Выйти" />
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Content="Войти">
+                </Button>
+                <Button
+                    Command="{Binding SignUp}"
+                    Visibility="{Binding  Path=MenuShowButtons.VisibleSignUp}"
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Content="Регистрация">
                 </Button>
             </StackPanel>
         </materialDesign:PopupBox>

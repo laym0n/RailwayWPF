@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseProject"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         Title="Window1" Height="183" Width="329">
     <Window.Resources>
         <Style TargetType="TextBlock">
@@ -24,19 +26,48 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Имя" />
-        <TextBlock Text="Возраст" Grid.Row="1" />
 
-        <TextBox Text="{Binding Name}" Grid.Column="1" />
-        <TextBox Text="{Binding Age}" Grid.Column="1" Grid.Row="1" />
+        <TextBox
+    MaxWidth="400"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="Login"
+    AcceptsReturn="True"
+    Text="{Binding Login}"
+    Style="{StaticResource MaterialDesignFilledTextBox}"
+    TextWrapping="Wrap" />
+        
+        <PasswordBox
+            x:Name="passwordBox"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="Password"
+                Grid.Column="1" Grid.Row="1"
+    PasswordChanged="PasswordBox_PasswordChanged"
+    Style="{StaticResource MaterialDesignFilledPasswordBox}" />
 
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-            <Button IsDefault="True" >OK</Button>
-            <Button IsCancel="True" >Отмена</Button>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1" >
+            <StackPanel.Resources>
+
+                <system:Double x:Key="ButtonWidth">90
+                </system:Double>
+            </StackPanel.Resources>
+            <Button
+                Margin="10"
+                Width="{StaticResource ButtonWidth}"
+                IsDefault="True"
+                IsCancel="True"
+  Content="Отмена"
+  Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                Background="Crimson"
+  ToolTip="MaterialDesignFlatAccentBackgroundButton" />
+            <Button
+                Margin="10"
+                Width="{StaticResource ButtonWidth}"
+                IsDefault="True"
+  Content="OK"
+  Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+  ToolTip="MaterialDesignFlatAccentBackgroundButton" Click="Button_Click" />
         </StackPanel>
     </Grid>
 </Window>
+
+

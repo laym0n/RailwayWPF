@@ -25,13 +25,14 @@ namespace CourseProject
     /// </summary>
     public partial class MainWindow : Window
     {
-        StandardKernel kernel = new StandardKernel(new NinjectRegistrations());
-        ISignIn signIn;
+        private readonly StandardKernel kernel;
+        private readonly ISignIn signIn;
         public MainWindow()
         {
             InitializeComponent();
+            kernel = new StandardKernel(new NinjectRegistrations(this));
             this.signIn = kernel.Get<ISignIn>();
-            MainMenu.DataContext = signIn;
+            StackMenuButtons.DataContext = signIn;
             Main.Navigate(new BuyTicket());
         }
         private void PopupBox_Opened(object sender, RoutedEventArgs e)
