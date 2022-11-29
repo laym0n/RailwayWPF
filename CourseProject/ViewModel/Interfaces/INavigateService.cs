@@ -11,6 +11,7 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface INavigation
     {
+        event Func<IMediator> GetMediator;
         Frame PageFrame { get; }
         MenuShow VisibleButtons { get; }
         void SetMainMenuWhenSignOut();

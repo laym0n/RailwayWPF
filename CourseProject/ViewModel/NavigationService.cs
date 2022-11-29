@@ -12,6 +12,7 @@ namespace CourseProject.ViewModel
 {
     public class NavigationService : INavigation
     {
+        public event Func<IMediator> GetMediator;
         public MenuShow VisibleButtons { get; }
         public NavigationService(Frame frame)
         {
@@ -54,7 +55,7 @@ namespace CourseProject.ViewModel
         public ICommand NavigateProfile
         {
             get => new RelayCommand((obj) => {
-                PageFrame.Navigate(new Profile());
+                PageFrame.Navigate(new Profile(GetMediator()));
             });
         }
     }

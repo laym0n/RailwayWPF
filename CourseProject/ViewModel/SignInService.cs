@@ -25,7 +25,7 @@ namespace CourseProject.ViewModel.Tests
             this.unityOfWork = unityOfWork;
         }
         public event Action UserSignOut;
-        public event Action UserSignIn;
+        public event Action<User> UserSignIn;
         public ICommand SignIn
         {
             get => new RelayCommand((obj) =>
@@ -42,7 +42,7 @@ namespace CourseProject.ViewModel.Tests
                         if ((currentUser = unityOfWork.Users.GetItem(userForLoginWindow.Login)) != null && currentUser.Password == userForLoginWindow.Password)
                         {
                             dialogResult = false;
-                            UserSignIn?.Invoke();
+                            UserSignIn?.Invoke(currentUser);
                         }
                         else
                             MessageBox.Show("Логин или паролль неверный!");

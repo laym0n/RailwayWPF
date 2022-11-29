@@ -21,11 +21,13 @@ namespace CourseProject.ViewModel
 
             #region InfoProfile
             SignIn.UserSignOut += InfoProfile.ClearPassengerCollection;
+            SignIn.UserSignIn += InfoProfile.SetCurrentUser;
             #endregion
 
             #region NavigationService
             SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
-            SignIn.UserSignIn += NavigationService.SetMainMenuWhenSignIn;
+            SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
+            NavigationService.GetMediator += () => this;
             #endregion
 
         }

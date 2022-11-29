@@ -21,7 +21,7 @@ namespace CourseProject.ViewModel.Tests
             get => new RelayCommand((obj) =>
             {
 
-                UserSignIn?.Invoke();
+                UserSignIn?.Invoke(CurrentUser);
             });
         }
         public ICommand SignUp
@@ -36,7 +36,7 @@ namespace CourseProject.ViewModel.Tests
             });
         }
         public event Action UserSignOut;
-        public event Action UserSignIn;
+        public event Action<User> UserSignIn;
         public User CurrentUser { get => new User() { Id = 1, Password = "test"}; }
     }
 }

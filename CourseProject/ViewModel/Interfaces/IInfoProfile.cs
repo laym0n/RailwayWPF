@@ -12,7 +12,7 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IInfoProfile
     {
-        event Func<User> GetCurrentUser;
+        void SetCurrentUser(User user);
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
         void ClearPassengerCollection();
         ICommand ChangePassword { get; }

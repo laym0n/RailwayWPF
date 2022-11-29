@@ -16,8 +16,10 @@ namespace CourseProject.ViewModel
 {
     internal class ProfileService: IInfoProfile
     {
+        private User currentUser;
+        private bool FlagLoaded = false;
         private IUnityOfWork unityOfWork;
-        public event Func<User> GetCurrentUser;
+        public void SetCurrentUser(User user) => currentUser = user;
         private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>();
         public ProfileService(IUnityOfWork unityOfWork)
         {
@@ -59,23 +61,21 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) =>
             {
-                User CurrentUser = GetCurrentUser?.Invoke();
-                if (obj is PasswordChangeModel passwordChangeModel && CurrentUser.Password == passwordChangeModel.OldPassword)
+                if (obj is PasswordChangeModel passwordChangeModel && currentUser.Password == passwordChangeModel.OldPassword)
                 {
-                    CurrentUser.Password = passwordChangeModel.NewPassword;
-                    unityOfWork.Users.Update(CurrentUser);
+                    currentUser.Password = passwordChangeModel.NewPassword;
+                    unityOfWork.Users.Update(currentUser);
                     //unityOfWork.Save();
                 }
                 else
                     MessageBox.Show("Старый пароль неверный!");
             }, (obj) => (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
         }
-        public void LoadPassengers(PassengerProfileCollection passengers)
+        public void LoadPassengers()
         {
-            //ObservableCollection<PassengerViewModel> a = new ObservableCollection<PassengerViewModel>();
-            //a.Add(new PassengerViewModel() { Id = 1 });
-            //a.Add(new PassengerViewModel() { Id = 1 });
-            //passengers.PassengerCollection = a;
+            FlagLoaded = true;
+            passengers.Add(new PassengerViewModel() { Id = 1 });
+            passengers.Add(new PassengerViewModel() { Id = 1 });
         }
         public ObservableCollection<PassengerViewModel> PassengerViewModels 
         {
@@ -89,7 +89,9 @@ namespace CourseProject.ViewModel
         }
         public void ClearPassengerCollection()
         {
+            FlagLoaded = false;
             passengers.Clear();
+            currentUser = null;
         }
     }
 }

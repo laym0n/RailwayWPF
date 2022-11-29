@@ -23,16 +23,12 @@ namespace CourseProject
     /// </summary>
     public partial class Profile : Page
     {
-        IInfoProfile infoProfile;
-        public Profile()
+        IMediator ViewModel;
+        public Profile(IMediator viewModel)
         {
             InitializeComponent();
-        }
-        [Ninject.Inject]
-        public void SetInfoProfile(IInfoProfile infoProfile)
-        {
-            this.infoProfile = infoProfile;
-            //infoProfile.LoadPassengers((PassengerProfileCollection)TryFindResource("Passengers"));
+            ViewModel = viewModel;
+            ((PassengerProfileCollection)TryFindResource("Passengers")).PassengerCollection = ViewModel.InfoProfile.PassengerViewModels;
         }
     }
 }
