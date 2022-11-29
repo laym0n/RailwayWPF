@@ -26,16 +26,16 @@ namespace CourseProject
     public partial class MainWindow : Window
     {
         private readonly StandardKernel kernel;
-        private readonly IViewModel viewModel;
+        private readonly IMediator viewModel;
         public MainWindow()
         {
             InitializeComponent();
             kernel = new StandardKernel(new NinjectRegistrations(this));
             Profile a = kernel.Get<Profile>();
-            this.viewModel = kernel.Get<IViewModel>();
+            this.viewModel = kernel.Get<IMediator>();
             this.DataContext = viewModel;
-            //NavigableFrame.Navigate(new BuyTicketPage());
-            NavigableFrame.Navigate(a);
+            NavigableFrame.Navigate(new BuyTicketPage());
+            //NavigableFrame.Navigate(a);
 
         }
     }

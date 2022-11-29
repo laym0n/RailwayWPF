@@ -12,8 +12,9 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface ISignIn
     {
-        User SignInUser { get; }
-        MenuShow MenuShowButtons { get; }
+        User CurrentUser { get; }
+        event Action UserSignOut;
+        event Action UserSignIn;
         ICommand SignIn { get; }
         ICommand SignUp { get; }
         ICommand SignOut { get; }

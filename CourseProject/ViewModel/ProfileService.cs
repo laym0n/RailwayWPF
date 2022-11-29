@@ -14,18 +14,15 @@ using System.Windows.Input;
 
 namespace CourseProject.ViewModel
 {
-    internal class ProfileService: DependencyObject, IInfoProfile
+    internal class ProfileService: IInfoProfile
     {
         private IUnityOfWork unityOfWork;
-        public static readonly DependencyProperty passengersProperty;
-        private ObservableCollection<PassengerViewModel> passengers;
-        private ISignIn signIn;
-        public ProfileService(IUnityOfWork unityOfWork, ISignIn signIn)
+        public event Func<User> GetCurrentUser;
+        private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>();
+        public ProfileService(IUnityOfWork unityOfWork)
         {
             this.unityOfWork = unityOfWork;
-            this.signIn = signIn;
         }
-
         public ICommand AddPassenger 
         {
             get => new RelayCommand((obj) =>
@@ -62,10 +59,11 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) =>
             {
-                if (obj is PasswordChangeModel passwordChangeModel && signIn.SignInUser.Password == passwordChangeModel.OldPassword)
+                User CurrentUser = GetCurrentUser?.Invoke();
+                if (obj is PasswordChangeModel passwordChangeModel && CurrentUser.Password == passwordChangeModel.OldPassword)
                 {
-                    signIn.SignInUser.Password = passwordChangeModel.NewPassword;
-                    unityOfWork.Users.Update(signIn.SignInUser);
+                    CurrentUser.Password = passwordChangeModel.NewPassword;
+                    unityOfWork.Users.Update(CurrentUser);
                     //unityOfWork.Save();
                 }
                 else
@@ -87,7 +85,11 @@ namespace CourseProject.ViewModel
                 a.Add(new PassengerViewModel() { Id = 1 });
                 a.Add(new PassengerViewModel() { Id = 1 });
                 return a;
-            } 
+            }
+        }
+        public void ClearPassengerCollection()
+        {
+            passengers.Clear();
         }
     }
 }

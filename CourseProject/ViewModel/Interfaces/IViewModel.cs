@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CourseProject.ViewModel.Interfaces
 {
-    public interface IViewModel
+    public interface IMediator
     {
+        INavigation NavigationService { get; }
         ISignIn SignIn { get; }
         IInfoProfile InfoProfile { get; }
     }

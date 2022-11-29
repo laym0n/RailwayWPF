@@ -19,23 +19,13 @@ namespace CourseProject.ViewModel.Tests
     public class SignInService : ISignIn
     {
         private readonly IUnityOfWork unityOfWork;
-        private readonly Frame frame;
-        private readonly MenuShow menuShowButtons;
-        User user;
-        public SignInService(IUnityOfWork unityOfWork, Frame frame)
+        User currentUser;
+        public SignInService(IUnityOfWork unityOfWork)
         {
             this.unityOfWork = unityOfWork;
-            this.frame = frame;
-            menuShowButtons = new MenuShow()
-            {
-                VisibleBuyTicket = "Collapsed",
-                VisibleCreateTrain = "Collapsed",
-                VisibleProfile = "Collapsed",
-                VisibleSignIn = "Visible",
-                VisibleSignOut = "Collapsed",
-                VisibleSignUp = "Visible",
-            };
         }
+        public event Action UserSignOut;
+        public event Action UserSignIn;
         public ICommand SignIn
         {
             get => new RelayCommand((obj) =>
@@ -44,27 +34,22 @@ namespace CourseProject.ViewModel.Tests
                 bool? dialogResult;
                 do
                 {
-                    userForLoginWindow .Password = "";
+                    userForLoginWindow.Password = "";
                     LoginWindow loginWindow = new LoginWindow(userForLoginWindow) { Title = "Вход в систему" };
                     dialogResult = loginWindow.ShowDialog();
                     if (dialogResult == true)
                     {
-                        if ((user = unityOfWork.Users.GetItem(userForLoginWindow.Login)) != null)
+                        if ((currentUser = unityOfWork.Users.GetItem(userForLoginWindow.Login)) != null && currentUser.Password == userForLoginWindow.Password)
                         {
-                            menuShowButtons.VisibleBuyTicket = "Visible";
-                            menuShowButtons.VisibleCreateTrain = "Visible";
-                            menuShowButtons.VisibleProfile = "Visible";
-                            menuShowButtons.VisibleSignIn = "Collapsed";
-                            menuShowButtons.VisibleSignOut = "Visible";
-                            menuShowButtons.VisibleSignUp = "Collapsed";
-                            break;
+                            dialogResult = false;
+                            UserSignIn?.Invoke();
                         }
                         else
                             MessageBox.Show("Логин или паролль неверный!");
                     }
                 } while (dialogResult == true);
 
-            }, (obj) => user == null);
+            }, (obj) => currentUser == null);
         }
         public ICommand SignUp
         {
@@ -79,7 +64,7 @@ namespace CourseProject.ViewModel.Tests
                     dialogResult = loginWindow.ShowDialog();
                     if (dialogResult == true)
                     {
-                        if ((user = unityOfWork.Users.GetItem(userForLoginWindow.Login)) == null)
+                        if ((currentUser = unityOfWork.Users.GetItem(userForLoginWindow.Login)) == null)
                         {
                             User UserForAdd = new User()
                             {
@@ -97,35 +82,16 @@ namespace CourseProject.ViewModel.Tests
                     }
                 } while (dialogResult == true);
 
-            }, (obj) => user == null);
+            }, (obj) => currentUser == null);
         }
         public ICommand SignOut
         {
             get => new RelayCommand((obj) =>
             {
-
-                menuShowButtons.VisibleBuyTicket = "Collapsed";
-                menuShowButtons.VisibleCreateTrain = "Collapsed";
-                menuShowButtons.VisibleProfile = "Collapsed";
-                menuShowButtons.VisibleSignIn = "Visible";
-                menuShowButtons.VisibleSignOut = "Collapsed";
-                menuShowButtons.VisibleSignUp = "Visible";
-                if (!(frame.Content is BuyTicketPage))
-                    frame.Navigate(new BuyTicketPage());
-
-                user = null;
-
+                currentUser = null;
+                UserSignOut?.Invoke();
             });
         }
-        public ICommand EnterProfile
-        {
-            get => new RelayCommand((obj) =>
-            {
-                if (!(frame.Content is Profile))
-                    frame.Navigate(new Profile());
-            });
-        }
-        public User SignInUser { get=> user;}
-        public MenuShow MenuShowButtons { get => menuShowButtons; }
+        public User CurrentUser { get=> currentUser;}
     }
 }

@@ -84,8 +84,8 @@
                     <system:Double x:Key="ButtonHeight">50</system:Double>
                 </StackPanel.Resources>
                 <Button
-                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleProfile}"
-                    Command="{Binding Path=SignIn.EnterProfile}"
+                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleProfile}"
+                    Command="{Binding Path=NavigationService.NavigateProfile}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -97,14 +97,14 @@
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    Visibility="{Binding Path =SignIn.MenuShowButtons.VisibleCreateTrain}"
+    Visibility="{Binding Path =NavigationService.VisibleButtons.VisibleCreateTrain}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
                     Content="Создать поезд">
                     
                 </Button>
                 <Button
-                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleBuyTicket}"
+                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleBuyTicket}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -114,7 +114,7 @@
                 </Button>
                 <Button
                     Command="{Binding Path=SignIn.SignOut}"
-                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleSignOut}"
+                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleSignOut}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -125,7 +125,7 @@
                 <Button
                     Name="SignInButton"
                     Command="{Binding Path=SignIn.SignIn}"
-                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleSignIn}"
+                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleSignIn}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -135,7 +135,7 @@
                 </Button>
                 <Button
                     Command="{Binding Path=SignIn.SignUp}"
-                    Visibility="{Binding  Path=SignIn.MenuShowButtons.VisibleSignUp}"
+                    Visibility="{Binding  Path=NavigationService.VisibleButtons.VisibleSignUp}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"

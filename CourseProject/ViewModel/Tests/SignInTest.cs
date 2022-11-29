@@ -13,31 +13,15 @@ namespace CourseProject.ViewModel.Tests
 {
     public class SignInTest : ISignIn
     {
-        Frame frame;
-        public SignInTest(Frame frame)
+        public SignInTest()
         {
-            this.frame = frame;
-            menuShowButtons = new MenuShow()
-            {
-                VisibleBuyTicket = "Collapsed",
-                VisibleCreateTrain = "Collapsed",
-                VisibleProfile = "Collapsed",
-                VisibleSignIn = "Visible",
-                VisibleSignOut = "Collapsed",
-                VisibleSignUp = "Visible",
-                
-            };
         }
         public ICommand SignIn
         {
             get => new RelayCommand((obj) =>
             {
-                menuShowButtons.VisibleBuyTicket = "Visible";
-                menuShowButtons.VisibleCreateTrain = "Visible";
-                menuShowButtons.VisibleProfile = "Visible";
-                menuShowButtons.VisibleSignIn = "Collapsed";
-                menuShowButtons.VisibleSignOut = "Visible";
-                menuShowButtons.VisibleSignUp = "Collapsed";
+
+                UserSignIn?.Invoke();
             });
         }
         public ICommand SignUp
@@ -48,21 +32,11 @@ namespace CourseProject.ViewModel.Tests
         {
             get => new RelayCommand((obj) =>
             {
-                menuShowButtons.VisibleBuyTicket = "Collapsed";
-                menuShowButtons.VisibleCreateTrain = "Collapsed";
-                menuShowButtons.VisibleProfile = "Collapsed";
-                menuShowButtons.VisibleSignIn = "Visible";
-                menuShowButtons.VisibleSignOut = "Collapsed";
-                menuShowButtons.VisibleSignUp = "Visible";
+                UserSignOut?.Invoke();
             });
         }
-        public ICommand EnterProfile
-        {
-            get => new RelayCommand((obj) => {
-                frame.Navigate(new Profile()); });
-        }
-        public User SignInUser { get => new User() { Id = 1, Password = "test"}; }
-        private MenuShow menuShowButtons;
-        public MenuShow MenuShowButtons { get => menuShowButtons; }
+        public event Action UserSignOut;
+        public event Action UserSignIn;
+        public User CurrentUser { get => new User() { Id = 1, Password = "test"}; }
     }
 }

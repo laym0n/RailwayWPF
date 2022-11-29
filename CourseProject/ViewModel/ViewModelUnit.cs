@@ -7,19 +7,30 @@ using System.Threading.Tasks;
 
 namespace CourseProject.ViewModel
 {
-    public class ViewModelUnit : IViewModel
+    public class ViewModelUnit : IMediator
     {
-        private ISignIn signIn;
-        private IInfoProfile infoProfile;
-        public ViewModelUnit(ISignIn signIn, IInfoProfile infoProfile)
+        public ViewModelUnit(ISignIn signIn, IInfoProfile infoProfile, INavigation navigationService)
         {
-            this.signIn = signIn;
-            this.infoProfile = infoProfile;
+            this.SignIn = signIn;
+            this.InfoProfile = infoProfile;
+            this.NavigationService = navigationService;
+
+            #region SignIn
+
+            #endregion
+
+            #region InfoProfile
+            SignIn.UserSignOut += InfoProfile.ClearPassengerCollection;
+            #endregion
+
+            #region NavigationService
+            SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
+            SignIn.UserSignIn += NavigationService.SetMainMenuWhenSignIn;
+            #endregion
+
         }
-        public ISignIn SignIn 
-        {
-            get => signIn;
-        }
-        public IInfoProfile InfoProfile { get => infoProfile; }
+        public ISignIn SignIn { get; private set; }
+        public IInfoProfile InfoProfile { get; protected set; }
+        public INavigation NavigationService { get; protected set; }
     }
 }

@@ -32,7 +32,7 @@ namespace CourseProject
         public void SetInfoProfile(IInfoProfile infoProfile)
         {
             this.infoProfile = infoProfile;
-            infoProfile.LoadPassengers((PassengerProfileCollection)TryFindResource("Passengers"));
+            //infoProfile.LoadPassengers((PassengerProfileCollection)TryFindResource("Passengers"));
         }
     }
 }
