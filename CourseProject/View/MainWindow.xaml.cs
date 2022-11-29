@@ -26,18 +26,17 @@ namespace CourseProject
     public partial class MainWindow : Window
     {
         private readonly StandardKernel kernel;
-        private readonly ISignIn signIn;
+        private readonly IViewModel viewModel;
         public MainWindow()
         {
             InitializeComponent();
             kernel = new StandardKernel(new NinjectRegistrations(this));
-            this.signIn = kernel.Get<ISignIn>();
-            StackMenuButtons.DataContext = signIn;
-            Main.Navigate(new BuyTicket());
-        }
-        private void PopupBox_Opened(object sender, RoutedEventArgs e)
-        {
-            
+            Profile a = kernel.Get<Profile>();
+            this.viewModel = kernel.Get<IViewModel>();
+            this.DataContext = viewModel;
+            //NavigableFrame.Navigate(new BuyTicketPage());
+            NavigableFrame.Navigate(a);
+
         }
     }
 }

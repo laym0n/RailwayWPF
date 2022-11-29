@@ -13,6 +13,7 @@ namespace DAL.Realizations
     {
         private readonly RailWayDB db;
         private UserRepository users;
+        private PassengerRepository passengers;
         public DBReposSQLServer(RailWayDB db)
         {
             this.db = db;
@@ -21,6 +22,10 @@ namespace DAL.Realizations
         public IRepositoryUser Users 
         {
             get => users ?? (users = new UserRepository(db));
+        }
+        public IRepositoryPassenger Passengers
+        {
+            get => passengers ?? (passengers = new PassengerRepository(db));
         }
         public int Save()
         {

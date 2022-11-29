@@ -1,5 +1,8 @@
-﻿using System;
+﻿using CourseProject.Model;
+using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,16 @@ namespace CourseProject
     /// </summary>
     public partial class Profile : Page
     {
+        IInfoProfile infoProfile;
         public Profile()
         {
             InitializeComponent();
+        }
+        [Ninject.Inject]
+        public void SetInfoProfile(IInfoProfile infoProfile)
+        {
+            this.infoProfile = infoProfile;
+            infoProfile.LoadPassengers((PassengerProfileCollection)TryFindResource("Passengers"));
         }
     }
 }

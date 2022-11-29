@@ -11,16 +11,21 @@ using System.Windows.Input;
 using DAL;
 using System.Windows;
 using MaterialDesignThemes.Wpf;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace CourseProject.ViewModel.Tests
 {
     public class SignInService : ISignIn
     {
-        IUnityOfWork unityOfWork;
+        private readonly IUnityOfWork unityOfWork;
+        private readonly Frame frame;
+        private readonly MenuShow menuShowButtons;
         User user;
-        public SignInService(IUnityOfWork unityOfWork)
+        public SignInService(IUnityOfWork unityOfWork, Frame frame)
         {
             this.unityOfWork = unityOfWork;
+            this.frame = frame;
             menuShowButtons = new MenuShow()
             {
                 VisibleBuyTicket = "Collapsed",
@@ -52,7 +57,6 @@ namespace CourseProject.ViewModel.Tests
                             menuShowButtons.VisibleSignIn = "Collapsed";
                             menuShowButtons.VisibleSignOut = "Visible";
                             menuShowButtons.VisibleSignUp = "Collapsed";
-                            (obj as PackIcon).Kind = PackIconKind.Account;
                             break;
                         }
                         else
@@ -106,13 +110,22 @@ namespace CourseProject.ViewModel.Tests
                 menuShowButtons.VisibleSignIn = "Visible";
                 menuShowButtons.VisibleSignOut = "Collapsed";
                 menuShowButtons.VisibleSignUp = "Visible";
-                user = null;
-                (obj as PackIcon).Kind = PackIconKind.AccountQuestion;
+                if (!(frame.Content is BuyTicketPage))
+                    frame.Navigate(new BuyTicketPage());
 
-            }, (obj) => user != null);
+                user = null;
+
+            });
+        }
+        public ICommand EnterProfile
+        {
+            get => new RelayCommand((obj) =>
+            {
+                if (!(frame.Content is Profile))
+                    frame.Navigate(new Profile());
+            });
         }
         public User SignInUser { get=> user;}
-        private MenuShow menuShowButtons;
         public MenuShow MenuShowButtons { get => menuShowButtons; }
     }
 }

@@ -7,14 +7,16 @@ using CourseProject.ViewModel.Interfaces;
 using System.Windows.Input;
 using CourseProject.Model;
 using DAL;
+using System.Windows.Controls;
 
 namespace CourseProject.ViewModel.Tests
 {
     public class SignInTest : ISignIn
     {
-        bool registr = false;
-        public SignInTest()
+        Frame frame;
+        public SignInTest(Frame frame)
         {
+            this.frame = frame;
             menuShowButtons = new MenuShow()
             {
                 VisibleBuyTicket = "Collapsed",
@@ -36,8 +38,7 @@ namespace CourseProject.ViewModel.Tests
                 menuShowButtons.VisibleSignIn = "Collapsed";
                 menuShowButtons.VisibleSignOut = "Visible";
                 menuShowButtons.VisibleSignUp = "Collapsed";
-                registr = !registr;
-            }, (obj) => !registr);
+            });
         }
         public ICommand SignUp
         {
@@ -53,10 +54,14 @@ namespace CourseProject.ViewModel.Tests
                 menuShowButtons.VisibleSignIn = "Visible";
                 menuShowButtons.VisibleSignOut = "Collapsed";
                 menuShowButtons.VisibleSignUp = "Visible";
-                registr = !registr;
-            }, (obj) => registr);
+            });
         }
-        public User SignInUser { get => null; }
+        public ICommand EnterProfile
+        {
+            get => new RelayCommand((obj) => {
+                frame.Navigate(new Profile()); });
+        }
+        public User SignInUser { get => new User() { Id = 1, Password = "test"}; }
         private MenuShow menuShowButtons;
         public MenuShow MenuShowButtons { get => menuShowButtons; }
     }

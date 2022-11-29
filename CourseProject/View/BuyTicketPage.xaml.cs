@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CourseProject
 {
     /// <summary>
-    /// Логика взаимодействия для BuyTicket.xaml
+    /// Логика взаимодействия для BuyTicketPage.xaml
     /// </summary>
-    public partial class BuyTicket : Page
+    public partial class BuyTicketPage : Page
     {
-        public BuyTicket()
+        public BuyTicketPage()
         {
             InitializeComponent();
         }

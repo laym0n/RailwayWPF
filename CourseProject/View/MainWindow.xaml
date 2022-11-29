@@ -40,22 +40,43 @@
         </Grid.ColumnDefinitions>
         <materialDesign:PopupBox Grid.Column ="2"
                                 
-  ToggleCheckedContentClick="PopupBox_Opened"
   x:Name="MainMenu"                         
   PlacementMode="BottomAndAlignCentres"
   Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
   ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox" 
   ToolTipService.Placement="Right" Cursor="Hand" StaysOpen="True" Background="#FF8052D4">
+            <materialDesign:PopupBox.Resources>
+                
+            </materialDesign:PopupBox.Resources>
             <materialDesign:PopupBox.ToggleContent>
                 <materialDesign:PackIcon 
       Width="24"
       Height="24"
                   x:Name="iconMainMenu"     
-         Kind="AccountQuestion"
-                    />
-                <!--Kind="{StaticResource test}"-->
-                    <!--Kind= "{Binding Path=MenuShowButtons.IconMainMenu}"-->
-
+        >
+                    <materialDesign:PackIcon.Resources>
+                        <materialDesignThemesWPF:PackIconKind x:Key="NonRegistreted">
+                            AccountQuestion
+                        </materialDesignThemesWPF:PackIconKind>
+                        <materialDesignThemesWPF:PackIconKind x:Key="Registreted">
+                            Account
+                        </materialDesignThemesWPF:PackIconKind>
+                    </materialDesign:PackIcon.Resources>
+                    <materialDesign:PackIcon.Style>
+                        <Style TargetType="materialDesign:PackIcon">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=SignInButton, Path=Visibility}"
+                        Value="Collapsed">
+                                    <Setter Property="Kind" Value="{StaticResource Registreted}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=SignInButton, Path=Visibility}"
+                        Value="Visible">
+                                    <Setter Property="Kind" Value="{StaticResource NonRegistreted}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </materialDesign:PackIcon.Style>
+                </materialDesign:PackIcon>
             </materialDesign:PopupBox.ToggleContent>
             <StackPanel x:Name="StackMenuButtons">
                 <StackPanel.Resources>
@@ -63,7 +84,8 @@
                     <system:Double x:Key="ButtonHeight">50</system:Double>
                 </StackPanel.Resources>
                 <Button
-                    Visibility="{Binding Path=MenuShowButtons.VisibleProfile}"
+                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleProfile}"
+                    Command="{Binding Path=SignIn.EnterProfile}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -75,14 +97,14 @@
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    Visibility="{Binding Path =MenuShowButtons.VisibleCreateTrain}"
+    Visibility="{Binding Path =SignIn.MenuShowButtons.VisibleCreateTrain}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
                     Content="Создать поезд">
                     
                 </Button>
                 <Button
-                    Visibility="{Binding Path=MenuShowButtons.VisibleBuyTicket}"
+                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleBuyTicket}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -91,9 +113,8 @@
                     Content="Купить билет">
                 </Button>
                 <Button
-                    Command="{Binding SignOut}"
-                    CommandParameter="{Binding ElementName=iconMainMenu}"
-                    Visibility="{Binding Path=MenuShowButtons.VisibleSignOut}"
+                    Command="{Binding Path=SignIn.SignOut}"
+                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleSignOut}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -102,9 +123,9 @@
                     Content="Выйти">
                 </Button>
                 <Button
-                    Command="{Binding SignIn}"
-                    CommandParameter="{Binding ElementName=iconMainMenu}"
-                    Visibility="{Binding Path=MenuShowButtons.VisibleSignIn}"
+                    Name="SignInButton"
+                    Command="{Binding Path=SignIn.SignIn}"
+                    Visibility="{Binding Path=SignIn.MenuShowButtons.VisibleSignIn}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -113,8 +134,8 @@
                     Content="Войти">
                 </Button>
                 <Button
-                    Command="{Binding SignUp}"
-                    Visibility="{Binding  Path=MenuShowButtons.VisibleSignUp}"
+                    Command="{Binding Path=SignIn.SignUp}"
+                    Visibility="{Binding  Path=SignIn.MenuShowButtons.VisibleSignUp}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -124,7 +145,7 @@
                 </Button>
             </StackPanel>
         </materialDesign:PopupBox>
-        <Frame NavigationUIVisibility="Hidden" x:Name ="Main" Margin="0,0,0,0" Grid.RowSpan="2" Grid.Row="0"/>
+        <Frame x:FieldModifier="public" NavigationUIVisibility="Hidden" x:Name ="NavigableFrame" Margin="0,0,0,0" Grid.RowSpan="2" Grid.Row="0"/>
     </Grid>
 </Window>
 

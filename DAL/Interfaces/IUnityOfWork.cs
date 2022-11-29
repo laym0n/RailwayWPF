@@ -11,6 +11,7 @@ namespace DLL.Interfaces
     public interface IUnityOfWork
     {
         IRepositoryUser Users { get; }
+        IRepositoryPassenger Passengers { get; }
         int Save();
 
     }

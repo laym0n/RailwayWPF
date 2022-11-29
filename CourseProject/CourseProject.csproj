@@ -80,14 +80,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\MenuShow.cs" />
+    <Compile Include="Model\PassangerViewModel.cs" />
+    <Compile Include="Model\PassengerProfileCollection.cs" />
+    <Compile Include="Model\PasswordChangeModel.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\UserShow.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
+    <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
+    <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
+    <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
+    <Compile Include="ViewModel\NavigationService.cs" />
+    <Compile Include="ViewModel\ProfileService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
-    <Compile Include="View\BuyTicket.xaml.cs">
-      <DependentUpon>BuyTicket.xaml</DependentUpon>
+    <Compile Include="ViewModel\ViewModelUnit.cs" />
+    <Compile Include="View\BuyTicketPage.xaml.cs">
+      <DependentUpon>BuyTicketPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
@@ -107,7 +116,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\BuyTicket.xaml">
+    <Page Include="View\BuyTicketPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
