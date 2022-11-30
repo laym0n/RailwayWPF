@@ -26,7 +26,7 @@ namespace CourseProject.ViewModel
 
             #region NavigationService
             SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
-            SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
+            SignIn.UserSignIn += NavigationService.SetMainMenuWhenSignIn;
             NavigationService.GetMediator += () => this;
             #endregion
 

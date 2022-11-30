@@ -79,6 +79,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
+    <Compile Include="Model\BehaviourPasswordBox.cs" />
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />

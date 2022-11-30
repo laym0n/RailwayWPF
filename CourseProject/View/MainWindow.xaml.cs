@@ -31,12 +31,9 @@ namespace CourseProject
         {
             InitializeComponent();
             kernel = new StandardKernel(new NinjectRegistrations(this));
-            Profile a = kernel.Get<Profile>();
             this.viewModel = kernel.Get<IMediator>();
             this.DataContext = viewModel;
             NavigableFrame.Navigate(new BuyTicketPage());
-            //NavigableFrame.Navigate(a);
-
         }
     }
 }

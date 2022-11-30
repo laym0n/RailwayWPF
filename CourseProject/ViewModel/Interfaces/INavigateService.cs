@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DAL;
 
 namespace CourseProject.ViewModel.Interfaces
 {
@@ -15,7 +16,7 @@ namespace CourseProject.ViewModel.Interfaces
         Frame PageFrame { get; }
         MenuShow VisibleButtons { get; }
         void SetMainMenuWhenSignOut();
-        void SetMainMenuWhenSignIn();
+        void SetMainMenuWhenSignIn(User user);
         ICommand NavigateBuyTicket { get; }
         ICommand NavigateProfile { get; }
     }

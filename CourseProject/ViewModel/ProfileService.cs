@@ -65,11 +65,15 @@ namespace CourseProject.ViewModel
                 {
                     currentUser.Password = passwordChangeModel.NewPassword;
                     unityOfWork.Users.Update(currentUser);
-                    //unityOfWork.Save();
+                    unityOfWork.Save();
+                    MessageBox.Show("Пароль успешно сменен!");
+
                 }
                 else
                     MessageBox.Show("Старый пароль неверный!");
-            }, (obj) => (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
+            }, 
+                (obj) => 
+                (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
         }
         public void LoadPassengers()
         {
@@ -81,10 +85,9 @@ namespace CourseProject.ViewModel
         {
             get
             {
-                ObservableCollection<PassengerViewModel> a = new ObservableCollection<PassengerViewModel>();
-                a.Add(new PassengerViewModel() { Id = 1 });
-                a.Add(new PassengerViewModel() { Id = 1 });
-                return a;
+                passengers.Add(new PassengerViewModel() { Id = 1 });
+                passengers.Add(new PassengerViewModel() { Id = 1 });
+                return passengers;
             }
         }
         public void ClearPassengerCollection()

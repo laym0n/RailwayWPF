@@ -20,7 +20,6 @@ namespace CourseProject.ViewModel.Tests
         {
             get => new RelayCommand((obj) =>
             {
-
                 UserSignIn?.Invoke(CurrentUser);
             });
         }

@@ -1,5 +1,6 @@
 ﻿using CourseProject.Model;
 using CourseProject.ViewModel.Interfaces;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,9 @@ namespace CourseProject.ViewModel
             VisibleButtons.VisibleSignIn = "Visible";
             VisibleButtons.VisibleSignOut = "Collapsed";
             VisibleButtons.VisibleSignUp = "Visible";
+            NavigateBuyTicket.Execute(null);
         }
-        public void SetMainMenuWhenSignIn()
+        public void SetMainMenuWhenSignIn(User user)
         {
             VisibleButtons.VisibleBuyTicket = "Visible";
             VisibleButtons.VisibleCreateTrain = "Visible";

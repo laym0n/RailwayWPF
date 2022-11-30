@@ -104,6 +104,7 @@
                     
                 </Button>
                 <Button
+                    
                     Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleBuyTicket}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"

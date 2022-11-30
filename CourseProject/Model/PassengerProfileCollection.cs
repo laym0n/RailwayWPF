@@ -29,7 +29,6 @@ namespace CourseProject.Model
                 OnPropertyChanged("PassengerCollection");
             }
         }
-        ObservableCollection<PassengerViewModel> GetPassengerCollection() => PassengerCollection;
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
