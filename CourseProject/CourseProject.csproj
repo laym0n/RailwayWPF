@@ -80,6 +80,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\ConverterForPassengerGender.cs" />
+    <Compile Include="Converters\ConverterForViewSeat.cs" />
     <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
     <Compile Include="Model\BehaviourPasswordBox.cs" />
     <Compile Include="Model\MenuShow.cs" />
@@ -87,8 +88,13 @@
     <Compile Include="Model\PassengerProfileCollection.cs" />
     <Compile Include="Model\PasswordChangeModel.cs" />
     <Compile Include="Model\RelayCommand.cs" />
+    <Compile Include="Model\SeatViewCollection.cs" />
+    <Compile Include="Model\SeatViewModel.cs" />
     <Compile Include="Model\UserShow.cs" />
+    <Compile Include="Model\VanCollection.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
+    <Compile Include="ViewModel\EditorTrainService.cs" />
+    <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />

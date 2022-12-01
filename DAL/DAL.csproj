@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CellStructureVan.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
     <Compile Include="Interfaces\IRepositoryUser.cs" />
@@ -73,6 +74,14 @@
     <Compile Include="Migrations\202211302151375_AddGenderToPassenger.cs" />
     <Compile Include="Migrations\202211302151375_AddGenderToPassenger.designer.cs">
       <DependentUpon>202211302151375_AddGenderToPassenger.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212012257140_Update Seat Van TypeOfVan.cs" />
+    <Compile Include="Migrations\202212012257140_Update Seat Van TypeOfVan.designer.cs">
+      <DependentUpon>202212012257140_Update Seat Van TypeOfVan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212012353240_Add Table CellStructureVan.cs" />
+    <Compile Include="Migrations\202212012353240_Add Table CellStructureVan.designer.cs">
+      <DependentUpon>202212012353240_Add Table CellStructureVan.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +117,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211302151375_AddGenderToPassenger.resx">
       <DependentUpon>202211302151375_AddGenderToPassenger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212012257140_Update Seat Van TypeOfVan.resx">
+      <DependentUpon>202212012257140_Update Seat Van TypeOfVan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212012353240_Add Table CellStructureVan.resx">
+      <DependentUpon>202212012353240_Add Table CellStructureVan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

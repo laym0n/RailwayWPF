@@ -13,6 +13,7 @@ namespace DAL
         public TypeOfVan()
         {
             Van = new HashSet<Van>();
+            Seat = new HashSet<Seat>();
         }
 
         public int Id { get; set; }
@@ -23,5 +24,7 @@ namespace DAL
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Van> Van { get; set; }
+        public virtual ICollection<Seat> Seat { get; set; }
+        public virtual ICollection<CellStructureVan> CellStructureVan { get; set; }
     }
 }

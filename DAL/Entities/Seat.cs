@@ -17,15 +17,14 @@ namespace DAL
 
         public int Id { get; set; }
 
-        public int NumberInVan { get; set; }
+        public int NumberOfSeatInVan { get; set; }
 
         public int CostPerStation { get; set; }
 
-        public int VanId { get; set; }
+        public int TypeOfVanId { get; set; }
 
-        public int? TicketId { get; set; }
 
-        public virtual Van Van { get; set; }
+        public virtual TypeOfVan TypeOfVan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }

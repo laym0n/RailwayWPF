@@ -1,4 +1,5 @@
 ﻿using CourseProject.Util;
+using CourseProject.View;
 using CourseProject.ViewModel.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Ninject;
@@ -34,6 +35,7 @@ namespace CourseProject
             this.viewModel = kernel.Get<IMediator>();
             this.DataContext = viewModel;
             NavigableFrame.Navigate(new BuyTicketPage());
+            NavigableFrame.Navigate(new TrainEditPage());
         }
     }
 }

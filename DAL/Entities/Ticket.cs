@@ -9,6 +9,7 @@ namespace DAL
     [Table("Ticket")]
     public partial class Ticket
     {
+        [Key]
         public int Id { get; set; }
 
         public int Cost { get; set; }

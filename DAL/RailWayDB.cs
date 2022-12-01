@@ -25,17 +25,23 @@ namespace DAL
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<Van> Van { get; set; }
+        public virtual DbSet<CellStructureVan> CellStructureVan { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<CellStructureVan>().HasKey(i => new { i.NumberOfCell, i.NumberOfRow, i.TypeOfVanId });
+            modelBuilder.Entity<TypeOfVan>().HasMany(e => e.CellStructureVan)
+                .WithRequired(e => e.TypeOfVan).HasForeignKey(i => i.TypeOfVanId).WillCascadeOnDelete(false);
             modelBuilder.Entity<Passenger>()
                 .HasMany(e => e.Ticket)
                 .WithRequired(e => e.Passenger)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Seat>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Seat>()
                 .HasMany(e => e.Ticket)
-                .WithRequired(e => e.Seat)
+                .WithRequired(e => e.Seat).HasForeignKey(i=> i.SeatId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Station>()
@@ -82,6 +88,11 @@ namespace DAL
                 .HasMany(e => e.Van)
                 .WithRequired(e => e.TypeOfVan)
                 .WillCascadeOnDelete(false);
+            modelBuilder.Entity<TypeOfVan>()
+                .HasMany(e => e.Seat)
+                .WithRequired(e => e.TypeOfVan)
+                .WillCascadeOnDelete(false);
+            
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Passenger)
@@ -98,12 +109,6 @@ namespace DAL
                 .HasMany(e => e.User)
                 .WithRequired(e => e.UserType)
                 .HasForeignKey(e => e.TypeOfUserId)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Van>()
-                .HasMany(e => e.Seat)
-                .WithRequired(e => e.Van)
-                .HasForeignKey(e => e.NumberInVan)
                 .WillCascadeOnDelete(false);
         }
     }
