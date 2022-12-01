@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Realizations
 {
-    public class DBReposSQLServer :IUnityOfWork
+    public class DBReposSQLServer :IUnitOfWork
     {
         private readonly RailWayDB db;
         private UserRepository users;

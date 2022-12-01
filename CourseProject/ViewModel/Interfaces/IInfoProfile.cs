@@ -16,7 +16,6 @@ namespace CourseProject.ViewModel.Interfaces
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
         void ClearPassengerCollection();
         ICommand ChangePassword { get; }
-        ICommand SetPassengerByUser { get; }
         ICommand AddPassenger { get; }
         ICommand RemovePassenger { get; }
         ICommand SavePassenger { get; }

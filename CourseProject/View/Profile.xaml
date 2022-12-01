@@ -8,11 +8,12 @@
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
-        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-      Title="Page2" Background="White" Height="517" Width="900">
+      Title="Page2" Background="White" Height="517" Width="900"
+      Name="ProfilePage">
 
     <Page.Resources>
         <localModel:PassengerProfileCollection x:Key="Passengers"></localModel:PassengerProfileCollection>
@@ -77,9 +78,9 @@
                 <materialDesign:PackIcon Kind="Account"/>
                     <StackPanel>
                         <StackPanel.Resources>
-                                <localConverters:ConverterToPasswordChangeModel x:Key="ConverterToPasswordChangeModel"/>
+                         <localConverters:ConverterToPasswordChangeModel x:Key="ConverterToPasswordChangeModel"/>
 
-                        </StackPanel.Resources>
+                         </StackPanel.Resources>
                         <TextBlock Text="Сменить пароль" />
                             <PasswordBox
                                 Name="OldPasswordBox"
@@ -93,7 +94,6 @@
                             </PasswordBox>
                             <PasswordBox
                                 Name="NewPasswordBox"
-                                PasswordChanged="NewPasswordBox_PasswordChanged"
     VerticalAlignment="Top"
     materialDesign:HintAssist.Hint="Новый пароль"
     Style="{StaticResource MaterialDesignFilledPasswordBox}" >
@@ -125,6 +125,10 @@
       HorizontalAlignment="Stretch"
       Header="Пассажиры">
                             <StackPanel>
+                                <StackPanel.Resources>
+                                    <localConverters:ConverterForPassengerGender x:Key="ConverterForPassengerGender"/>
+
+                                </StackPanel.Resources>
 
                                 <Button
             Command="{Binding Path=InfoProfile.AddPassenger}"
@@ -132,15 +136,6 @@
     Style="{StaticResource MaterialDesignRaisedLightButton}" />
                                 <ItemsControl 
                ItemsSource="{Binding Source={StaticResource Passengers}, Path=PassengerCollection}">
-                                    <!--<ItemsControl.Template>
-                                <ControlTemplate  TargetType="{x:Type ItemsControl}">
-                                    <ScrollViewer  CanContentScroll="True"
-                                 VerticalScrollBarVisibility="Disabled"
-                                 HorizontalScrollBarVisibility="Auto" >
-                                        <ItemsPresenter />
-                                    </ScrollViewer>
-                                </ControlTemplate>
-                            </ItemsControl.Template>-->
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
@@ -167,6 +162,7 @@
           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
           Text="{Binding}" />
 
+
                                                         </StackPanel>
 
                                                     </DataTemplate>
@@ -184,12 +180,13 @@
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <TextBox
+                                                        Text="{Binding Name}"
                                             Grid.Row ="0"
     MaxWidth="400"
     VerticalAlignment="Top"
     materialDesign:HintAssist.Hint="ФИО"
     AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+    
     Style="{StaticResource MaterialDesignFilledTextBox}"
     TextWrapping="Wrap" />
                                                     <materialDesign:ColorZone
@@ -200,16 +197,19 @@
                                                             <RadioButton
       Margin="4"
       Content="Мужской"
-      IsChecked="False"
+      IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:PassengerViewModel+Peoplegender.man}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                             <RadioButton
       Margin="4"
       Content="Женский"
-      IsChecked="False"
+      IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:PassengerViewModel+Peoplegender.woman}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                         </StackPanel>
                                                     </materialDesign:ColorZone>
                                                     <DatePicker
+                                            SelectedDate="{Binding Birthday}"
                                             Grid.Row="1"
                                             Grid.Column="1"
   Width="140"
@@ -217,19 +217,21 @@
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
                                                     <TextBox
+                                                        Text="{Binding Passport}"
                                             Grid.Row ="1"
     MaxWidth="400"
     VerticalAlignment="Top"
     materialDesign:HintAssist.Hint="Пасспорт"
     AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
+   
     Style="{StaticResource MaterialDesignFilledTextBox}"
     TextWrapping="Wrap" />
                                                     <Button
                                             Grid.Row="2"
                                             Grid.Column="1"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+  Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.SavePassenger}"
+  CommandParameter="{Binding}"
+                                                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
   ToolTip="MaterialDesignFloatingActionDarkButton">
 
                                                         <Button.Resources>
@@ -241,6 +243,13 @@
     Height="{StaticResource IconSize}"
     Kind="ContentSave" />
                                                     </Button>
+                                                    <Button
+                                                        Grid.Column="0"
+                                                        Grid.Row="2"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.RemovePassenger}"
+    Content="Удалить пассажира"
+    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
                                                 </Grid>
 
                                             </GroupBox>
@@ -248,113 +257,7 @@
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
                             </StackPanel>
-                            <!--<StackPanel
-        Margin="24,8,24,16"
-        Orientation="Vertical"
-        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-                        <ScrollViewer>
-                            <StackPanel>
-
-                                <GroupBox
-                                        Margin="16"
-  Header="ФИО Пассажира"
-  Style="{StaticResource MaterialDesignCardGroupBox}">
-                                    <GroupBox.HeaderTemplate>
-                                        <DataTemplate>
-                                            <StackPanel
-        Orientation="Horizontal">
-                                                <materialDesign:PackIcon
-          Width="32"
-          Height="32"
-          VerticalAlignment="Center"
-          Kind="CardAccountDetails" />
-                                                <TextBlock
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding}" />
-
-                                            </StackPanel>
-
-                                        </DataTemplate>
-
-
-                                    </GroupBox.HeaderTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <TextBox
-                                            Grid.Row ="0"
-    MaxWidth="400"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="ФИО"
-    AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-    Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" />
-                                        <materialDesign:ColorZone
-  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
-                                            <StackPanel
-    Margin="2"
-    Orientation="Horizontal">
-                                                <RadioButton
-      Margin="4"
-      Content="Мужской"
-      IsChecked="False"
-      Style="{StaticResource MaterialDesignTabRadioButton}" />
-                                                <RadioButton
-      Margin="4"
-      Content="Женский"
-      IsChecked="False"
-      Style="{StaticResource MaterialDesignTabRadioButton}" />
-                                            </StackPanel>
-                                        </materialDesign:ColorZone>
-                                        <DatePicker
-                                            Grid.Row="1"
-                                            Grid.Column="1"
-  Width="140"
-  materialDesign:HintAssist.HelperText="Helper text"
-  materialDesign:HintAssist.Hint="Pick Date"
-  Style="{StaticResource MaterialDesignFilledDatePicker}" />
-                                        <TextBox
-                                            Grid.Row ="1"
-    MaxWidth="400"
-    VerticalAlignment="Top"
-    materialDesign:HintAssist.Hint="Пасспорт"
-    AcceptsReturn="True"
-    IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledTextBoxEnabledComboBox}"
-    Style="{StaticResource MaterialDesignFilledTextBox}"
-    TextWrapping="Wrap" />
-                                        <Button
-                                            Grid.Row="2"
-                                            Grid.Column="1"
-  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-  Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-  ToolTip="MaterialDesignFloatingActionDarkButton">
-
-                                            <Button.Resources>
-                                                <system:Double x:Key="IconSize">24</system:Double>
-                                                <system:Double x:Key="ButtonWidth">90</system:Double>
-                                            </Button.Resources>
-                                            <materialDesign:PackIcon
-    Width="{StaticResource IconSize}"
-    Height="{StaticResource IconSize}"
-    Kind="ContentSave" />
-                                        </Button>
-                                    </Grid>
-
-                                </GroupBox>
-                            </StackPanel>
-                        </ScrollViewer>
-                    </StackPanel>-->
-                    </Expander>
+                        </Expander>
                     <Border
       Style="{StaticResource HorizontalDividerBorder}" />
                     <Expander

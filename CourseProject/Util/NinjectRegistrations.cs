@@ -24,11 +24,11 @@ namespace CourseProject.Util
         }
         public override void Load()
         {
-            //Bind<ISignIn>().To<SignInTest>().InSingletonScope();
-            Bind<ISignIn>().To<SignInService>().InSingletonScope();
+            Bind<ISignIn>().To<SignInTest>().InSingletonScope();
+            //Bind<ISignIn>().To<SignInService>().InSingletonScope();
             Bind<INavigation>().To<NavigationService>().InSingletonScope().WithConstructorArgument<Frame>(window.NavigableFrame);
             Bind<IInfoProfile>().To<ProfileService>().InSingletonScope();
-            Bind<IUnityOfWork>().To<DBReposSQLServer>().InSingletonScope();
+            Bind<IUnitOfWork>().To<DBReposSQLServer>().InSingletonScope();
             Bind<IMediator>().To<ViewModelUnit>().InSingletonScope();
         }
     }

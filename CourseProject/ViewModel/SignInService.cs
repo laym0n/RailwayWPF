@@ -18,9 +18,9 @@ namespace CourseProject.ViewModel.Tests
 {
     public class SignInService : ISignIn
     {
-        private readonly IUnityOfWork unityOfWork;
+        private readonly IUnitOfWork unityOfWork;
         User currentUser;
-        public SignInService(IUnityOfWork unityOfWork)
+        public SignInService(IUnitOfWork unityOfWork)
         {
             this.unityOfWork = unityOfWork;
         }

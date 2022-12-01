@@ -8,18 +8,22 @@ using System.Windows.Input;
 using CourseProject.Model;
 using DAL;
 using System.Windows.Controls;
+using DLL.Interfaces;
 
 namespace CourseProject.ViewModel.Tests
 {
     public class SignInTest : ISignIn
     {
-        public SignInTest()
+        IUnitOfWork _unityOfWork;
+        public SignInTest(IUnitOfWork unityOfWork)
         {
+            _unityOfWork = unityOfWork;
         }
         public ICommand SignIn
         {
             get => new RelayCommand((obj) =>
             {
+                user = _unityOfWork.Users.GetItem("test");
                 UserSignIn?.Invoke(CurrentUser);
             });
         }
@@ -36,6 +40,7 @@ namespace CourseProject.ViewModel.Tests
         }
         public event Action UserSignOut;
         public event Action<User> UserSignIn;
-        public User CurrentUser { get => new User() { Id = 1, Password = "test"}; }
+        private User user;
+        public User CurrentUser { get => user; }
     }
 }

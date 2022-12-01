@@ -70,6 +70,10 @@
     <Compile Include="Migrations\202211281249071_UpdatedPassenger.designer.cs">
       <DependentUpon>202211281249071_UpdatedPassenger.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202211302151375_AddGenderToPassenger.cs" />
+    <Compile Include="Migrations\202211302151375_AddGenderToPassenger.designer.cs">
+      <DependentUpon>202211302151375_AddGenderToPassenger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -101,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202211281249071_UpdatedPassenger.resx">
       <DependentUpon>202211281249071_UpdatedPassenger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202211302151375_AddGenderToPassenger.resx">
+      <DependentUpon>202211302151375_AddGenderToPassenger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

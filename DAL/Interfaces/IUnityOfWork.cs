@@ -8,7 +8,7 @@ using DAL.Interfaces;
 
 namespace DLL.Interfaces
 {
-    public interface IUnityOfWork
+    public interface IUnitOfWork
     {
         IRepositoryUser Users { get; }
         IRepositoryPassenger Passengers { get; }

@@ -32,9 +32,5 @@ namespace CourseProject
             ((PassengerProfileCollection)TryFindResource("Passengers")).PassengerCollection = ViewModel.InfoProfile.PassengerViewModels;
         }
 
-        private void NewPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            int a = 1;
-        }
     }
 }
