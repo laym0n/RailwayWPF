@@ -27,10 +27,10 @@
                     <TabItem.Resources>
                         <localModel:VanViewCollection x:Key="Vans"/>
                         <localModel:SeatViewCollection x:Key="Seats"/>
-                        <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:SeatViewModel}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Cost}"/>
-                                <TextBlock Text="{Binding Number}"/>
+                        <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
+                            <StackPanel Margin="10">
+                                <TextBlock Text="{Binding CostPerStation}"/>
+                                <TextBlock Text="{Binding NumberOfSeatInVan}"/>
                             </StackPanel>
                         </DataTemplate>
 

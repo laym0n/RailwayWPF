@@ -15,7 +15,7 @@ namespace DAL
             Van = new HashSet<Van>();
             Seat = new HashSet<Seat>();
         }
-
+        
         public int Id { get; set; }
 
         [Required]

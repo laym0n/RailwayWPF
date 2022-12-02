@@ -17,11 +17,9 @@ namespace DAL.Realizations.Repositories
             this.db = db;
         }
 
-        public List<Passenger> GetList(int UserId)
+        public List<Passenger> GetList()
         {
-            return (from p in db.Passenger
-                    where p.UserId == UserId
-                    select p).ToList();
+            return db.Passenger.ToList();
         }
         public Passenger GetItem(int id)
         {

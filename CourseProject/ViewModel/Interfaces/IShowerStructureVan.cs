@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CourseProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CourseProject.Model;
 
 namespace CourseProject.ViewModel.Interfaces
 {
-    public interface IEditorTrain
+    public interface IShowerStructureVan
     {
+        List<List<CellStrucureVanModel>> StructureVan { get; }
     }
 }

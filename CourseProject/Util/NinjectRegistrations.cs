@@ -24,7 +24,9 @@ namespace CourseProject.Util
         }
         public override void Load()
         {
+            Bind<IShowerStructureVan>().To<ShowStrucureVanService>();
             Bind<ISignIn>().To<SignInTest>().InSingletonScope();
+            Bind<IEditorTrain>().To<EditorTrainService>().InSingletonScope();
             //Bind<ISignIn>().To<SignInService>().InSingletonScope();
             Bind<INavigation>().To<NavigationService>().InSingletonScope().WithConstructorArgument<Frame>(window.NavigableFrame);
             Bind<IInfoProfile>().To<ProfileService>().InSingletonScope();

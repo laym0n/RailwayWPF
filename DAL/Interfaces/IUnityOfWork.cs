@@ -12,6 +12,11 @@ namespace DLL.Interfaces
     {
         IRepositoryUser Users { get; }
         IRepositoryPassenger Passengers { get; }
+        IRepositoryCellStructureVan CellStructureVan { get; }
+        IRepositoryTrain Train { get; }
+        IRepositorySeat Seat { get; }
+        IRepositoryTypeOfVan TypeOfVan { get; }
+        IRepositoryVan Van { get; }
         int Save();
 
     }

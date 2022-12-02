@@ -55,8 +55,13 @@
   <ItemGroup>
     <Compile Include="Entities\CellStructureVan.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRepositoryCellStructureVan.cs" />
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
+    <Compile Include="Interfaces\IRepositorySeat.cs" />
+    <Compile Include="Interfaces\IRepositoryTrain.cs" />
+    <Compile Include="Interfaces\IRepositoryTypeOfVan.cs" />
     <Compile Include="Interfaces\IRepositoryUser.cs" />
+    <Compile Include="Interfaces\IRepositoryVan.cs" />
     <Compile Include="Interfaces\IUnityOfWork.cs" />
     <Compile Include="Entities\Passenger.cs" />
     <Compile Include="Migrations\202211272247598_Initial.cs" />
@@ -83,6 +88,10 @@
     <Compile Include="Migrations\202212012353240_Add Table CellStructureVan.designer.cs">
       <DependentUpon>202212012353240_Add Table CellStructureVan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212020508437_AddEntityToTypeOfVan.cs" />
+    <Compile Include="Migrations\202212020508437_AddEntityToTypeOfVan.designer.cs">
+      <DependentUpon>202212020508437_AddEntityToTypeOfVan.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -90,8 +99,13 @@
     <Compile Include="Entities\Station.cs" />
     <Compile Include="Entities\StationTrainSchedule.cs" />
     <Compile Include="Realizations\DBReposSQLServer.cs" />
+    <Compile Include="Realizations\Repositories\CellStructureVanRepository.cs" />
     <Compile Include="Realizations\Repositories\PassengerRepository.cs" />
+    <Compile Include="Realizations\Repositories\SeatRepository.cs" />
+    <Compile Include="Realizations\Repositories\TrainRepository.cs" />
+    <Compile Include="Realizations\Repositories\TypeOfVanRepository.cs" />
     <Compile Include="Realizations\Repositories\UserRepository.cs" />
+    <Compile Include="Realizations\Repositories\VanRepository.cs" />
     <Compile Include="sysdiagrams.cs" />
     <Compile Include="Entities\Ticket.cs" />
     <Compile Include="Entities\TimesForStation.cs" />
@@ -123,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212012353240_Add Table CellStructureVan.resx">
       <DependentUpon>202212012353240_Add Table CellStructureVan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212020508437_AddEntityToTypeOfVan.resx">
+      <DependentUpon>202212020508437_AddEntityToTypeOfVan.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

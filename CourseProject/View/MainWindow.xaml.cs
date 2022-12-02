@@ -35,7 +35,6 @@ namespace CourseProject
             this.viewModel = kernel.Get<IMediator>();
             this.DataContext = viewModel;
             NavigableFrame.Navigate(new BuyTicketPage());
-            NavigableFrame.Navigate(new TrainEditPage());
         }
     }
 }

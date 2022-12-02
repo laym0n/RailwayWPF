@@ -23,37 +23,13 @@ namespace CourseProject.View
     public partial class TrainEditPage : Page
     {
         IMediator ViewModelObject;
-        public TrainEditPage(/*IMediator mediator*/)
+        public TrainEditPage(IMediator ViewModelObject)
         {
             InitializeComponent(); 
-            List<SeatViewModel> a = new List<SeatViewModel>() {
-                    new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.occupied}};
-            List<SeatViewModel> b = new List<SeatViewModel>() {
-                    new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.occupied}};
-            List<SeatViewModel> c = new List<SeatViewModel>() {
-                    new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.occupied}};
-            List<List<SeatViewModel>> list = new List<List<SeatViewModel>>();
-            List<SeatViewModel> d = new List<SeatViewModel>() {
-                    new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.occupied}};
-            List<SeatViewModel> e = new List<SeatViewModel>() {
-                    new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.free},
-                new SeatViewModel() { Cost = 100, IdVan = 1, Number = 1, Type = SeatViewModel.TypeSeat.occupied}};
-            list.Add(a);
-            list.Add(b);
-            list.Add(c);
-            list.Add(d);
-            list.Add(e);
-            rad.ItemsSource = list;
-            //this.ViewModelObject = mediator;
+            this.ViewModelObject = ViewModelObject;
+            var a = ViewModelObject.ShowerStructureVan.StructureVan;
+            rad.ItemsSource = a;
+            //this.ViewModelObject = ViewModelObject;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<TypeOfVan>().HasEntitySetName("Id");
             modelBuilder.Entity<CellStructureVan>().HasKey(i => new { i.NumberOfCell, i.NumberOfRow, i.TypeOfVanId });
             modelBuilder.Entity<TypeOfVan>().HasMany(e => e.CellStructureVan)
                 .WithRequired(e => e.TypeOfVan).HasForeignKey(i => i.TypeOfVanId).WillCascadeOnDelete(false);

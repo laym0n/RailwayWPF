@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IRepositoryUser : IRepository<User>
+    public interface IRepositoryVan : IRepository<Van>
     {
-        User GetItem(int id);
-        User GetItem(string Login);
-        void Delete(int id);
-
+        Van GetItem(int id);
     }
 }

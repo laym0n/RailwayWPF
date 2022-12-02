@@ -100,8 +100,8 @@
     Visibility="{Binding Path =NavigationService.VisibleButtons.VisibleCreateTrain}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
-                    Content="Создать поезд">
-                    
+                    Content="Создать поезд"
+                    Command="{Binding Path=NavigationService.NavigateEditTrain}">
                 </Button>
                 <Button
                     

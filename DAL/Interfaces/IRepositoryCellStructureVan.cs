@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Interfaces
 {
-    public interface IRepositoryUser : IRepository<User>
+    public interface IRepositoryCellStructureVan : IRepository<CellStructureVan>
     {
-        User GetItem(int id);
-        User GetItem(string Login);
-        void Delete(int id);
-
+        CellStructureVan GetItem(int NumberOfRow, int NumberOfCell, int TypeOfVanId);
     }
 }

@@ -19,5 +19,6 @@ namespace CourseProject.ViewModel.Interfaces
         void SetMainMenuWhenSignIn(User user);
         ICommand NavigateBuyTicket { get; }
         ICommand NavigateProfile { get; }
+        ICommand NavigateEditTrain { get; }
     }
 }

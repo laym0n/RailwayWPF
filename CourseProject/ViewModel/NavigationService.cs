@@ -1,4 +1,5 @@
 ﻿using CourseProject.Model;
+using CourseProject.View;
 using CourseProject.ViewModel.Interfaces;
 using DAL;
 using System;
@@ -58,6 +59,12 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) => {
                 PageFrame.Navigate(new Profile(GetMediator()));
+            });
+        }
+        public ICommand NavigateEditTrain
+        {
+            get => new RelayCommand((obj) => {
+                PageFrame.Navigate(new TrainEditPage(GetMediator()));
             });
         }
     }

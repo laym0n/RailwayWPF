@@ -83,6 +83,7 @@
     <Compile Include="Converters\ConverterForViewSeat.cs" />
     <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
     <Compile Include="Model\BehaviourPasswordBox.cs" />
+    <Compile Include="Model\CellStrucureVanModel.cs" />
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />
@@ -97,10 +98,12 @@
     <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
+    <Compile Include="ViewModel\Interfaces\IShowerStructureVan.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
     <Compile Include="ViewModel\NavigationService.cs" />
     <Compile Include="ViewModel\ProfileService.cs" />
+    <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
     <Compile Include="ViewModel\ViewModelUnit.cs" />

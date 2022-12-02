@@ -11,5 +11,7 @@ namespace CourseProject.ViewModel.Interfaces
         INavigation NavigationService { get; }
         ISignIn SignIn { get; }
         IInfoProfile InfoProfile { get; }
+        IEditorTrain EditorTrain { get; }
+        IShowerStructureVan ShowerStructureVan { get; }
     }
 }

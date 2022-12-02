@@ -9,11 +9,13 @@ namespace CourseProject.ViewModel
 {
     public class ViewModelUnit : IMediator
     {
-        public ViewModelUnit(ISignIn signIn, IInfoProfile infoProfile, INavigation navigationService)
+        public ViewModelUnit(ISignIn signIn, IInfoProfile infoProfile, INavigation navigationService, IEditorTrain editorTrain, IShowerStructureVan showerStructureVan)
         {
             this.SignIn = signIn;
             this.InfoProfile = infoProfile;
             this.NavigationService = navigationService;
+            this.EditorTrain = editorTrain;
+            this.ShowerStructureVan = showerStructureVan;
 
             #region SignIn
 
@@ -31,8 +33,10 @@ namespace CourseProject.ViewModel
             #endregion
 
         }
+        public IEditorTrain EditorTrain { get; }
         public ISignIn SignIn { get; private set; }
         public IInfoProfile InfoProfile { get; protected set; }
         public INavigation NavigationService { get; protected set; }
+        public IShowerStructureVan ShowerStructureVan { get; }
     }
 }
