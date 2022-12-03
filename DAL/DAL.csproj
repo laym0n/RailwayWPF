@@ -58,10 +58,12 @@
     <Compile Include="Interfaces\IRepositoryCellStructureVan.cs" />
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
     <Compile Include="Interfaces\IRepositorySeat.cs" />
+    <Compile Include="Interfaces\IRepositoryTimesForStation.cs" />
     <Compile Include="Interfaces\IRepositoryTrain.cs" />
     <Compile Include="Interfaces\IRepositoryTypeOfVan.cs" />
     <Compile Include="Interfaces\IRepositoryUser.cs" />
     <Compile Include="Interfaces\IRepositoryVan.cs" />
+    <Compile Include="Interfaces\IRepositoryStation.cs" />
     <Compile Include="Interfaces\IUnityOfWork.cs" />
     <Compile Include="Entities\Passenger.cs" />
     <Compile Include="Migrations\202211272247598_Initial.cs" />
@@ -102,6 +104,8 @@
     <Compile Include="Realizations\Repositories\CellStructureVanRepository.cs" />
     <Compile Include="Realizations\Repositories\PassengerRepository.cs" />
     <Compile Include="Realizations\Repositories\SeatRepository.cs" />
+    <Compile Include="Realizations\Repositories\StationRepository.cs" />
+    <Compile Include="Realizations\Repositories\TimesForStationRepository.cs" />
     <Compile Include="Realizations\Repositories\TrainRepository.cs" />
     <Compile Include="Realizations\Repositories\TypeOfVanRepository.cs" />
     <Compile Include="Realizations\Repositories\UserRepository.cs" />

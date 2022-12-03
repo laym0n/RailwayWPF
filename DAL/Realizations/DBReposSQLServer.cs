@@ -19,6 +19,8 @@ namespace DAL.Realizations
         private TypeOfVanRepository typeOfvan;
         private SeatRepository seat;
         private TrainRepository train;
+        private StationRepository station;
+        private TimesForStationRepository timesForStation;
         public DBReposSQLServer(RailWayDB db)
         {
             this.db = db;
@@ -51,6 +53,14 @@ namespace DAL.Realizations
         public IRepositoryTypeOfVan TypeOfVan
         {
             get => typeOfvan ?? (typeOfvan = new TypeOfVanRepository(db));
+        }
+        public IRepositoryStation Station
+        {
+            get => station ?? (station = new StationRepository(db));
+        }
+        public IRepositoryTimesForStation TimesForStation
+        {
+            get => timesForStation ?? (timesForStation = new TimesForStationRepository(db));
         }
         public int Save()
         {

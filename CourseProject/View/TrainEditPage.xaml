@@ -140,16 +140,42 @@
             Text="Photos" />
                         </StackPanel>
                     </TabItem.Header>
-                    <TextBlock>
-        <Run
-          Text="tab 3 content. Default look and behaviors." />
-        <LineBreak />
-        <LineBreak />
-        <Run
-          FontStyle="Italic">
-        Praesevzddvvvvvvvvvv
-      </Run>
-                    </TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
+               ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <Button
+            Command="{Binding Path=EditorTrain.AddVan}"
+    Content="Добавить станцию в расписание"
+    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                            </Button>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
+               ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                            <Button
+            Command="{Binding Path=EditorTrain.AddVan}"
+    Content="Добавить время выезда поезда"
+    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                            </Button>
+                        </StackPanel>
+                    </Grid>
                 </TabItem>
                 <TabItem>
                     <TabItem.Header>

@@ -29,6 +29,16 @@ namespace CourseProject.ViewModel
         {
             get => vans;
         }
+        List<StationModel> stationModels = null;
+        public List<StationModel> StationModels
+        {
+            get => stationModels ?? (stationModels = db.Station.GetList().Select(i => new StationModel(i)).ToList());
+        }
+        ObservableCollection<StationTrainScheduleModel> stationTrainSchedule = new ObservableCollection<StationTrainScheduleModel>();
+        public ObservableCollection<StationTrainScheduleModel> StationTrainScheduleModels
+        {
+            get => stationTrainSchedule;
+        }
         public ICommand AddVan
         {
             get => new RelayCommand(obj =>

@@ -14,6 +14,8 @@ namespace CourseProject.ViewModel.Interfaces
     {
         List<TypeOfVanModel> TypeOfVanModels { get; }
         ObservableCollection<VanModel> Vans { get; }
+        List<StationModel> StationModels { get; }
+        ObservableCollection<StationTrainScheduleModel> StationTrainScheduleModels { get; }
         ICommand AddVan { get; }
         ICommand RemoveVan { get; }
         ICommand AddTrain { get; }

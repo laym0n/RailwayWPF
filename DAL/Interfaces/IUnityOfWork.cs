@@ -17,6 +17,8 @@ namespace DLL.Interfaces
         IRepositorySeat Seat { get; }
         IRepositoryTypeOfVan TypeOfVan { get; }
         IRepositoryVan Van { get; }
+        IRepositoryStation Station { get; }
+        IRepositoryTimesForStation TimesForStation { get; }
         int Save();
 
     }
