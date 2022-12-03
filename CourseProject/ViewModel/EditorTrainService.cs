@@ -34,10 +34,30 @@ namespace CourseProject.ViewModel
         {
             get => stationModels ?? (stationModels = db.Station.GetList().Select(i => new StationModel(i)).ToList());
         }
-        ObservableCollection<StationTrainScheduleModel> stationTrainSchedule = new ObservableCollection<StationTrainScheduleModel>();
-        public ObservableCollection<StationTrainScheduleModel> StationTrainScheduleModels
+        ObservableCollection<ModelForEditingSchedule> stationTrainSchedule = new ObservableCollection<ModelForEditingSchedule>();
+        public ObservableCollection<ModelForEditingSchedule> StationTrainScheduleModels
         {
             get => stationTrainSchedule;
+        }
+        ObservableCollection<DateTimeModel> dateTimesForDeparture = new ObservableCollection<DateTimeModel>();
+        public ObservableCollection<DateTimeModel> DateTimesForDeparture
+        {
+            get => dateTimesForDeparture;
+        }
+        public ICommand AddStartTripDateTime
+        {
+            get => new RelayCommand(obj =>
+            {
+                dateTimesForDeparture.Add(new DateTimeModel() { DateTime = DateTime.Now });
+            });
+        }
+        public ICommand RemoveStartTripDateTime
+        {
+            get => new RelayCommand(obj =>
+            {
+                if (obj is DateTimeModel dateTime)
+                    dateTimesForDeparture.Remove(dateTime);
+            });
         }
         public ICommand AddVan
         {
@@ -63,6 +83,36 @@ namespace CourseProject.ViewModel
             get => new RelayCommand(obj =>
             {
                 //vans.Add(new Van());
+            });
+            		
+
+        }
+        public ICommand AddStationInSchedule
+        {
+            get => new RelayCommand(obj =>
+            {
+                stationTrainSchedule.Add(new ModelForEditingSchedule()
+                {
+                    PreviousModel = stationTrainSchedule.LastOrDefault() ?? new ModelForEditingSchedule() { DepartureTime=DateTime.Now},
+                    StationTrainSchedule = new StationTrainScheduleModel() { NumberInTrip = stationTrainSchedule.Count + 1, IdStation = -1 }
+                });
+                stationTrainSchedule[stationTrainSchedule.Count - 1].ArrivalTime = stationTrainSchedule[stationTrainSchedule.Count - 1].DepartureTime =
+                stationTrainSchedule[stationTrainSchedule.Count - 1].PreviousModel.DepartureTime;
+            //vans.Add(new Van());
+        });
+        }
+        public ICommand RemoveStationFromSchedule
+        {
+            get => new RelayCommand(obj =>
+            {
+                if(obj is ModelForEditingSchedule modelForEditingSchedule)
+                {
+                    stationTrainSchedule.Remove(modelForEditingSchedule);
+                    for (int i = modelForEditingSchedule.StationTrainSchedule.NumberInTrip - 1; i < stationTrainSchedule.Count; i++)
+                        stationTrainSchedule[i].StationTrainSchedule.NumberInTrip--;
+                    if (modelForEditingSchedule.StationTrainSchedule.NumberInTrip - 1 >= 0 && modelForEditingSchedule.StationTrainSchedule.NumberInTrip - 1 < stationTrainSchedule.Count)
+                        stationTrainSchedule[modelForEditingSchedule.StationTrainSchedule.NumberInTrip - 1].PreviousModel = modelForEditingSchedule.PreviousModel;
+                }
             });
         }
     }

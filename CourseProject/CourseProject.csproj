@@ -84,8 +84,13 @@
     <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
     <Compile Include="Model\BehaviourPasswordBox.cs" />
     <Compile Include="Model\CellStrucureVanModel.cs" />
+    <Compile Include="Model\Collections\DateTimeCollection.cs" />
+    <Compile Include="Model\Collections\StationCollection.cs" />
+    <Compile Include="Model\Collections\StationTrainScheduleCollection.cs" />
     <Compile Include="Model\Collections\TypeOfVanModelCollection.cs" />
+    <Compile Include="Model\DateTimeModel.cs" />
     <Compile Include="Model\MenuShow.cs" />
+    <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />
     <Compile Include="Model\PasswordChangeModel.cs" />
@@ -94,6 +99,7 @@
     <Compile Include="Model\SeatViewModel.cs" />
     <Compile Include="Model\StationModel.cs" />
     <Compile Include="Model\StationTrainScheduleModel.cs" />
+    <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TimesForStationModel.cs" />
     <Compile Include="Model\TypeOfTrainModel.cs" />
     <Compile Include="Model\TypeOfVanModel.cs" />
