@@ -52,7 +52,7 @@ namespace DAL
             modelBuilder.Entity<StationTrainSchedule>()
                 .HasMany(e => e.TimesForStation)
                 .WithRequired(e => e.StationTrainSchedule)
-                .HasForeignKey(e => new { e.IdStationTrainSchedule, e.IdStation })
+                .HasForeignKey(e => e.IdStationTrainSchedule)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TimesForStation>()

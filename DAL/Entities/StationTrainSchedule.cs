@@ -19,11 +19,9 @@ namespace DAL
         [Column(Order = 0)]
         public int Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Index("UQ_FirstAndSecond", 1, IsUnique = true)]
         public int IdStation { get; set; }
-
+        [Index("UQ_FirstAndSecond", 2, IsUnique = true)]
         public int IdTrain { get; set; }
 
         public int NumberInTrip { get; set; }

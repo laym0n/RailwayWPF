@@ -23,9 +23,7 @@ namespace DAL
         public DateTime DepartureTime { get; set; }
 
         public int IdStationTrainSchedule { get; set; }
-
-        public int IdStation { get; set; }
-
+        [ForeignKey("IdStationTrainSchedule")]
         public virtual StationTrainSchedule StationTrainSchedule { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

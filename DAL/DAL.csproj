@@ -98,6 +98,10 @@
     <Compile Include="Migrations\202212031616097_Drop TypeOfTrain.designer.cs">
       <DependentUpon>202212031616097_Drop TypeOfTrain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212031831217_ChangeStationTrainSchedule.cs" />
+    <Compile Include="Migrations\202212031831217_ChangeStationTrainSchedule.designer.cs">
+      <DependentUpon>202212031831217_ChangeStationTrainSchedule.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212031616097_Drop TypeOfTrain.resx">
       <DependentUpon>202212031616097_Drop TypeOfTrain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212031831217_ChangeStationTrainSchedule.resx">
+      <DependentUpon>202212031831217_ChangeStationTrainSchedule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,7 +14,6 @@ namespace CourseProject.Model
         private int id;
         private DateTime departureTime;
         private DateTime arrivalTime;
-        private int idStation;
         private int idStationTrainSchedule;
         public int Id
         {
@@ -44,16 +43,6 @@ namespace CourseProject.Model
                 OnPropertyChanged("IdStationTrainSchedule");
             }
         }
-
-        public int IdStation
-        {
-            get => idStation;
-            set
-            {
-                idStation = value;
-                OnPropertyChanged("IdStation");
-            }
-        }
         public DateTime ArrivalTime
         {
             get => arrivalTime;
@@ -65,7 +54,6 @@ namespace CourseProject.Model
         }
         public TimesForStationModel(TimesForStation item)
         {
-            this.idStation = item.IdStation;
             this.arrivalTime = item.ArrivalTime;
             this.departureTime = item.DepartureTime;
             this.id = item.Id;
