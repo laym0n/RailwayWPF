@@ -14,11 +14,13 @@ namespace CourseProject.ViewModel
 {
     public class EditorTrainService : IEditorTrain
     {
+        private User currentUser;
         private IUnitOfWork db;
         public EditorTrainService(IUnitOfWork db)
         {
             this.db = db;
         }
+        public void GetUser(User user) => this.currentUser = user;
         List<TypeOfVanModel> typeOfVanModels = null;
         public List<TypeOfVanModel> TypeOfVanModels
         {
@@ -43,6 +45,11 @@ namespace CourseProject.ViewModel
         public ObservableCollection<DateTimeModel> DateTimesForDeparture
         {
             get => dateTimesForDeparture;
+        }
+        private TrainModel currentTrainModel = new TrainModel() { LoadedInDB = false };
+        public void EditTrain(TrainModel trainModel)
+        {
+            currentTrainModel = trainModel;
         }
         public ICommand AddStartTripDateTime
         {
@@ -82,7 +89,19 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand(obj =>
             {
-                //vans.Add(new VanModel());
+                if (currentTrainModel.LoadedInDB)
+                {
+
+                }
+                else
+                {
+                    Train TrainForAdd = currentTrainModel.GetTrain();
+                    TrainForAdd.IdUserCreator = currentUser.Id;
+                    db.Train.Create(TrainForAdd);
+                    vans.ToList().ForEach(van => TrainForAdd.Van.Add(van.GetVan()));
+                    stationTrainSchedule.ToList().ForEach(stationTrainScheduleModel => TrainForAdd.StationTrainSchedule.Add(stationTrainScheduleModel.StationTrainSchedule.GetStationTrainSchedule()));
+                    db.Save();
+                }
             });
             		
 

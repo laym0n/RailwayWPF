@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -52,6 +53,7 @@ namespace CourseProject.Model
                 OnPropertyChanged("NumberInTrain");
             }
         }
+        public Van GetVan() => new Van() { Id = this.id, NumberInTrain = this.numberInTrain, TrainId = this.id, TypeOfVanId = this.typeOfVanId };
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }

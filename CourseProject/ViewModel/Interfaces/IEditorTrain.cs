@@ -12,6 +12,8 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IEditorTrain
     {
+        void EditTrain(TrainModel trainModel);
+        void GetUser(User user);
         List<TypeOfVanModel> TypeOfVanModels { get; }
         ObservableCollection<VanModel> Vans { get; }
         List<StationModel> StationModels { get; }

@@ -20,7 +20,6 @@ namespace DAL
         public virtual DbSet<Ticket> Ticket { get; set; }
         public virtual DbSet<TimesForStation> TimesForStation { get; set; }
         public virtual DbSet<Train> Train { get; set; }
-        public virtual DbSet<TypeOfTrain> TypeOfTrain { get; set; }
         public virtual DbSet<TypeOfVan> TypeOfVan { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
@@ -79,10 +78,6 @@ namespace DAL
                 .WithRequired(e => e.Train)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<TypeOfTrain>()
-                .HasMany(e => e.Train)
-                .WithRequired(e => e.TypeOfTrain)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TypeOfVan>()
                 .HasMany(e => e.Van)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace CourseProject.Model
             get => loadedInDB;
             set => loadedInDB = value;
         }
+        public Train GetTrain() => new Train() { Id = id, IdUserCreator = this.idUserCreator };
         
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

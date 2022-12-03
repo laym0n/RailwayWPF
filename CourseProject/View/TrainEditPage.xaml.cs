@@ -23,11 +23,9 @@ namespace CourseProject.View
     /// </summary>
     public partial class TrainEditPage : Page
     {
-        IMediator ViewModelObject;
         public TrainEditPage(IMediator ViewModelObject)
         {
-            InitializeComponent(); 
-            this.ViewModelObject = ViewModelObject;
+            InitializeComponent();
             var a = ViewModelObject.ShowerStructureVan.StructureVan;
             rad.ItemsSource = a;
             ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrain.TypeOfVanModels;

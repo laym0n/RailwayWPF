@@ -14,7 +14,9 @@ namespace CourseProject.ViewModel.Interfaces
     {
         void SetCurrentUser(User user);
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
+        event Action<TrainModel> EditExistTrain;
         void ClearPassengerCollection();
+        ICommand EditTrain { get; }
         ICommand ChangePassword { get; }
         ICommand AddPassenger { get; }
         ICommand RemovePassenger { get; }

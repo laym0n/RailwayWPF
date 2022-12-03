@@ -32,6 +32,10 @@ namespace CourseProject.ViewModel
             NavigationService.GetMediator += () => this;
             #endregion
 
+            #region EditorTrain
+            InfoProfile.EditExistTrain += EditorTrain.EditTrain;
+            SignIn.UserSignIn += EditorTrain.GetUser;
+            #endregion
         }
         public IEditorTrain EditorTrain { get; }
         public ISignIn SignIn { get; private set; }

@@ -94,6 +94,10 @@
     <Compile Include="Migrations\202212020508437_AddEntityToTypeOfVan.designer.cs">
       <DependentUpon>202212020508437_AddEntityToTypeOfVan.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212031616097_Drop TypeOfTrain.cs" />
+    <Compile Include="Migrations\202212031616097_Drop TypeOfTrain.designer.cs">
+      <DependentUpon>202212031616097_Drop TypeOfTrain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -114,7 +118,6 @@
     <Compile Include="Entities\Ticket.cs" />
     <Compile Include="Entities\TimesForStation.cs" />
     <Compile Include="Entities\Train.cs" />
-    <Compile Include="Entities\TypeOfTrain.cs" />
     <Compile Include="Entities\TypeOfVan.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserType.cs" />
@@ -144,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212020508437_AddEntityToTypeOfVan.resx">
       <DependentUpon>202212020508437_AddEntityToTypeOfVan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212031616097_Drop TypeOfTrain.resx">
+      <DependentUpon>202212031616097_Drop TypeOfTrain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

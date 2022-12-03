@@ -20,10 +20,15 @@ namespace CourseProject.ViewModel
         private bool FlagLoaded = false;
         private IUnitOfWork unityOfWork;
         public void SetCurrentUser(User user) => currentUser = user;
-        private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>();
+        private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>(); 
+        public event Action<TrainModel> EditExistTrain;
         public ProfileService(IUnitOfWork unityOfWork)
         {
             this.unityOfWork = unityOfWork;
+        }
+        public ICommand EditTrain
+        {
+            get => new RelayCommand(obj => EditExistTrain?.Invoke(new TrainModel())); 
         }
         public ICommand AddPassenger 
         {

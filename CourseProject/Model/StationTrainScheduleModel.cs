@@ -61,6 +61,7 @@ namespace CourseProject.Model
             this.numberInTrip = item.NumberInTrip;
         }
         public StationTrainScheduleModel() { }
+        public StationTrainSchedule GetStationTrainSchedule() => new StationTrainSchedule() { Id = this.Id, IdTrain = this.idTrain, IdStation = this.idStation, NumberInTrip = this.numberInTrip };
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
