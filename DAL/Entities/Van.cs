@@ -15,8 +15,6 @@ namespace DAL
         }
 
         public int Id { get; set; }
-
-
         public int TypeOfVanId { get; set; }
 
         public int TrainId { get; set; }

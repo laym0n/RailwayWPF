@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -9,22 +9,28 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model
 {
-    public class VanViewCollection : INotifyPropertyChanged
+    public class TypeOfVanModel : INotifyPropertyChanged
     {
-        public VanViewCollection()
+        public string Name
         {
-            vanCollection = new ObservableCollection<PassengerViewModel>();
+            get;
         }
-        private ObservableCollection<PassengerViewModel> vanCollection;
-        public ObservableCollection<PassengerViewModel> VanCollection
+        private int id;
+        public int Id
         {
-            get => vanCollection;
+            get => id;
             set
             {
-                vanCollection = value;
-                OnPropertyChanged("VanCollection");
+                id = value;
+                OnPropertyChanged("Id");
             }
         }
+        public TypeOfVanModel(TypeOfVan typeOfVan)
+        {
+            Name = typeOfVan.Name;
+            Id = typeOfVan.Id;
+        }
+        public TypeOfVanModel() { }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }

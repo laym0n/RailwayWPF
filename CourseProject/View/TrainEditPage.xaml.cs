@@ -1,4 +1,5 @@
 ﻿using CourseProject.Model;
+using CourseProject.Model.Collections;
 using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ namespace CourseProject.View
             this.ViewModelObject = ViewModelObject;
             var a = ViewModelObject.ShowerStructureVan.StructureVan;
             rad.ItemsSource = a;
+            ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrain.TypeOfVanModels;
+            //((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModelsForTrain = ViewModelObject.EditorTrain.Vans;
+            ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrain.Vans;
+            this.DataContext = ViewModelObject;
             //this.ViewModelObject = ViewModelObject;
         }
     }

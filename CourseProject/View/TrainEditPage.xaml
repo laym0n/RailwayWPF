@@ -9,9 +9,14 @@
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="TrainEditPage">
-
+      Title="TrainEditPage"
+      Name="Page">
+    <Page.Resources>
+        <localModelcol:TypeOfVanModelCollection x:Key="CollectionForComboBox"/>
+        <localModel:VanModelCollection x:Key="CollectionForVans"/>
+    </Page.Resources>
     <Grid>
         <materialDesign:Card>
             <TabControl
@@ -25,7 +30,6 @@
                 <TabItem
       Margin="4">
                     <TabItem.Resources>
-                        <localModel:VanViewCollection x:Key="Vans"/>
                         <localModel:SeatViewCollection x:Key="Seats"/>
                         <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
                             <StackPanel Margin="10">
@@ -38,6 +42,28 @@
                             <StackPanel Orientation="Horizontal">
                                     <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource LabelRowTemplate}" />
                                 </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="TemplateForStructureVans">
+                            <StackPanel>
+                                <TextBlock Text="{Binding NumberInTrain}" />
+                                <ComboBox
+                                    SelectedValue="{Binding TypeOfVanId}"
+                                    ItemsSource="{Binding Source={StaticResource CollectionForComboBox}, Path=TypeOfVanModels}"
+                                    DisplayMemberPath="Name"
+                                    SelectedValuePath="Id"
+                                    
+  materialDesign:ComboBoxAssist.MaxLength="2"
+  materialDesign:HintAssist.Hint="Search"
+  materialDesign:HintAssist.HintOpacity=".26"/>
+
+                                <Button
+                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrain.RemoveVan}"
+    Content="Удалить вагон"
+                                    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
+
+                            </StackPanel>
                         </DataTemplate>
 
                         <localModel:MenuShow x:Key="asf" VisibleCreateTrain="true" VisibleProfile="sdf" VisibleBuyTicket="tr"/>
@@ -75,41 +101,16 @@
                             <ColumnDefinition Width="653*"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <ItemsControl 
-               ItemsSource="{Binding Source={StaticResource Vans}, Path=VanCollection}">
+                            <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
+               ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel>
-                                            <ComboBox
-  materialDesign:ComboBoxAssist.MaxLength="2"
-  materialDesign:HintAssist.Hint="Search"
-  materialDesign:HintAssist.HintOpacity=".26"
-  IsEditable="True">
-                                                <ComboBoxItem
-    Content="Apple" />
-                                                <ComboBoxItem
-    Content="Banana" />
-                                                <ComboBoxItem
-    Content="Pear" />
-                                                <ComboBoxItem
-    Content="Orange" />
-                                            </ComboBox>
-                                            <Button
-            Command="{Binding Path=InfoProfile.ChangePassword}"
-    Content="Удалить вагон"
-    Style="{StaticResource MaterialDesignRaisedLightButton}">
-                                            </Button>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <Button
-            Command="{Binding Path=InfoProfile.ChangePassword}"
+            Command="{Binding Path=EditorTrain.AddVan}"
     Content="Добавить вагон"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
                             </Button>
@@ -122,55 +123,6 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
-
-                        <!--<ItemsControl x:Name="rad"
-               >
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-
-                                    <ItemsControl ItemsSource="{Binding SelectedItem,ElementName=ExcelData}"
-               >
-                                        <ItemsControl.ItemsPanel>
-                                            <ItemsPanelTemplate>
-                                                <StackPanel Orientation="Horizontal"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                            </ItemsPanelTemplate>
-                                        </ItemsControl.ItemsPanel>
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>-->
-
-                        <!--<DataGrid Grid.Column="1" x:Name="ExcelData" AutoGenerateColumns="True">
-                            <DataGrid.RowDetailsTemplate>
-                                <DataTemplate>
-                                    <DataGrid  AutoGenerateColumns="False">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Binding="{Binding}"></DataGridTextColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DataTemplate>
-                            </DataGrid.RowDetailsTemplate>
-                        </DataGrid>-->
-
-                        <!--<DataGrid x:Name="dataGrid" ItemsSource="{StaticResource ResourceKey=phones}" Grid.Column="1" SelectionUnit="Cell" SelectionMode="Single">
-                            <DataGrid.CellStyle>
-                                <Style>
-                                    
-                                </Style>
-                            </DataGrid.CellStyle>
-                            
-                        </DataGrid>-->
                     </Grid>
                 </TabItem>
                 <TabItem>
