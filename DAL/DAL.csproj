@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CellStructureVan.cs" />
+    <Compile Include="Entities\TimesForTrack.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryCellStructureVan.cs" />
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
