@@ -82,7 +82,7 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand(obj =>
             {
-                //vans.Add(new Van());
+                //vans.Add(new VanModel());
             });
             		
 

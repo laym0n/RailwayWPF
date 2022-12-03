@@ -31,13 +31,11 @@ namespace CourseProject.View
             var a = ViewModelObject.ShowerStructureVan.StructureVan;
             rad.ItemsSource = a;
             ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrain.TypeOfVanModels;
-            //((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModelsForTrain = ViewModelObject.EditorTrain.Vans;
             ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrain.Vans;
             ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrain.StationTrainScheduleModels;
             ((StationCollection)TryFindResource("CollectionForStatioinComboBox")).Stations = ViewModelObject.EditorTrain.StationModels;
             ((DateTimeCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).DateTimes = ViewModelObject.EditorTrain.DateTimesForDeparture;
             this.DataContext = ViewModelObject;
-            //this.ViewModelObject = ViewModelObject;
         }
     }
 }
