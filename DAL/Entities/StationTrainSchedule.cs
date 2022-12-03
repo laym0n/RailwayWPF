@@ -12,7 +12,6 @@ namespace DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StationTrainSchedule()
         {
-            TimesForStation = new HashSet<TimesForStation>();
         }
 
         [Key]
@@ -29,8 +28,5 @@ namespace DAL
         public virtual Station Station { get; set; }
 
         public virtual Train Train { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TimesForStation> TimesForStation { get; set; }
     }
 }

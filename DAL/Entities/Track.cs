@@ -8,10 +8,15 @@
     [Table("Track")]
     public class Track
     {
+        public Track()
+        {
+            TimesForStation = new HashSet<TimesForStation>();
+        }
         [Key]
         public int Id { get; set; }
         public int TrainId { get; set; }
         [ForeignKey("TrainId")]
         public virtual Train Train { get; set; }
+        public virtual ICollection<TimesForStation> TimesForStation { get; set; }
     }
 }

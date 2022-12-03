@@ -1,3 +1,4 @@
+using DAL.Entities;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -23,6 +24,7 @@ namespace DAL
         public virtual DbSet<TypeOfVan> TypeOfVan { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<Track> Track { get; set; }
         public virtual DbSet<Van> Van { get; set; }
         public virtual DbSet<CellStructureVan> CellStructureVan { get; set; }
 
@@ -49,12 +51,6 @@ namespace DAL
                 .HasForeignKey(e => e.IdStation)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<StationTrainSchedule>()
-                .HasMany(e => e.TimesForStation)
-                .WithRequired(e => e.StationTrainSchedule)
-                .HasForeignKey(e => e.IdStationTrainSchedule)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<TimesForStation>()
                 .HasMany(e => e.Ticket)
                 .WithRequired(e => e.TimesForStation)
@@ -78,6 +74,15 @@ namespace DAL
                 .WithRequired(e => e.Train)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Train>()
+                .HasMany(e => e.Track)
+                .WithRequired(e => e.Train)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Track>()
+                .HasMany(e => e.TimesForStation)
+                .WithRequired(e => e.Track)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TypeOfVan>()
                 .HasMany(e => e.Van)

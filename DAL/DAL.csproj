@@ -54,12 +54,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CellStructureVan.cs" />
-    <Compile Include="Entities\TimesForTrack.cs" />
+    <Compile Include="Entities\Track.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryCellStructureVan.cs" />
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
     <Compile Include="Interfaces\IRepositorySeat.cs" />
     <Compile Include="Interfaces\IRepositoryTimesForStation.cs" />
+    <Compile Include="Interfaces\IRepositoryTrack.cs" />
     <Compile Include="Interfaces\IRepositoryTrain.cs" />
     <Compile Include="Interfaces\IRepositoryTypeOfVan.cs" />
     <Compile Include="Interfaces\IRepositoryUser.cs" />
@@ -103,6 +104,10 @@
     <Compile Include="Migrations\202212031831217_ChangeStationTrainSchedule.designer.cs">
       <DependentUpon>202212031831217_ChangeStationTrainSchedule.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212032120359_CreateTableTrack.cs" />
+    <Compile Include="Migrations\202212032120359_CreateTableTrack.designer.cs">
+      <DependentUpon>202212032120359_CreateTableTrack.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -115,6 +120,7 @@
     <Compile Include="Realizations\Repositories\SeatRepository.cs" />
     <Compile Include="Realizations\Repositories\StationRepository.cs" />
     <Compile Include="Realizations\Repositories\TimesForStationRepository.cs" />
+    <Compile Include="Realizations\Repositories\TrackRepository.cs" />
     <Compile Include="Realizations\Repositories\TrainRepository.cs" />
     <Compile Include="Realizations\Repositories\TypeOfVanRepository.cs" />
     <Compile Include="Realizations\Repositories\UserRepository.cs" />
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212031831217_ChangeStationTrainSchedule.resx">
       <DependentUpon>202212031831217_ChangeStationTrainSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212032120359_CreateTableTrack.resx">
+      <DependentUpon>202212032120359_CreateTableTrack.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

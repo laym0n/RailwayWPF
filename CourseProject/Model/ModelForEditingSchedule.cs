@@ -13,7 +13,7 @@ namespace CourseProject.Model
         DateTime arrivalTime;
         DateTime departureTime;
         ModelForEditingSchedule previousModel;
-        StationTrainScheduleModel stationTrainSchedule;
+        StationTrainScheduleModel stationTrainScheduleModel;
 
         public DateTime ArrivalTime
         {
@@ -42,13 +42,13 @@ namespace CourseProject.Model
                 OnPropertyChanged("DepartureTime");
             }
         }
-        public StationTrainScheduleModel StationTrainSchedule
+        public StationTrainScheduleModel StationTrainScheduleModel
         {
-            get => stationTrainSchedule;
+            get => stationTrainScheduleModel;
             set
             {
-                stationTrainSchedule = value;
-                OnPropertyChanged("StationTrainSchedule");
+                stationTrainScheduleModel = value;
+                OnPropertyChanged("StationTrainScheduleModel");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

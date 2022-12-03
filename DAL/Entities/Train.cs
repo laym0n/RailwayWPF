@@ -1,5 +1,6 @@
 namespace DAL
 {
+    using DAL.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -14,6 +15,7 @@ namespace DAL
         {
             StationTrainSchedule = new HashSet<StationTrainSchedule>();
             Van = new HashSet<Van>();
+            Track = new HashSet<Track>();
         }
 
         public int Id { get; set; }
@@ -23,6 +25,7 @@ namespace DAL
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationTrainSchedule> StationTrainSchedule { get; set; }
+        public virtual ICollection<Track> Track { get; set; }
 
 
         public virtual User User { get; set; }

@@ -14,7 +14,7 @@ namespace CourseProject.Model
         private int id;
         private DateTime departureTime;
         private DateTime arrivalTime;
-        private int idStationTrainSchedule;
+        private int trackId;
         public int Id
         {
             get => id;
@@ -34,13 +34,13 @@ namespace CourseProject.Model
             }
         }
 
-        public int IdStationTrainSchedule
+        public int TrackId
         {
-            get => idStationTrainSchedule;
+            get => trackId;
             set
             {
-                idStationTrainSchedule = value;
-                OnPropertyChanged("IdStationTrainSchedule");
+                trackId = value;
+                OnPropertyChanged("TrackId");
             }
         }
         public DateTime ArrivalTime
@@ -57,7 +57,7 @@ namespace CourseProject.Model
             this.arrivalTime = item.ArrivalTime;
             this.departureTime = item.DepartureTime;
             this.id = item.Id;
-            this.idStationTrainSchedule = item.IdStationTrainSchedule;
+            this.trackId = item.TrackId;
         }
         public TimesForStationModel() { }
         public event PropertyChangedEventHandler PropertyChanged;

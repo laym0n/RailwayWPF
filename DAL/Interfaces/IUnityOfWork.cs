@@ -19,6 +19,7 @@ namespace DLL.Interfaces
         IRepositoryVan Van { get; }
         IRepositoryStation Station { get; }
         IRepositoryTimesForStation TimesForStation { get; }
+        IRepositoryTrack Track { get; }
         int Save();
 
     }

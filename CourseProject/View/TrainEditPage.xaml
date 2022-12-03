@@ -154,7 +154,7 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding Path=StationTrainSchedule.NumberInTrip}" />
                                         <ComboBox
-                                    SelectedValue="{Binding Path=StationTrainSchedule.IdStation}"
+                                    SelectedValue="{Binding Path=StationTrainScheduleModel.IdStation}"
                                     ItemsSource="{Binding Source={StaticResource CollectionForStatioinComboBox}, Path=Stations}"
                                     DisplayMemberPath="Name"
                                     SelectedValuePath="Id"

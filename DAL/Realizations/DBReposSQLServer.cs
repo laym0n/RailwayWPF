@@ -1,4 +1,5 @@
-﻿using DAL.Interfaces;
+﻿using DAL.Entities;
+using DAL.Interfaces;
 using DAL.Realizations.Repositories;
 using DLL.Interfaces;
 using System;
@@ -21,6 +22,7 @@ namespace DAL.Realizations
         private TrainRepository train;
         private StationRepository station;
         private TimesForStationRepository timesForStation;
+        private TrackRepository track;
         public DBReposSQLServer(RailWayDB db)
         {
             this.db = db;
@@ -61,6 +63,10 @@ namespace DAL.Realizations
         public IRepositoryTimesForStation TimesForStation
         {
             get => timesForStation ?? (timesForStation = new TimesForStationRepository(db));
+        }
+        public IRepositoryTrack Track
+        {
+            get => track ?? (track = new TrackRepository(db));
         }
         public int Save()
         {

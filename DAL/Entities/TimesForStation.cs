@@ -1,5 +1,6 @@
 namespace DAL
 {
+    using DAL.Entities;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,9 +23,9 @@ namespace DAL
 
         public DateTime DepartureTime { get; set; }
 
-        public int IdStationTrainSchedule { get; set; }
-        [ForeignKey("IdStationTrainSchedule")]
-        public virtual StationTrainSchedule StationTrainSchedule { get; set; }
+        public int TrackId { get; set; }
+        [ForeignKey("TrackId")]
+        public virtual Track Track { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ticket> Ticket { get; set; }
