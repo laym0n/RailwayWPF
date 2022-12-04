@@ -30,7 +30,7 @@ namespace CourseProject.View
             rad.ItemsSource = a;
             ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrain.TypeOfVanModels;
             ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrain.Vans;
-            ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrain.StationTrainScheduleModels;
+            ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrain.ModelForEditingScheduleCollection;
             ((StationCollection)TryFindResource("CollectionForStatioinComboBox")).Stations = ViewModelObject.EditorTrain.StationModels;
             ((DateTimeCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).DateTimes = ViewModelObject.EditorTrain.DateTimesForDeparture;
             this.DataContext = ViewModelObject;

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 using CourseProject.Model;
 using DAL;
@@ -14,10 +15,12 @@ namespace CourseProject.ViewModel.Interfaces
     {
         void EditTrain(TrainModel trainModel);
         void GetUser(User user);
+        void SetDataWhenUserEnterPage(Page page);
+        void SetDataWhenUserLeavePage(Page page);
         List<TypeOfVanModel> TypeOfVanModels { get; }
         ObservableCollection<VanModel> Vans { get; }
         List<StationModel> StationModels { get; }
-        ObservableCollection<ModelForEditingSchedule> StationTrainScheduleModels { get; }
+        ObservableCollection<ModelForEditingSchedule> ModelForEditingScheduleCollection { get; }
         ObservableCollection<DateTimeModel> DateTimesForDeparture { get; }
         ICommand AddStartTripDateTime { get; }
         ICommand RemoveStartTripDateTime { get; }

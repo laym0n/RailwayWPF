@@ -364,6 +364,7 @@
                     <TabItem.Header>
                         <Button Command="{Binding Path=EditorTrain.AddTrain}">
                         <StackPanel
+                            ToolTip="сохранить поезд"
           Width="auto"
           Height="auto">
                             <materialDesign:PackIcon

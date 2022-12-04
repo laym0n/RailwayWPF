@@ -22,19 +22,22 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region InfoProfile
-            SignIn.UserSignOut += InfoProfile.ClearPassengerCollection;
+            SignIn.UserSignOut += InfoProfile.CurrentUserSignOut;
             SignIn.UserSignIn += InfoProfile.SetCurrentUser;
+            NavigationService.Leave += InfoProfile.ClearUnSavedDataWhenUserLeavePage;
             #endregion
 
             #region NavigationService
             SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
-            SignIn.UserSignIn += NavigationService.SetMainMenuWhenSignIn;
-            NavigationService.GetMediator += () => this;
+            SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
+            NavigationService.ViewModel = this;
             #endregion
 
             #region EditorTrain
             InfoProfile.EditExistTrain += EditorTrain.EditTrain;
             SignIn.UserSignIn += EditorTrain.GetUser;
+            NavigationService.Leave += EditorTrain.SetDataWhenUserLeavePage;
+            NavigationService.Enter += EditorTrain.SetDataWhenUserEnterPage;
             #endregion
         }
         public IEditorTrain EditorTrain { get; }

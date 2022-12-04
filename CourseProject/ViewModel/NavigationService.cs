@@ -5,6 +5,7 @@ using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -14,7 +15,9 @@ namespace CourseProject.ViewModel
 {
     public class NavigationService : INavigation
     {
-        public event Func<IMediator> GetMediator;
+        public IMediator ViewModel { get; set; }
+        public event Action<Page> Leave;
+        public event Action<Page> Enter;
         public MenuShow VisibleButtons { get; }
         public NavigationService(Frame frame)
         {
@@ -29,7 +32,7 @@ namespace CourseProject.ViewModel
                 VisibleSignUp = "Visible",
             };
         }
-        public Frame PageFrame { get; }
+        public Frame PageFrame { get; set; }
         public void SetMainMenuWhenSignOut()
         {
             VisibleButtons.VisibleBuyTicket = "Collapsed";
@@ -40,7 +43,7 @@ namespace CourseProject.ViewModel
             VisibleButtons.VisibleSignUp = "Visible";
             NavigateBuyTicket.Execute(null);
         }
-        public void SetMainMenuWhenSignIn(User user)
+        public void SetMainMenuWhenSignIn()
         {
             VisibleButtons.VisibleBuyTicket = "Visible";
             VisibleButtons.VisibleCreateTrain = "Visible";
@@ -52,19 +55,25 @@ namespace CourseProject.ViewModel
         public ICommand NavigateBuyTicket
         {
             get => new RelayCommand((obj) => {
-                PageFrame.Navigate(new BuyTicketPage());
+                Navigate(new BuyTicketPage());
             });
+        }
+        private void Navigate(Page page)
+        {
+            Leave?.Invoke(PageFrame.Content as Page);
+            PageFrame.Navigate(page);
+            Enter?.Invoke(PageFrame.Content as Page);
         }
         public ICommand NavigateProfile
         {
             get => new RelayCommand((obj) => {
-                PageFrame.Navigate(new Profile(GetMediator()));
+                Navigate(new Profile(ViewModel));
             });
         }
         public ICommand NavigateEditTrain
         {
             get => new RelayCommand((obj) => {
-                PageFrame.Navigate(new TrainEditPage(GetMediator()));
+                Navigate(new TrainEditPage(ViewModel));
             });
         }
     }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model
 {
-    public class VanModel : INotifyPropertyChanged, IDataErrorInfo
+    public class VanModel : INotifyPropertyChanged
     {
         private int id;
         private int trainId;

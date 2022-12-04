@@ -22,11 +22,11 @@ namespace DAL.Realizations.Repositories
         }
         public User GetItem(int id)
         {
-            return db.User.Include(i => i.Passenger).Include(i => i.Train).Where(i => i.Id == id).FirstOrDefault();
+            return db.User.Where(i => i.Id == id).FirstOrDefault();
         }
         public User GetItem(string Login)
         {
-            return db.User.Include(i => i.Passenger).Include(i => i.Train).Where(i => i.Login == Login).FirstOrDefault();
+            return db.User.Where(i => i.Login == Login).FirstOrDefault();
         }
         public void Create(User item)
         {

@@ -19,7 +19,6 @@ namespace CourseProject.ViewModel.Tests
     public class SignInService : ISignIn
     {
         private readonly IUnitOfWork unityOfWork;
-        User currentUser;
         public SignInService(IUnitOfWork unityOfWork)
         {
             this.unityOfWork = unityOfWork;
@@ -30,6 +29,7 @@ namespace CourseProject.ViewModel.Tests
         {
             get => new RelayCommand((obj) =>
             {
+                User currentUser;
                 UserShow userForLoginWindow = new UserShow();
                 bool? dialogResult;
                 do
@@ -49,12 +49,13 @@ namespace CourseProject.ViewModel.Tests
                     }
                 } while (dialogResult == true);
 
-            }, (obj) => currentUser == null);
+            });
         }
         public ICommand SignUp
         {
             get => new RelayCommand((obj) =>
             {
+                User currentUser;
                 UserShow userForLoginWindow = new UserShow();
                 bool? dialogResult;
                 do
@@ -82,16 +83,14 @@ namespace CourseProject.ViewModel.Tests
                     }
                 } while (dialogResult == true);
 
-            }, (obj) => currentUser == null);
+            });
         }
         public ICommand SignOut
         {
             get => new RelayCommand((obj) =>
             {
-                currentUser = null;
                 UserSignOut?.Invoke();
             });
         }
-        public User CurrentUser { get=> currentUser;}
     }
 }

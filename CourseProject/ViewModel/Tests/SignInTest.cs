@@ -23,8 +23,8 @@ namespace CourseProject.ViewModel.Tests
         {
             get => new RelayCommand((obj) =>
             {
-                user = _unityOfWork.Users.GetItem("test");
-                UserSignIn?.Invoke(CurrentUser);
+                User user = _unityOfWork.Users.GetItem("test");
+                UserSignIn?.Invoke(user);
             });
         }
         public ICommand SignUp
@@ -40,7 +40,5 @@ namespace CourseProject.ViewModel.Tests
         }
         public event Action UserSignOut;
         public event Action<User> UserSignIn;
-        private User user;
-        public User CurrentUser { get => user; }
     }
 }

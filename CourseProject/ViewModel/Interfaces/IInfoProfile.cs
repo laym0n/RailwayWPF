@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CourseProject.ViewModel.Interfaces
@@ -15,7 +16,8 @@ namespace CourseProject.ViewModel.Interfaces
         void SetCurrentUser(User user);
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
         event Action<TrainModel> EditExistTrain;
-        void ClearPassengerCollection();
+        void ClearUnSavedDataWhenUserLeavePage(Page page);
+        void CurrentUserSignOut();
         ICommand EditTrain { get; }
         ICommand ChangePassword { get; }
         ICommand AddPassenger { get; }

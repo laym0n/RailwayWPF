@@ -12,11 +12,13 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface INavigation
     {
-        event Func<IMediator> GetMediator;
+        IMediator ViewModel { get; set; }
+        event Action<Page> Leave;
+        event Action<Page> Enter;
         Frame PageFrame { get; }
         MenuShow VisibleButtons { get; }
         void SetMainMenuWhenSignOut();
-        void SetMainMenuWhenSignIn(User user);
+        void SetMainMenuWhenSignIn();
         ICommand NavigateBuyTicket { get; }
         ICommand NavigateProfile { get; }
         ICommand NavigateEditTrain { get; }
