@@ -21,6 +21,7 @@ namespace CourseProject.ViewModel
     public class EditorTrainService : IEditorTrain
     {
         private User currentUser;
+        public event Action TrainSaved;
         private IUnitOfWork db;
         public EditorTrainService(IUnitOfWork db)
         {
@@ -187,31 +188,31 @@ namespace CourseProject.ViewModel
                 }
                 else
                 {
-                    ValidateDateBeforeAddTrain();
-                    //Train TrainForAdd = currentTrainModel.GetTrain();
-                    //TrainForAdd.IdUserCreator = currentUser.Id;
-                    //db.Train.Create(TrainForAdd);
-                    //vans.ToList().ForEach(van => TrainForAdd.Van.Add(van.GetVan()));
-                    //Track track = new DAL.Entities.Track();
-                    //TrainForAdd.Track.Add(track);
-                    //modelForEditingScheduleCollection.ToList().ForEach(modelForEditingSchedule =>
-                    //{
-                    //    TrainForAdd.StationTrainSchedule.Add(modelForEditingSchedule.StationTrainScheduleModel.GetStationTrainSchedule());
-                    //    track.TimesForStation.Add(new TimesForStation() { ArrivalTime = modelForEditingSchedule.ArrivalTime, DepartureTime = modelForEditingSchedule.DepartureTime });
-                    //});
-                    //dateTimesForDeparture.ToList().ForEach(dateTimeModel =>
-                    //{
-                    //    TrainForAdd.Track.Add(track = new Track());
-                    //    TimeSpan dif = dateTimeModel.DateTime - modelForEditingScheduleCollection[0].DepartureTime;
-                    //    modelForEditingScheduleCollection.ToList().ForEach(modelForEditingSchedule =>
-                    //    {
-                    //        track.TimesForStation.Add(new TimesForStation() { ArrivalTime = modelForEditingSchedule.ArrivalTime + dif, DepartureTime = modelForEditingSchedule.DepartureTime + dif });
-                    //    });
+                    if(!ValidateDateBeforeAddTrain())
+                        return;
+                    Train TrainForAdd = currentTrainModel.GetTrain();
+                    TrainForAdd.IdUserCreator = currentUser.Id;
+                    db.Train.Create(TrainForAdd);
+                    vans.ToList().ForEach(van => TrainForAdd.Van.Add(van.GetVan()));
+                    modelForEditingScheduleCollection.ToList().ForEach(modelForEditingSchedule =>
+                    {
+                        TrainForAdd.StationTrainSchedule.Add(modelForEditingSchedule.StationTrainScheduleModel.GetStationTrainSchedule());
+                    });
+                    dateTimesForDeparture.ToList().ForEach(dateTimeModel =>
+                    {
+                        Track track = new DAL.Entities.Track();
+                        TrainForAdd.Track.Add(track);
+                        TimeSpan dif = dateTimeModel.DateTime - modelForEditingScheduleCollection[0].DepartureTime;
+                        modelForEditingScheduleCollection.ToList().ForEach(modelForEditingSchedule =>
+                        {
+                            track.TimesForStation.Add(new TimesForStation() { ArrivalTime = modelForEditingSchedule.ArrivalTime + dif, DepartureTime = modelForEditingSchedule.DepartureTime + dif });
+                        });
 
-                    //}
-                    //);
+                    }
+                    );
 
-                    //db.Save();
+                    db.Save();
+                    TrainSaved?.Invoke();
                 }
             });
             		
