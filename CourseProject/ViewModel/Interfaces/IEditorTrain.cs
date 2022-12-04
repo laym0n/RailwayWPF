@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CourseProject.Model;
+using CourseProject.Model.ModelsForEditingViewStyle;
 using DAL;
 
 namespace CourseProject.ViewModel.Interfaces
@@ -17,6 +18,7 @@ namespace CourseProject.ViewModel.Interfaces
         void GetUser(User user);
         void SetDataWhenUserEnterPage(Page page);
         void SetDataWhenUserLeavePage(Page page);
+        ButtonInfoTrainEditPage ButtonInfo { get; }
         List<TypeOfVanModel> TypeOfVanModels { get; }
         ObservableCollection<VanModel> Vans { get; }
         List<StationModel> StationModels { get; }

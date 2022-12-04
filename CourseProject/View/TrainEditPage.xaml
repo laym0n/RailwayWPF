@@ -6,10 +6,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProject.View"
       mc:Ignorable="d" 
-        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:localModel="clr-namespace:CourseProject.Model"
       xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TrainEditPage"
       Name="Page">
@@ -68,21 +69,6 @@
 
                             </StackPanel>
                         </DataTemplate>
-
-                        <localModel:MenuShow x:Key="asf" VisibleCreateTrain="true" VisibleProfile="sdf" VisibleBuyTicket="tr"/>
-                        <localModel:MenuShow x:Key="asfd" VisibleCreateTrain="sg" VisibleProfile="sdf" VisibleBuyTicket="tr"/>
-                        <col:ArrayList x:Key="phones">
-                            
-
-                            <localModel:MenuShow VisibleCreateTrain="true" VisibleProfile="sdf" VisibleBuyTicket="tr"
-                                                 VisibleSignIn="dsg" VisibleSignOut="sadf" VisibleSignUp="dsfg"/>
-                            <localModel:MenuShow VisibleCreateTrain="sg" VisibleProfile="sdf" VisibleBuyTicket="tr"
-                                                 VisibleSignIn="dsg" VisibleSignOut="sadf" VisibleSignUp="dsfg"/>
-                            <localModel:MenuShow VisibleCreateTrain="true" VisibleProfile="sdf" VisibleBuyTicket="tr"
-                                                 VisibleSignIn="dsg" VisibleSignOut="sadf" VisibleSignUp="dsfg"/>
-                            <localModel:MenuShow VisibleCreateTrain="sg" VisibleProfile="sdf" VisibleBuyTicket="tr"
-                                                 VisibleSignIn="dsg" VisibleSignOut="sadf" VisibleSignUp="dsfg"/>
-                        </col:ArrayList>
                     </TabItem.Resources>
                     <TabItem.Header>
                         <StackPanel
@@ -103,7 +89,8 @@
                             <ColumnDefinition Width="147*"/>
                             <ColumnDefinition Width="653*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel>
+                        <StackPanel IsEnabled="{Binding Source={x:Static localModelEditing:EnableButtonsOnTrainEditPage.Instance},
+                            Path=IsEnable}">
                             <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
                ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}">
                                 <ItemsControl.ItemsPanel>
@@ -148,7 +135,8 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
+                        <StackPanel Grid.Column="0" IsEnabled="{Binding Source={x:Static localModelEditing:EnableButtonsOnTrainEditPage.Instance},
+                            Path=IsEnable}">
                             <StackPanel.Resources>
                                 <DataTemplate x:Key="TemplateForStationSchedule">
                                     <StackPanel>
@@ -365,6 +353,7 @@
                         <Button Command="{Binding Path=EditorTrain.AddTrain}">
                         <StackPanel
                             ToolTip="сохранить поезд"
+                            ToolTipService.ShowOnDisabled="True"
           Width="auto"
           Height="auto">
                             <materialDesign:PackIcon

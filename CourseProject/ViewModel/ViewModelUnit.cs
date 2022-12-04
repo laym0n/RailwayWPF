@@ -30,6 +30,7 @@ namespace CourseProject.ViewModel
             #region NavigationService
             SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
             SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
+            InfoProfile.EditExistTrain += obj => NavigationService.LoadTrainEditPageForEditTrain();
             NavigationService.ViewModel = this;
             #endregion
 

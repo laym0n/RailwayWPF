@@ -1,4 +1,5 @@
 ﻿using CourseProject.Model;
+using CourseProject.Model.ModelsForEditingViewStyle;
 using CourseProject.View;
 using CourseProject.ViewModel.Interfaces;
 using DAL;
@@ -50,15 +51,24 @@ namespace CourseProject.ViewModel
             get => dateTimesForDeparture ?? (dateTimesForDeparture = new ObservableCollection<DateTimeModel>());
         }
         private TrainModel currentTrainModel = null;
+        private ButtonInfoTrainEditPage buttonInfo = new ButtonInfoTrainEditPage();
+        public ButtonInfoTrainEditPage ButtonInfo { get; }
         public void EditTrain(TrainModel trainModel)
         {
             currentTrainModel = trainModel;
+            EnableButtonsOnTrainEditPage.Instance.IsEnable = false;
+            //VanModel.IsEnabled = ModelForEditingSchedule.IsEnabled = false;
+            buttonInfo.IsEnabledButtonForAddVan = buttonInfo.IsEnabledButtonForAddStationInSchedule = buttonInfo.IsEnabledButtonForSave = false;
+            buttonInfo.ToolTipButtonForSave = "Сохранить поезд";
         }
         public void SetDataWhenUserEnterPage(Page page)
         {
             if (page is TrainEditPage)
             {
+                EnableButtonsOnTrainEditPage.Instance.IsEnable = true;
+                //VanModel.IsEnabled = ModelForEditingSchedule.IsEnabled = true;
                 currentTrainModel = new TrainModel() { LoadedInDB = false };
+                buttonInfo.IsEnabledButtonForAddVan = buttonInfo.IsEnabledButtonForAddStationInSchedule = true;
             }
         }
         public void SetDataWhenUserLeavePage(Page page)

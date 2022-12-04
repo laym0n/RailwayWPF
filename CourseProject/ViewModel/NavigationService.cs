@@ -33,6 +33,10 @@ namespace CourseProject.ViewModel
             };
         }
         public Frame PageFrame { get; set; }
+        public void LoadTrainEditPageForEditTrain()
+        {
+            PageFrame.Navigate(new TrainEditPage(ViewModel));
+        }
         public void SetMainMenuWhenSignOut()
         {
             VisibleButtons.VisibleBuyTicket = "Collapsed";
@@ -52,17 +56,17 @@ namespace CourseProject.ViewModel
             VisibleButtons.VisibleSignOut = "Visible";
             VisibleButtons.VisibleSignUp = "Collapsed";
         }
+        private void Navigate(Page page)
+        {
+            Leave?.Invoke(PageFrame.Content as Page);
+            PageFrame.Navigate(page);
+            Enter?.Invoke(page);
+        }
         public ICommand NavigateBuyTicket
         {
             get => new RelayCommand((obj) => {
                 Navigate(new BuyTicketPage());
             });
-        }
-        private void Navigate(Page page)
-        {
-            Leave?.Invoke(PageFrame.Content as Page);
-            PageFrame.Navigate(page);
-            Enter?.Invoke(PageFrame.Content as Page);
         }
         public ICommand NavigateProfile
         {

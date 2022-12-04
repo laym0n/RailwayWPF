@@ -17,6 +17,7 @@ namespace CourseProject.ViewModel.Interfaces
         event Action<Page> Enter;
         Frame PageFrame { get; }
         MenuShow VisibleButtons { get; }
+        void LoadTrainEditPageForEditTrain();
         void SetMainMenuWhenSignOut();
         void SetMainMenuWhenSignIn();
         ICommand NavigateBuyTicket { get; }
