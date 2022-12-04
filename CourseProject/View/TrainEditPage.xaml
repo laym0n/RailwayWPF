@@ -89,7 +89,7 @@
                             <ColumnDefinition Width="147*"/>
                             <ColumnDefinition Width="653*"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel IsEnabled="{Binding Source={x:Static localModelEditing:EnableButtonsOnTrainEditPage.Instance},
+                        <StackPanel IsEnabled="{Binding Source={x:Static localModelEditing:InfoButtonsOnTrainEditPage.Instance},
                             Path=IsEnable}">
                             <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
                ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}">
@@ -135,7 +135,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" IsEnabled="{Binding Source={x:Static localModelEditing:EnableButtonsOnTrainEditPage.Instance},
+                        <StackPanel Grid.Column="0" IsEnabled="{Binding Source={x:Static localModelEditing:InfoButtonsOnTrainEditPage.Instance},
                             Path=IsEnable}">
                             <StackPanel.Resources>
                                 <DataTemplate x:Key="TemplateForStationSchedule">
@@ -348,12 +348,10 @@
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem>
+                <TabItem IsEnabled="True">
                     <TabItem.Header>
-                        <Button Command="{Binding Path=EditorTrain.AddTrain}">
+                        <Button Command="{Binding Path=EditorTrain.AddTrain}" Cursor="Hand">
                         <StackPanel
-                            ToolTip="сохранить поезд"
-                            ToolTipService.ShowOnDisabled="True"
           Width="auto"
           Height="auto">
                             <materialDesign:PackIcon

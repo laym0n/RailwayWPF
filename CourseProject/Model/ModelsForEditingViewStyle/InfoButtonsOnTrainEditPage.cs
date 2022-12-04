@@ -7,22 +7,21 @@ using System.Windows;
 
 namespace CourseProject.Model.ModelsForEditingViewStyle
 {
-    public class EnableButtonsOnTrainEditPage : DependencyObject
+    public class InfoButtonsOnTrainEditPage : DependencyObject
     {
         public static readonly DependencyProperty IsEnableProperty =
         DependencyProperty.Register("IsEnable", typeof(bool),
-        typeof(EnableButtonsOnTrainEditPage));
+        typeof(InfoButtonsOnTrainEditPage));
         public bool IsEnable
         {
             get { return (bool)GetValue(IsEnableProperty); }
             set { SetValue(IsEnableProperty, value); }
         }
+        public static InfoButtonsOnTrainEditPage Instance { get; private set; }
 
-        public static EnableButtonsOnTrainEditPage Instance { get; private set; }
-
-        static EnableButtonsOnTrainEditPage()
+        static InfoButtonsOnTrainEditPage()
         {
-            Instance = new EnableButtonsOnTrainEditPage();
+            Instance = new InfoButtonsOnTrainEditPage();
         }
     }
 }

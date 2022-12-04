@@ -92,7 +92,7 @@
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
-    <Compile Include="Model\ModelsForEditingViewStyle\EnableButtonsOnTrainEditPage.cs" />
+    <Compile Include="Model\ModelsForEditingViewStyle\InfoButtonsOnTrainEditPage.cs" />
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />
     <Compile Include="Model\PasswordChangeModel.cs" />

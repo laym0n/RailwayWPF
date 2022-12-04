@@ -27,7 +27,8 @@ namespace CourseProject.ViewModel
                 passengers?.Where(i => !i.LoadedInDB).ToList().All(i => passengers.Remove(i));
             }
         }
-        private ObservableCollection<PassengerViewModel> passengers = null; 
+        private ObservableCollection<PassengerViewModel> passengers = null;
+        //private ObservableCollection<PassengerViewModel> passengers = null;
         public event Action<TrainModel> EditExistTrain;
         public ProfileService(IUnitOfWork unityOfWork)
         {
