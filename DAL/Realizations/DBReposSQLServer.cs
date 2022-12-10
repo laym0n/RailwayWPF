@@ -23,6 +23,7 @@ namespace DAL.Realizations
         private StationRepository station;
         private TimesForStationRepository timesForStation;
         private TrackRepository track;
+        private StationTrainScheduleRepository stationTrainSchedule;
         public DBReposSQLServer(RailWayDB db)
         {
             this.db = db;
@@ -67,6 +68,10 @@ namespace DAL.Realizations
         public IRepositoryTrack Track
         {
             get => track ?? (track = new TrackRepository(db));
+        }
+        public IRepositoryStationTrainSchedule StationTrainSchedule
+        {
+            get => stationTrainSchedule ?? (stationTrainSchedule = new StationTrainScheduleRepository(db));
         }
         public int Save()
         {

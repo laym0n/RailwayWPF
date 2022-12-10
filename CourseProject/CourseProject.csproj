@@ -85,8 +85,11 @@
     <Compile Include="Model\BehaviourPasswordBox.cs" />
     <Compile Include="Model\CellStrucureVanModel.cs" />
     <Compile Include="Model\Collections\DateTimeCollection.cs" />
+    <Compile Include="Model\Collections\ModelCollection.cs" />
     <Compile Include="Model\Collections\StationCollection.cs" />
     <Compile Include="Model\Collections\StationTrainScheduleCollection.cs" />
+    <Compile Include="Model\Collections\TimesForStationModelCollection.cs" />
+    <Compile Include="Model\Collections\TrainInProfileModelCollection.cs" />
     <Compile Include="Model\Collections\TypeOfVanModelCollection.cs" />
     <Compile Include="Model\DateTimeModel.cs" />
     <Compile Include="Model\MenuShow.cs" />
@@ -103,6 +106,7 @@
     <Compile Include="Model\StationTrainScheduleModel.cs" />
     <Compile Include="Model\Test.cs" />
     <Compile Include="Model\TimesForStationModel.cs" />
+    <Compile Include="Model\TrainInProfileModel.cs" />
     <Compile Include="Model\TrainModel.cs" />
     <Compile Include="Model\TypeOfVanModel.cs" />
     <Compile Include="Model\UserShow.cs" />

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProject"
       xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModecol="clr-namespace:CourseProject.Model.Collections"
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
@@ -16,6 +17,7 @@
       Name="ProfilePage">
 
     <Page.Resources>
+        <localModecol:TrainInProfileModelCollection x:Key="Trains"></localModecol:TrainInProfileModelCollection>
         <localModel:PassengerProfileCollection x:Key="Passengers"></localModel:PassengerProfileCollection>
         <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
             <Setter Property="Opacity" Value=".68" />
@@ -43,10 +45,6 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <ScrollViewer>
             <StackPanel>
                 
@@ -119,7 +117,7 @@
                 </StackPanel>
             </WrapPanel>
         </GroupBox>
-        <materialDesign:Card Grid.Row="1">
+        <materialDesign:Card>
             <StackPanel>
                     <Expander
       HorizontalAlignment="Stretch"
@@ -375,8 +373,86 @@
 
                             </GroupBox>
                         </StackPanel>
-                    </Expander>
-                </StackPanel>
+                        </Expander>
+                        <Border
+      Style="{StaticResource HorizontalDividerBorder}" />
+                        <Expander
+      HorizontalAlignment="Stretch"
+      Header="Поезда">
+                            <StackPanel
+        Margin="24,8,24,16"
+        Orientation="Vertical"
+        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                <ItemsControl 
+               ItemsSource="{Binding Source={StaticResource Trains}, Path=Collection}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+
+                                            <GroupBox
+                                        Margin="16"
+  Header="ФИО Пассажира"
+  Style="{StaticResource MaterialDesignCardGroupBox}">
+                                                <GroupBox.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel>
+
+                                                            <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="CardAccountDetails" />
+
+                                                        </StackPanel>
+
+
+
+
+                                                    </DataTemplate>
+
+
+                                                </GroupBox.HeaderTemplate>
+                                                <StackPanel>
+                                                    <ItemsControl 
+               ItemsSource="{Binding Path=Stations}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding}"/>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                    <Button
+                                                        Grid.Column="0"
+                                                        Grid.Row="2"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.RemoveTrain}"
+    Content="Удалить поезд"
+    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
+                                                    <Button
+                                                        Grid.Column="0"
+                                                        Grid.Row="2"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.EditTrain}"
+    Content="Редактировать поезд"
+    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
+                                                </StackPanel>
+                                            </GroupBox>
+                                            
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
                 </materialDesign:Card>
             </StackPanel>
         </ScrollViewer>

@@ -101,7 +101,7 @@ namespace DAL
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Train)
-                .WithRequired(e => e.User)
+                .WithOptional(e => e.User)
                 .HasForeignKey(e => e.IdUserCreator)
                 .WillCascadeOnDelete(false);
 

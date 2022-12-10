@@ -20,14 +20,14 @@ namespace DAL
 
         public int Id { get; set; }
 
-
-        public int IdUserCreator { get; set; }
+        
+        public int? IdUserCreator { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationTrainSchedule> StationTrainSchedule { get; set; }
         public virtual ICollection<Track> Track { get; set; }
 
-
+        
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

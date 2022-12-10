@@ -53,6 +53,14 @@ namespace CourseProject.Model
                 OnPropertyChanged("NumberInTrain");
             }
         }
+        public VanModel() { }
+        public VanModel(Van van)
+        {
+            this.id = van.Id;
+            this.TrainId = van.TrainId;
+            this.numberInTrain = van.NumberInTrain;
+            this.typeOfVanId = van.TypeOfVanId;
+        }
         public Van GetVan() => new Van() { Id = this.id, NumberInTrain = this.numberInTrain, TrainId = this.id, TypeOfVanId = this.typeOfVanId };
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

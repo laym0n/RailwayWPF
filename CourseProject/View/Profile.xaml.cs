@@ -1,4 +1,5 @@
 ﻿using CourseProject.Model;
+using CourseProject.Model.Collections;
 using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace CourseProject
             ViewModel = viewModel;
             DataContext = viewModel;
             ((PassengerProfileCollection)TryFindResource("Passengers")).PassengerCollection = ViewModel.InfoProfile.PassengerViewModels;
+            ((TrainInProfileModelCollection)TryFindResource("Trains")).Collection = ViewModel.InfoProfile.TrainInProfileModels;
         }
 
     }

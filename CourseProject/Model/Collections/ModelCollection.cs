@@ -1,33 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CourseProject.Model
+namespace CourseProject.Model.Collections
 {
-    public class DateTimeModel : INotifyPropertyChanged
+    public class ModelCollection <T> : INotifyPropertyChanged
     {
-        private DateTime _date;
-        public DateTime DateTime
+        public ObservableCollection<T> collection { get; set; }
+        public ObservableCollection<T> Collection
         {
-            get => _date;
+            get => collection;
             set
             {
-                _date = value;
-                OnPropertyChanged("DateTime");
+                collection = value;
+                OnPropertyChanged("Collection");
             }
         }
-        public DateTimeModel(DateTime date)
-        {
-            DateTime = date;
-        }
-        public DateTimeModel()
-        {
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }

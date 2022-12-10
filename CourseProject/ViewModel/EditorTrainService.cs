@@ -5,6 +5,7 @@ using CourseProject.ViewModel.Interfaces;
 using DAL;
 using DAL.Entities;
 using DLL.Interfaces;
+using Ninject.Infrastructure.Language;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -58,8 +59,41 @@ namespace CourseProject.ViewModel
         public ButtonInfoTrainEditPage ButtonInfo { get; }
         public void EditTrain(TrainModel trainModel)
         {
-            currentTrainModel = trainModel;
             InfoButtonsOnTrainEditPage.Instance.IsEnable = false;
+            currentTrainModel = trainModel;
+            (
+                from van in db.Van.GetList()
+                where van.TrainId == trainModel.Id
+                orderby van.NumberInTrain
+                select new VanModel(van)).ToList().ForEach(i => vans.Add(i));
+            (from StationTrainSchedule in db.StationTrainSchedule.GetList()
+            where StationTrainSchedule.IdTrain == trainModel.Id
+            orderby StationTrainSchedule.NumberInTrip
+            select new StationTrainScheduleModel(StationTrainSchedule)).ToList().ForEach(i=> 
+            modelForEditingScheduleCollection.Add(new ModelForEditingSchedule() { StationTrainScheduleModel = i }));
+            (from track in db.Track.GetList()
+             join timesForStation in db.TimesForStation.GetList()
+             on track.Id equals timesForStation.TrackId
+             where track.TrainId == trainModel.Id
+             orderby timesForStation.DepartureTime
+             group new TimesForStationModel(timesForStation) by track.Id).ToList()
+             .Where(i=>i.FirstOrDefault().DateTime > DateTime.Now).ToList().ForEach(i => dateTimesForDeparture.Add(i.FirstOrDefault()));
+            if(dateTimesForDeparture.Count == 0)
+            {
+                 dateTimesForDeparture.Add((from track in db.Track.GetList()
+                 join timesForStation in db.TimesForStation.GetList()
+                 on track.Id equals timesForStation.TrackId
+                 where track.TrainId == trainModel.Id
+                 orderby timesForStation.DepartureTime
+                 group new DateTimeModel(timesForStation.DepartureTime) by track.Id).FirstOrDefault().FirstOrDefault());
+            }
+            (from Times in db.TimesForStation.GetList()
+             where)
+
+        }
+        public void RemoveTrain(TrainModel trainModel)
+        {
+
         }
         public void SetDataWhenUserEnterPage(Page page)
         {

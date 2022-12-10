@@ -30,13 +30,44 @@ namespace CourseProject.ViewModel
         private ObservableCollection<PassengerViewModel> passengers = null;
         //private ObservableCollection<PassengerViewModel> passengers = null;
         public event Action<TrainModel> EditExistTrain;
+        public event Action<TrainModel> RemoveExistTrain;
+        private ObservableCollection<TrainInProfileModel> trainInProfileModels;
+        public ObservableCollection<TrainInProfileModel> TrainInProfileModels 
+        {
+            get
+            {
+                return trainInProfileModels ??
+                    (
+                    trainInProfileModels = new ObservableCollection<TrainInProfileModel>(
+                        from train in unitOfWork.Train.GetList()
+                        where train.IdUserCreator == currentUser.Id
+                        select new TrainInProfileModel
+                        {
+                            TrainModel = new TrainModel() { Id = train.Id, IdUserCreator = (int)train.IdUserCreator, LoadedInDB = true },
+                            Stations = (from stationtrainschedule in unitOfWork.StationTrainSchedule.GetList()
+                                        where train.Id == stationtrainschedule.IdTrain
+                                        join station in unitOfWork.Station.GetList()
+                                        on stationtrainschedule.IdStation equals station.Id
+                                        orderby stationtrainschedule.NumberInTrip
+                                        select station.Name).ToList()
+                        }
+                        )
+                    ) ;
+            }
+        }
         public ProfileService(IUnitOfWork unityOfWork)
         {
             this.unitOfWork = unityOfWork;
         }
         public ICommand EditTrain
         {
-            get => new RelayCommand(obj => EditExistTrain?.Invoke(new TrainModel())); 
+            get => new RelayCommand(obj =>
+            {
+                if (obj is TrainInProfileModel trainInProfileModelForRemove)
+                {
+                    EditExistTrain?.Invoke(trainInProfileModelForRemove.TrainModel);
+                }
+            }); 
         }
         public ICommand AddPassenger 
         {
@@ -90,6 +121,20 @@ namespace CourseProject.ViewModel
                     MessageBox.Show("Старый пароль неверный!");
             }, 
                 (obj) => 
+                (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
+        }
+        public ICommand RemoveTrain
+        {
+            get => new RelayCommand((obj) =>
+            {
+                if (obj is TrainInProfileModel trainInProfileModelForRemove)
+                {
+                    RemoveExistTrain(trainInProfileModelForRemove.TrainModel);
+                    trainInProfileModels.Remove(trainInProfileModelForRemove);
+
+                }
+            },
+                (obj) =>
                 (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
         }
         public ObservableCollection<PassengerViewModel> PassengerViewModels 
