@@ -49,14 +49,15 @@ namespace CourseProject.ViewModel
         {
             get => modelForEditingScheduleCollection ?? (modelForEditingScheduleCollection = new ObservableCollection<ModelForEditingSchedule>());
         }
-        ObservableCollection<DateTimeModel> dateTimesForDeparture = null;
-        public ObservableCollection<DateTimeModel> DateTimesForDeparture
+        ObservableCollection<TimesForStationModel> dateTimesForDeparture = null;
+        public ObservableCollection<TimesForStationModel> DateTimesForDeparture
         {
-            get => dateTimesForDeparture ?? (dateTimesForDeparture = new ObservableCollection<DateTimeModel>());
+            get => dateTimesForDeparture ?? (dateTimesForDeparture = new ObservableCollection<TimesForStationModel>());
         }
         private TrainModel currentTrainModel = null;
         private ButtonInfoTrainEditPage buttonInfo = new ButtonInfoTrainEditPage();
         public ButtonInfoTrainEditPage ButtonInfo { get; }
+
         public void EditTrain(TrainModel trainModel)
         {
             InfoButtonsOnTrainEditPage.Instance.IsEnable = false;
@@ -77,23 +78,50 @@ namespace CourseProject.ViewModel
              where track.TrainId == trainModel.Id
              orderby timesForStation.DepartureTime
              group new TimesForStationModel(timesForStation) by track.Id).ToList()
-             .Where(i=>i.FirstOrDefault().DateTime > DateTime.Now).ToList().ForEach(i => dateTimesForDeparture.Add(i.FirstOrDefault()));
-            if(dateTimesForDeparture.Count == 0)
+             .Where(i => i.FirstOrDefault().DepartureTime > DateTime.Now).ToList().ForEach(i => dateTimesForDeparture.Add(i.FirstOrDefault()));
+            if (dateTimesForDeparture.Count == 0)
             {
-                 dateTimesForDeparture.Add((from track in db.Track.GetList()
-                 join timesForStation in db.TimesForStation.GetList()
-                 on track.Id equals timesForStation.TrackId
-                 where track.TrainId == trainModel.Id
-                 orderby timesForStation.DepartureTime
-                 group new DateTimeModel(timesForStation.DepartureTime) by track.Id).FirstOrDefault().FirstOrDefault());
+                dateTimesForDeparture.Add((from track in db.Track.GetList()
+                                           join timesForStation in db.TimesForStation.GetList()
+                                           on track.Id equals timesForStation.TrackId
+                                           where track.TrainId == trainModel.Id
+                                           orderby timesForStation.DepartureTime
+                                           group new TimesForStationModel(timesForStation) by track.Id).FirstOrDefault().FirstOrDefault());
             }
-            (from Times in db.TimesForStation.GetList()
-             where)
+            List<KeyValuePair<DateTime, DateTime>> times = 
+                (from Times in db.TimesForStation.GetList()
+             where Times.TrackId == dateTimesForDeparture.FirstOrDefault()?.TrackId
+             orderby Times.DepartureTime
+             select new KeyValuePair<DateTime, DateTime>(Times.ArrivalTime, Times.DepartureTime)).ToList();
+            for (int i = 0; i < times.Count; i++)
+            {
+                modelForEditingScheduleCollection[i].ArrivalTime = times[i].Key;
+                modelForEditingScheduleCollection[i].DepartureTime = times[i].Value;
+            }
 
         }
         public void RemoveTrain(TrainModel trainModel)
         {
-
+            Train train = trainModel.GetTrain();
+            (from track in db.Track.GetList()
+             where track.TrainId != trainModel.Id
+             join times in db.TimesForStation.GetList()
+             on track.Id equals times.TrackId
+             orderby times.DepartureTime
+             group times by track.Id).ToList()
+             .ForEach(i =>
+             {
+                 if (i.FirstOrDefault().DepartureTime > DateTime.Now)
+                 {
+                     int idTrack = i.FirstOrDefault().TrackId;
+                     i.ToList().ForEach(j => db.TimesForStation.Delete(j.Id));
+                     db.Track.Delete(idTrack);
+                 }
+             });
+            if(db.Track.GetList().Where(i=>i.TrainId == train.Id).Count() == 0)
+            {
+                db.Train.Delete(train.Id);
+            }
         }
         public void SetDataWhenUserEnterPage(Page page)
         {
@@ -117,23 +145,23 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand(obj =>
             {
-                dateTimesForDeparture.Add(new DateTimeModel() { DateTime = DateTime.Now });
+                dateTimesForDeparture.Add(new TimesForStationModel() { DepartureTime = DateTime.Now });
             });
         }
         public ICommand RemoveStartTripDateTime
         {
             get => new RelayCommand(obj =>
             {
-                if (obj is DateTimeModel dateTime)
+                if (obj is TimesForStationModel dateTime)
                 {
                     if (dateTime != dateTimeModelForFirstStationTrainSchedule)
                         dateTimesForDeparture.Remove(dateTime);
                     else
                     {
-                        DateTimeModel NewTime = dateTimesForDeparture.FirstOrDefault(i => i != dateTimeModelForFirstStationTrainSchedule);
+                        TimesForStationModel NewTime = dateTimesForDeparture.FirstOrDefault(i => i != dateTimeModelForFirstStationTrainSchedule);
                         if(NewTime != null)
                         {
-                            dateTimeModelForFirstStationTrainSchedule.DateTime = NewTime.DateTime;
+                            dateTimeModelForFirstStationTrainSchedule.DepartureTime = NewTime.DepartureTime;
                             dateTimesForDeparture.Remove(NewTime);
                         }
                         else
@@ -236,7 +264,7 @@ namespace CourseProject.ViewModel
                     {
                         Track track = new DAL.Entities.Track();
                         TrainForAdd.Track.Add(track);
-                        TimeSpan dif = dateTimeModel.DateTime - modelForEditingScheduleCollection[0].DepartureTime;
+                        TimeSpan dif = dateTimeModel.DepartureTime - modelForEditingScheduleCollection[0].DepartureTime;
                         modelForEditingScheduleCollection.ToList().ForEach(modelForEditingSchedule =>
                         {
                             track.TimesForStation.Add(new TimesForStation() { ArrivalTime = modelForEditingSchedule.ArrivalTime + dif, DepartureTime = modelForEditingSchedule.DepartureTime + dif });
@@ -258,16 +286,16 @@ namespace CourseProject.ViewModel
             if (changingTime && propertyChangedEventArgs.PropertyName == "DepartureTime")
             {
                 changingTime = false;
-                dateTimeModelForFirstStationTrainSchedule.DateTime = modelForEditingScheduleCollection[0].DepartureTime;
+                dateTimeModelForFirstStationTrainSchedule.DepartureTime = modelForEditingScheduleCollection[0].DepartureTime;
                 changingTime = true;
             }
         }
         void ChangeTimeInStationTrainSchedule(object e, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            if(changingTime && propertyChangedEventArgs.PropertyName == "DateTime")
+            if(changingTime && propertyChangedEventArgs.PropertyName == "DepartureTime")
             {
                 changingTime = false;
-                TimeSpan dif = modelForEditingScheduleCollection[0].DepartureTime - dateTimeModelForFirstStationTrainSchedule.DateTime;
+                TimeSpan dif = modelForEditingScheduleCollection[0].DepartureTime - dateTimeModelForFirstStationTrainSchedule.DepartureTime;
                 modelForEditingScheduleCollection.ToList().ForEach(i =>
                 {
                     i.DepartureTime -= dif;
@@ -276,11 +304,11 @@ namespace CourseProject.ViewModel
                 changingTime = true;
             }
         }
-        private DateTimeModel dateTimeModelForFirstStationTrainSchedule;
+        private TimesForStationModel dateTimeModelForFirstStationTrainSchedule;
         void SetDateTimeForFirstStationTrainSchedule()
         {
             modelForEditingScheduleCollection[0].PropertyChanged += ChangeTimeInStartTime;
-            dateTimeModelForFirstStationTrainSchedule.DateTime = modelForEditingScheduleCollection[0].DepartureTime;
+            dateTimeModelForFirstStationTrainSchedule.DepartureTime = modelForEditingScheduleCollection[0].DepartureTime;
         }
         void UnSetDateTimeForFirstStationTrainSchedule()
         {
@@ -300,7 +328,7 @@ namespace CourseProject.ViewModel
                 modelForEditingScheduleCollection[modelForEditingScheduleCollection.Count - 1].PreviousModel.DepartureTime;
                 if (modelForEditingScheduleCollection.Count == 1)
                 {
-                    dateTimeModelForFirstStationTrainSchedule = new DateTimeModel();
+                    dateTimeModelForFirstStationTrainSchedule = new TimesForStationModel();
                     SetDateTimeForFirstStationTrainSchedule();
                     dateTimesForDeparture.Add(dateTimeModelForFirstStationTrainSchedule);
                     dateTimeModelForFirstStationTrainSchedule.PropertyChanged += ChangeTimeInStationTrainSchedule;

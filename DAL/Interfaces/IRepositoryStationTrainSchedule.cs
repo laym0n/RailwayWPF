@@ -10,5 +10,6 @@ namespace DAL.Interfaces
     public interface IRepositoryStationTrainSchedule : IRepository<StationTrainSchedule>
     {
         StationTrainSchedule GetItem(int id);
+        void Delete(int id);
     }
 }

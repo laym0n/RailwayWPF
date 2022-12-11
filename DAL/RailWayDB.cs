@@ -67,17 +67,17 @@ namespace DAL
                 .HasMany(e => e.StationTrainSchedule)
                 .WithRequired(e => e.Train)
                 .HasForeignKey(e => e.IdTrain)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Train>()
                 .HasMany(e => e.Van)
                 .WithRequired(e => e.Train)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Train>()
                 .HasMany(e => e.Track)
                 .WithRequired(e => e.Train)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Track>()
                 .HasMany(e => e.TimesForStation)

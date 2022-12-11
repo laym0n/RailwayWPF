@@ -31,5 +31,12 @@ namespace DAL.Realizations.Repositories
         {
             db.Entry(item).State = EntityState.Modified;
         }
+
+        public void Delete(int id)
+        {
+            TimesForStation timesForStation = GetItem(id);
+            if (timesForStation != null)
+                db.TimesForStation.Remove(timesForStation);
+        }
     }
 }

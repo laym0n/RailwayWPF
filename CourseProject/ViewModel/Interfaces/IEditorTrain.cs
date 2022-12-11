@@ -25,7 +25,7 @@ namespace CourseProject.ViewModel.Interfaces
         ObservableCollection<VanModel> Vans { get; }
         List<StationModel> StationModels { get; }
         ObservableCollection<ModelForEditingSchedule> ModelForEditingScheduleCollection { get; }
-        ObservableCollection<DateTimeModel> DateTimesForDeparture { get; }
+        ObservableCollection<TimesForStationModel> DateTimesForDeparture { get; }
         ICommand AddStartTripDateTime { get; }
         ICommand RemoveStartTripDateTime { get; }
         ICommand AddVan { get; }

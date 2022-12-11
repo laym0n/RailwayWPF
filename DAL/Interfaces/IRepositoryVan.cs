@@ -10,5 +10,6 @@ namespace DAL.Interfaces
     public interface IRepositoryVan : IRepository<Van>
     {
         Van GetItem(int id);
+        void Delete(int id);
     }
 }

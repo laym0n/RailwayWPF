@@ -17,7 +17,7 @@
     <Page.Resources>
         <localModelcol:TypeOfVanModelCollection x:Key="CollectionForComboBox"/>
         <localModel:VanModelCollection x:Key="CollectionForVans"/>
-        <localModelcol:DateTimeCollection x:Key="CollectionForAddingDateTimeDepartureInTrain"/>
+        <localModelcol:TimesForStationModelCollection x:Key="CollectionForAddingDateTimeDepartureInTrain"/>
         <localModelcol:StationCollection x:Key="CollectionForStatioinComboBox"/>
         <localModelcol:StationTrainScheduleCollection x:Key="CollectionForAddingStationInTrain"/>
     </Page.Resources>
@@ -274,12 +274,12 @@
                         <StackPanel Grid.Column="1">
                             <StackPanel.Resources>
 
-                                <DataTemplate x:Key="TemplateForDateTimesStartTrip">
+                                <DataTemplate x:Key="TemplateForDateTimesStartTrip" DataType="{x:Type localModel:TimesForStationModel}">
                                     <StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock VerticalAlignment="Center"
                        FontSize="24"
-                                           Text="{Binding Path=DateTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                           Text="{Binding Path=DepartureTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
                                             <materialDesign:DialogHost>
                                                 <Button Margin="8,0,0,0"
                     Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
@@ -294,12 +294,12 @@
 
                                                             <StackPanel Grid.Row="0" Orientation="Horizontal">
                                                                 <Calendar x:Name="CombinedCalendar" 
-                                   SelectedDate="{Binding DateTime}" 
+                                   SelectedDate="{Binding Path=DepartureTime}" 
                                    Margin="-1,-4,-1,0"/>
 
                                                                 <materialDesign:Clock x:Name="CombinedClock"
                                                                                      
-                                          Time="{Binding DateTime}"
+                                          Time="{Binding Path=DepartureTime}"
                                           DisplayAutomation ="ToMinutesOnly"
                                           Is24Hours="True" />
                                                             </StackPanel>
@@ -333,7 +333,7 @@
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForDateTimesStartTrip}"
-               ItemsSource="{Binding Source={StaticResource CollectionForAddingDateTimeDepartureInTrain}, Path=DateTimes}">
+               ItemsSource="{Binding Source={StaticResource CollectionForAddingDateTimeDepartureInTrain}, Path=Collection}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>

@@ -32,7 +32,7 @@ namespace CourseProject.View
             ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrain.Vans;
             ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrain.ModelForEditingScheduleCollection;
             ((StationCollection)TryFindResource("CollectionForStatioinComboBox")).Stations = ViewModelObject.EditorTrain.StationModels;
-            ((DateTimeCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).DateTimes = ViewModelObject.EditorTrain.DateTimesForDeparture;
+            ((TimesForStationModelCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).Collection = ViewModelObject.EditorTrain.DateTimesForDeparture;
             this.DataContext = ViewModelObject;
         }
     }

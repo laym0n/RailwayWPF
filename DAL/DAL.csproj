@@ -113,6 +113,10 @@
     <Compile Include="Migrations\202212050831078_AddNULLAbleToTrainForUserId.designer.cs">
       <DependentUpon>202212050831078_AddNULLAbleToTrainForUserId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212110049254_AddCascadeOnDelete.cs" />
+    <Compile Include="Migrations\202212110049254_AddCascadeOnDelete.designer.cs">
+      <DependentUpon>202212110049254_AddCascadeOnDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -176,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212050831078_AddNULLAbleToTrainForUserId.resx">
       <DependentUpon>202212050831078_AddNULLAbleToTrainForUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212110049254_AddCascadeOnDelete.resx">
+      <DependentUpon>202212110049254_AddCascadeOnDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

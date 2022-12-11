@@ -59,6 +59,7 @@ namespace CourseProject.Model
             this.id = item.Id;
             this.trackId = item.TrackId;
         }
+        public bool loadedInDb = false;
         public TimesForStationModel() { }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
