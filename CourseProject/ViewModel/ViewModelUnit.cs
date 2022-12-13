@@ -21,6 +21,10 @@ namespace CourseProject.ViewModel
 
             #endregion
 
+            #region ShowerStructureVan
+            EditorTrain.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
+            #endregion
+
             #region InfoProfile
             SignIn.UserSignOut += InfoProfile.CurrentUserSignOut;
             SignIn.UserSignIn += InfoProfile.SetCurrentUser;

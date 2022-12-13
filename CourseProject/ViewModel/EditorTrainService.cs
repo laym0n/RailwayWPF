@@ -23,6 +23,7 @@ namespace CourseProject.ViewModel
     {
         private User currentUser;
         public event Action TrainSaved;
+        public event Action<TypeOfVanModel> VanChoosen;
         private IUnitOfWork db;
         public EditorTrainService(IUnitOfWork db)
         {
@@ -178,7 +179,15 @@ namespace CourseProject.ViewModel
             get => new RelayCommand(obj =>
             {
                 vans.Add(new VanModel() { NumberInTrain = ((vans.LastOrDefault()?.NumberInTrain) ?? 0) + 1 });
+                vans.Last().PropertyChanged += ChangeViewOfVan;
             });
+        }
+        void ChangeViewOfVan(object e, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (changingTime && propertyChangedEventArgs.PropertyName == "TypeOfVanId")
+            {
+                VanChoosen?.Invoke(new TypeOfVanModel() { Id = (e as VanModel).TypeOfVanId });
+            }
         }
         public ICommand RemoveVan
         {

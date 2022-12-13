@@ -20,6 +20,7 @@ namespace CourseProject.ViewModel.Interfaces
         void SetDataWhenUserLeavePage(Page page);
         void RemoveTrain(TrainModel trainModel);
         event Action TrainSaved;
+        event Action<TypeOfVanModel> VanChoosen;
         ButtonInfoTrainEditPage ButtonInfo { get; }
         List<TypeOfVanModel> TypeOfVanModels { get; }
         ObservableCollection<VanModel> Vans { get; }

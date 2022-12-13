@@ -11,6 +11,7 @@ namespace CourseProject.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public StationModel() { }
         public StationModel(Station item)
         {
             this.Id = item.Id;

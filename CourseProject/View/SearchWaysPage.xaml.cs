@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CourseProject.View
+namespace CourseProject
 {
     /// <summary>
-    /// Логика взаимодействия для BuyTicketPage.xaml
+    /// Логика взаимодействия для SearchWaysPage.xaml
     /// </summary>
-    public partial class BuyTicketPage : Page
+    public partial class SearchWaysPage : Page
     {
-        public BuyTicketPage()
+        public SearchWaysPage()
         {
             InitializeComponent();
         }
