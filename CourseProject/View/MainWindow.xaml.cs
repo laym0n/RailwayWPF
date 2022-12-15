@@ -34,7 +34,7 @@ namespace CourseProject
             kernel = new StandardKernel(new NinjectRegistrations(this));
             this.viewModel = kernel.Get<IMediator>();
             this.DataContext = viewModel;
-            NavigableFrame.Navigate(new SearchWaysPage());
+            NavigableFrame.Navigate(new SearchWaysPage(viewModel));
         }
     }
 }

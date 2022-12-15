@@ -32,6 +32,7 @@ namespace CourseProject.Util
             Bind<IInfoProfile>().To<ProfileService>().InSingletonScope();
             Bind<IUnitOfWork>().To<DBReposSQLServer>().InSingletonScope();
             Bind<IMediator>().To<ViewModelUnit>().InSingletonScope();
+            Bind<ISearcherWays>().To<SearcherWays>().InSingletonScope();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace CourseProject
     /// </summary>
     public partial class SearchWaysPage : Page
     {
-        public SearchWaysPage()
+        IMediator mediator1;
+        public SearchWaysPage(IMediator mediator)
         {
             InitializeComponent();
+            this.mediator1 = mediator;
+            DataContext = mediator1;
         }
     }
 }

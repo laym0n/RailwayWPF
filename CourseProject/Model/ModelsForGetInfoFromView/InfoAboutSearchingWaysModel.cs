@@ -12,8 +12,7 @@ namespace CourseProject.Model.ModelsForGetInfoFromView
     {
         int idStartStation;
         int idEndStation;
-        DateTime dateTimeStartStation;
-        DateTime dateTimeEndStation;
+        DateTime dateTimeArriving;
         public int IdStartStation
         {
             get => idStartStation;
@@ -32,22 +31,13 @@ namespace CourseProject.Model.ModelsForGetInfoFromView
                 OnPropertyChanged("IdEndStation");
             }
         }
-        public DateTime DateTimeStartStation
+        public DateTime DateTimeArriving
         {
-            get => dateTimeStartStation;
+            get => dateTimeArriving;
             set
             {
-                dateTimeStartStation = value;
-                OnPropertyChanged("DateTimeStartStation");
-            }
-        }
-        public DateTime DateTimeEndStation
-        {
-            get => dateTimeEndStation;
-            set
-            {
-                dateTimeEndStation = value;
-                OnPropertyChanged("DateTimeEndStation");
+                dateTimeArriving = value;
+                OnPropertyChanged("DateTimeArriving");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

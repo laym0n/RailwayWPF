@@ -65,7 +65,7 @@ namespace CourseProject.ViewModel
         public ICommand NavigateBuyTicket
         {
             get => new RelayCommand((obj) => {
-                Navigate(new SearchWaysPage());
+                Navigate(new SearchWaysPage(ViewModel));
             });
         }
         public ICommand NavigateProfile

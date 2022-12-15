@@ -55,12 +55,8 @@
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
-            <DatePicker
-                Grid.Column="3"
-  Width="140"
-  materialDesign:HintAssist.HelperText="Helper text"
-  materialDesign:HintAssist.Hint="Pick Date"
-  Style="{StaticResource MaterialDesignFilledDatePicker}" />
+            <Button Command="{Binding Path=SearcherWays.FindWays}" Content="Find"
+                    Grid.Column="3"/>
 
             <ComboBox
                 Grid.Column="0"

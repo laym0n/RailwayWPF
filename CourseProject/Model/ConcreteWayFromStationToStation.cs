@@ -8,6 +8,6 @@ namespace CourseProject.Model
 {
     public class ConcreteWayFromStationToStation
     {
-        public List<ConcreteWayTrainModel> ConcreteWayTrainModels { get; }
+        public List<ConcreteWayTrainModel> ConcreteWayTrainModels { get; set; }
     }
 }
