@@ -60,6 +60,7 @@
     <Compile Include="Interfaces\IRepositoryPassenger.cs" />
     <Compile Include="Interfaces\IRepositorySeat.cs" />
     <Compile Include="Interfaces\IRepositoryStationTrainSchedule.cs" />
+    <Compile Include="Interfaces\IRepositoryTicket.cs" />
     <Compile Include="Interfaces\IRepositoryTimesForStation.cs" />
     <Compile Include="Interfaces\IRepositoryTrack.cs" />
     <Compile Include="Interfaces\IRepositoryTrain.cs" />
@@ -117,6 +118,10 @@
     <Compile Include="Migrations\202212110049254_AddCascadeOnDelete.designer.cs">
       <DependentUpon>202212110049254_AddCascadeOnDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212151400288_CascadeDeleteTrack.cs" />
+    <Compile Include="Migrations\202212151400288_CascadeDeleteTrack.designer.cs">
+      <DependentUpon>202212151400288_CascadeDeleteTrack.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="Realizations\Repositories\SeatRepository.cs" />
     <Compile Include="Realizations\Repositories\StationRepository.cs" />
     <Compile Include="Realizations\Repositories\StationTrainScheduleRepository.cs" />
+    <Compile Include="Realizations\Repositories\TicketRepository.cs" />
     <Compile Include="Realizations\Repositories\TimesForStationRepository.cs" />
     <Compile Include="Realizations\Repositories\TrackRepository.cs" />
     <Compile Include="Realizations\Repositories\TrainRepository.cs" />
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212110049254_AddCascadeOnDelete.resx">
       <DependentUpon>202212110049254_AddCascadeOnDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212151400288_CascadeDeleteTrack.resx">
+      <DependentUpon>202212151400288_CascadeDeleteTrack.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

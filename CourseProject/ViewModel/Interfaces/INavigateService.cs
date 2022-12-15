@@ -20,6 +20,7 @@ namespace CourseProject.ViewModel.Interfaces
         void LoadTrainEditPageForEditTrain();
         void SetMainMenuWhenSignOut();
         void SetMainMenuWhenSignIn();
+        void LoadPageAfterSaveTrain();
         ICommand NavigateBuyTicket { get; }
         ICommand NavigateProfile { get; }
         ICommand NavigateEditTrain { get; }

@@ -29,13 +29,15 @@ namespace CourseProject.ViewModel
             #region InfoProfile
             SignIn.UserSignOut += InfoProfile.CurrentUserSignOut;
             SignIn.UserSignIn += InfoProfile.SetCurrentUser;
-            NavigationService.Leave += InfoProfile.ClearUnSavedDataWhenUserLeavePage;
+            NavigationService.Leave += InfoProfile.ClearDataWhenLeavePage;
+            NavigationService.Enter += InfoProfile.LoadDataWhenEnteringPage;
             #endregion
 
             #region NavigationService
             SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
             SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
             InfoProfile.EditExistTrain += obj => NavigationService.LoadTrainEditPageForEditTrain();
+            EditorTrain.TrainSaved += NavigationService.LoadPageAfterSaveTrain;
             NavigationService.ViewModel = this;
             #endregion
 

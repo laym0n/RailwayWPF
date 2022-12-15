@@ -82,7 +82,7 @@ namespace DAL
             modelBuilder.Entity<Track>()
                 .HasMany(e => e.TimesForStation)
                 .WithRequired(e => e.Track)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<TypeOfVan>()
                 .HasMany(e => e.Van)

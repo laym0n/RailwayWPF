@@ -64,4 +64,19 @@ namespace CourseProject.Model
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
+    public class TimesForStationModelComparer : IEqualityComparer<TimesForStationModel>
+    {
+        public bool Equals(TimesForStationModel x, TimesForStationModel y)
+        {
+            if (Object.ReferenceEquals(x, y)) return true;
+            if (Object.ReferenceEquals(x, null) || Object.ReferenceEquals(y, null))
+                return false;
+            return x.loadedInDb && y.loadedInDb && x.Id == y.Id;
+        }
+        public int GetHashCode(TimesForStationModel x)
+        {
+            if (Object.ReferenceEquals(x, null)) return 0;
+            return x.GetHashCode();
+        }
+    }
 }

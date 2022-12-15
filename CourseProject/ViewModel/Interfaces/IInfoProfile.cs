@@ -18,7 +18,8 @@ namespace CourseProject.ViewModel.Interfaces
         ObservableCollection<TrainInProfileModel> TrainInProfileModels { get; }
         event Action<TrainModel> EditExistTrain;
         event Action<TrainModel> RemoveExistTrain;
-        void ClearUnSavedDataWhenUserLeavePage(Page page);
+        void LoadDataWhenEnteringPage(Page page);
+        void ClearDataWhenLeavePage(Page page);
         void CurrentUserSignOut();
         ICommand EditTrain { get; }
         ICommand RemoveTrain { get; }

@@ -20,39 +20,51 @@ namespace CourseProject.ViewModel
         private User currentUser;
         private IUnitOfWork unitOfWork;
         public void SetCurrentUser(User user) => currentUser = user;
-        public void ClearUnSavedDataWhenUserLeavePage(Page page)
+        public void ClearDataWhenLeavePage(Page page)
         {
             if(page is Profile)
             {
-                passengers?.Where(i => !i.LoadedInDB).ToList().All(i => passengers.Remove(i));
+                passengers.Clear();
+                trainInProfileModels.Clear();
+
             }
         }
-        private ObservableCollection<PassengerViewModel> passengers = null;
-        //private ObservableCollection<PassengerViewModel> passengers = null;
+        public void LoadDataWhenEnteringPage(Page page)
+        {
+            if (!(page is Profile))
+                return;
+            (
+            from train in unitOfWork.Train.GetList()
+            where train.IdUserCreator == currentUser.Id
+            select new TrainInProfileModel
+            {
+                TrainModel = new TrainModel() { Id = train.Id, IdUserCreator = (int)train.IdUserCreator, LoadedInDB = true },
+                Stations = (from stationtrainschedule in unitOfWork.StationTrainSchedule.GetList()
+                    where train.Id == stationtrainschedule.IdTrain
+                    join station in unitOfWork.Station.GetList()
+                    on stationtrainschedule.IdStation equals station.Id
+                    orderby stationtrainschedule.NumberInTrip
+                    select station.Name).ToList()
+                }).ToList().ForEach(i => trainInProfileModels.Add(i));
+            unitOfWork.Passengers.GetList().Where(i => i.UserId == currentUser.Id).Select(i => new PassengerViewModel(i, true)).ToList().ForEach(i => passengers.Add(i));
+        }
+        private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>();
         public event Action<TrainModel> EditExistTrain;
         public event Action<TrainModel> RemoveExistTrain;
-        private ObservableCollection<TrainInProfileModel> trainInProfileModels;
+        private ObservableCollection<TrainInProfileModel> trainInProfileModels= new ObservableCollection<TrainInProfileModel>();
         public ObservableCollection<TrainInProfileModel> TrainInProfileModels 
         {
             get
             {
-                return trainInProfileModels ??
-                    (
-                    trainInProfileModels = new ObservableCollection<TrainInProfileModel>(
-                        from train in unitOfWork.Train.GetList()
-                        where train.IdUserCreator == currentUser.Id
-                        select new TrainInProfileModel
-                        {
-                            TrainModel = new TrainModel() { Id = train.Id, IdUserCreator = (int)train.IdUserCreator, LoadedInDB = true },
-                            Stations = (from stationtrainschedule in unitOfWork.StationTrainSchedule.GetList()
-                                        where train.Id == stationtrainschedule.IdTrain
-                                        join station in unitOfWork.Station.GetList()
-                                        on stationtrainschedule.IdStation equals station.Id
-                                        orderby stationtrainschedule.NumberInTrip
-                                        select station.Name).ToList()
-                        }
-                        )
-                    ) ;
+                return trainInProfileModels;
+            }
+        }
+        public ObservableCollection<PassengerViewModel> PassengerViewModels
+        {
+            get
+            {
+                return passengers;
+                //когда буду переходить на другую страницу не забыть удалить из PassengerViewModels не добавленные профии пассажиров
             }
         }
         public ProfileService(IUnitOfWork unityOfWork)
@@ -65,6 +77,8 @@ namespace CourseProject.ViewModel
             {
                 if (obj is TrainInProfileModel trainInProfileModelForRemove)
                 {
+                    passengers.Clear();
+                    trainInProfileModels.Clear();
                     EditExistTrain?.Invoke(trainInProfileModelForRemove.TrainModel);
                 }
             }); 
@@ -136,14 +150,6 @@ namespace CourseProject.ViewModel
             },
                 (obj) =>
                 (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
-        }
-        public ObservableCollection<PassengerViewModel> PassengerViewModels 
-        {
-            get
-            {
-                return passengers ?? (passengers = new ObservableCollection<PassengerViewModel>(unitOfWork.Passengers.GetList().Where(i=>i.UserId == currentUser.Id).Select(i => new PassengerViewModel(i, true))));
-                //когда буду переходить на другую страницу не забыть удалить из PassengerViewModels не добавленные профии пассажиров
-            }
         }
         public void CurrentUserSignOut()
         {

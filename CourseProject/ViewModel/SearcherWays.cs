@@ -37,9 +37,9 @@ namespace CourseProject.ViewModel
                 //    return;
                 InfoAboutSearchingWaysModel obj = new InfoAboutSearchingWaysModel()
                 {
-                    IdEndStation = 2,
+                    IdEndStation = 5,
                     IdStartStation = 1,
-                    DateTimeArriving = new DateTime(2024, 1, 1)
+                    DateTimeArriving = new DateTime(2025, 1, 1)
                 };
                 pathsFound.Clear();
                 NodeForSearchWay NodeForSearch = new NodeForSearchWay()
@@ -116,12 +116,13 @@ namespace CourseProject.ViewModel
         {
             if(Way.FirstOrDefault(i => i.IdStation == nodeForSearchWay.StationEnd.Id) != null)
             {
-                nodeForSearchWay.CurrentStationAndPathNode.CurrentPath.Add(new TrainWayWithoutTime()
+                List<TrainWayWithoutTime> CurrentPath = new List<TrainWayWithoutTime>(nodeForSearchWay.CurrentStationAndPathNode.CurrentPath);
+                CurrentPath.Add(new TrainWayWithoutTime()
                 {
                     FromStationSchedule = Way.First(i=>i.IdStation == nodeForSearchWay.CurrentStationAndPathNode.CurrentStation.Id),
                     ToStationSchedule = Way.First(i => i.IdStation == nodeForSearchWay.StationEnd.Id)
                 });
-                CheckAddFoundPathAndAdd(nodeForSearchWay.CurrentStationAndPathNode.CurrentPath, nodeForSearchWay.DateTimeArriving);
+                CheckAddFoundPathAndAdd(CurrentPath, nodeForSearchWay.DateTimeArriving);
             }
             else
                 AddWaysForSearching(nodeForSearchWay, Way);
@@ -158,11 +159,12 @@ namespace CourseProject.ViewModel
             List<TimeForWay> timesForStationsForWay = (
                 from tracks in db.Track.GetList()
                 where Way.FirstOrDefault(i => i.FromStationSchedule.IdTrain == tracks.TrainId) != null
-                //добавить проверку на наличие билетов
                 join timesForStation in db.TimesForStation.GetList()
                 on tracks.Id equals timesForStation.TrackId
                 orderby timesForStation.DepartureTime
                 group timesForStation by tracks into timesForTrack
+                where db.Ticket.GetList().Where(i=>i.IdTimesForStationDestiny == timesForTrack.Key.Id).Count() < 
+                db.Van.GetList().Where(i=>i.TrainId == timesForTrack.Key.TrainId).Sum(j=> db.Seat.GetList().Where(i=>i.TypeOfVanId == j.TypeOfVanId).Count())
                 select new TimeForWay(timesForTrack.Key,
                 timesForTrack.Skip(Way.
                 Where(i => i.ToStationSchedule.IdTrain == timesForTrack.Key.TrainId).First().FromStationSchedule.NumberInTrip - 1).First(),

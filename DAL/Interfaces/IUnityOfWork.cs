@@ -21,6 +21,7 @@ namespace DLL.Interfaces
         IRepositoryTimesForStation TimesForStation { get; }
         IRepositoryTrack Track { get; }
         IRepositoryStationTrainSchedule StationTrainSchedule { get; }
+        IRepositoryTicket Ticket { get; }
         int Save();
 
     }

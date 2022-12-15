@@ -33,6 +33,10 @@ namespace CourseProject.ViewModel
             };
         }
         public Frame PageFrame { get; set; }
+        public void LoadPageAfterSaveTrain()
+        {
+            Navigate(new Profile(ViewModel));
+        }
         public void LoadTrainEditPageForEditTrain()
         {
             PageFrame.Navigate(new TrainEditPage(ViewModel));
