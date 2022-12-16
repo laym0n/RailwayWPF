@@ -1,5 +1,4 @@
-﻿using CourseProject.ViewModel.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace CourseProject.View
 {
     /// <summary>
-    /// Логика взаимодействия для BuyTicketPage.xaml
+    /// Логика взаимодействия для ReportPage.xaml
     /// </summary>
-    public partial class BuyTicketPage : Page
+    public partial class ReportPage : Page
     {
-        IMediator ViewModel;
-        public BuyTicketPage(IMediator ViewModelObject)
+        public ReportPage()
         {
             InitializeComponent();
-            this.ViewModel = ViewModelObject;
-            var a = ViewModelObject.ShowerStructureVan.StructureVansWithSeats;
-            rad.ItemsSource = a;
-            DataContext = ViewModelObject;
         }
     }
 }

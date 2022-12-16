@@ -33,6 +33,10 @@ namespace CourseProject.ViewModel
             };
         }
         public Frame PageFrame { get; set; }
+        public void LoadPageBuyTicket()
+        {
+            Navigate(new BuyTicketPage(ViewModel));
+        }
         public void LoadPageAfterSaveTrain()
         {
             Navigate(new Profile(ViewModel));

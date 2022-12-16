@@ -5,11 +5,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace CourseProject.ViewModel.Interfaces
 {
     public interface ISearcherWays
     {
+        event Action<ConcreteWayFromStationToStation> UserChooseWay;
         ObservableCollection<ConcreteWayFromStationToStation> PathsFound { get; }
+        ICommand EnterBuyPage { get; }
+        ICommand FindWays { get; }
     }
 }

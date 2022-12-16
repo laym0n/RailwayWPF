@@ -12,7 +12,8 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-      Title="Page1" Background="White">
+      Title="Page1" Background="White"
+      Name="SearchPage">
     <Page.Resources>
         <localModelcol:StationModelCollection x:Key="Stations"/>
         <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
@@ -215,6 +216,8 @@
                                     </Expander>
                                 </materialDesign:Card>
                                 <Button Grid.Column="1" Grid.Row="3"
+  Command="{Binding ElementName=SearchPage, Path=DataContext.SearcherWays.EnterBuyPage}"
+                                        CommandParameter="{Binding}"
   Content="Купить билет" />
 
 

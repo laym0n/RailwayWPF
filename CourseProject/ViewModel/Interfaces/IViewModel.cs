@@ -14,5 +14,6 @@ namespace CourseProject.ViewModel.Interfaces
         IEditorTrain EditorTrain { get; }
         IShowerStructureVan ShowerStructureVan { get; }
         ISearcherWays SearcherWays { get; }
+        IBuyTicket BuyTicket { get; }
     }
 }

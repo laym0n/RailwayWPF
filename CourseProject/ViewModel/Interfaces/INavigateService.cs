@@ -18,6 +18,7 @@ namespace CourseProject.ViewModel.Interfaces
         Frame PageFrame { get; }
         MenuShow VisibleButtons { get; }
         void LoadTrainEditPageForEditTrain();
+        void LoadPageBuyTicket();
         void SetMainMenuWhenSignOut();
         void SetMainMenuWhenSignIn();
         void LoadPageAfterSaveTrain();

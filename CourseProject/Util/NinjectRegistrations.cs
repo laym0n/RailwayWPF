@@ -33,6 +33,7 @@ namespace CourseProject.Util
             Bind<IUnitOfWork>().To<DBReposSQLServer>().InSingletonScope();
             Bind<IMediator>().To<ViewModelUnit>().InSingletonScope();
             Bind<ISearcherWays>().To<SearcherWays>().InSingletonScope();
+            Bind<IBuyTicket>().To<BuyTicketService>().InSingletonScope();
         }
     }
 }

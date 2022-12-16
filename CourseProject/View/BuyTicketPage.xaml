@@ -13,7 +13,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BuyTicketPage">
-
+    <Page.Resources>
+        <localModelcol:VansStrucureWithSeatsCollection x:Key="StructureVans"/>
+    </Page.Resources>
     <Grid>
         <materialDesign:Card>
             <TabControl
@@ -27,7 +29,81 @@
                 <TabItem
       Margin="4">
                     <TabItem.Resources>
-                        
+                        <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
+                            <ItemsControl
+               ItemsSource="{Binding}">
+                                <ItemsControl.ItemsPanel>
+
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type localModel:CellStrucureVanModel}">
+                                        <StackPanel Margin="10">
+                                            <TextBlock Text="{Binding CostPerStation}"/>
+                                            <TextBlock Text="{Binding NumberOfSeatInVan}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            
+                            
+                        </DataTemplate>
+
+                        <DataTemplate x:Key="AlternativeAddressTemplate">
+                            <StackPanel Orientation="Vertical">
+                                <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
+               ItemsSource="{Binding}">
+                                    <ItemsControl.ItemsPanel>
+
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Предыдущий вагон"/>
+
+
+                                    <Button Content="Следующий вагон"/>
+
+
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </TabItem.Resources>
+                    <TabItem.Header>
+                        <StackPanel
+          Width="auto"
+          Height="auto">
+                            <materialDesign:PackIcon
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Center"
+            Kind="ClockOutline" />
+                            <TextBlock
+            HorizontalAlignment="Center"
+            Text="Recent" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <ItemsControl ItemsSource="{Binding Source={StaticResource StructureVans}, Path=Collection}"
+                                      Grid.Column="1" 
+                                      x:Name="rad" 
+                                      ItemTemplate="{StaticResource AlternativeAddressTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem
+      Margin="4">
+                    <TabItem.Resources>
+
                     </TabItem.Resources>
                     <TabItem.Header>
                         <StackPanel
@@ -57,239 +133,6 @@
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>-->
-                    </Grid>
-                </TabItem>
-                <TabItem>
-                    <TabItem.Header>
-                        <StackPanel
-          Width="auto"
-          Height="auto">
-                            <materialDesign:PackIcon
-            Width="24"
-            Height="24"
-            HorizontalAlignment="Center"
-            Kind="Images" />
-                            <TextBlock
-            HorizontalAlignment="Center"
-            Text="Photos" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" IsEnabled="{Binding Source={x:Static localModelEditing:InfoButtonsOnTrainEditPage.Instance},
-                            Path=IsEnable}">
-                            <StackPanel.Resources>
-                                <DataTemplate x:Key="TemplateForStationSchedule">
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Path=StationTrainSchedule.NumberInTrip}" />
-                                        <ComboBox
-                                    SelectedValue="{Binding Path=StationTrainScheduleModel.IdStation}"
-                                    ItemsSource="{Binding Source={StaticResource CollectionForStatioinComboBox}, Path=Stations}"
-                                    DisplayMemberPath="Name"
-                                    SelectedValuePath="Id"
-                                    
-  materialDesign:ComboBoxAssist.MaxLength="2"
-  materialDesign:HintAssist.Hint="Search"
-  materialDesign:HintAssist.HintOpacity=".26"/>
-                                        <TextBlock Text="Время прибытия" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock VerticalAlignment="Center"
-                       FontSize="24"
-                                           Text="{Binding Path=ArrivalTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
-                                            <materialDesign:DialogHost>
-                                                <Button Margin="8,0,0,0"
-                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                    Content="Изменить">
-                                                    <Button.CommandParameter>
-
-                                                        <Grid Margin="-1">
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*" />
-                                                                <RowDefinition Height="Auto" />
-                                                            </Grid.RowDefinitions>
-
-                                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                                                <Calendar x:Name="CombinedCalendar" 
-                                   SelectedDate="{Binding Path=ArrivalTime}" 
-                                   Margin="-1,-4,-1,0"
-                                   DisplayDateStart="{Binding Path=PreviousModel.DepartureTime}"/>
-
-                                                                <materialDesign:Clock x:Name="CombinedClock"
-                                                                                     
-                                          Time="{Binding Path=ArrivalTime}"
-                                          DisplayAutomation ="ToMinutesOnly"
-                                          Is24Hours="True" />
-                                                            </StackPanel>
-
-                                                            <StackPanel Grid.Row="1"
-                              Margin="8"
-                              HorizontalAlignment="Right"
-                              Orientation="Horizontal">
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="0"
-                            Content="CANCEL"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="1"
-                            Content="OK"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Button.CommandParameter>
-                                                </Button>
-                                            </materialDesign:DialogHost>
-                                        </StackPanel>
-                                        <TextBlock Text="Время отправления" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock VerticalAlignment="Center"
-                       FontSize="24"
-                                           Text="{Binding Path=DepartureTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
-                                            <materialDesign:DialogHost>
-                                                <Button Margin="8,0,0,0"
-                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                    Content="Изменить">
-                                                    <Button.CommandParameter>
-
-                                                        <Grid Margin="-1">
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*" />
-                                                                <RowDefinition Height="Auto" />
-                                                            </Grid.RowDefinitions>
-
-                                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                                                <Calendar 
-                                   SelectedDate="{Binding Path=DepartureTime}" 
-                                   Margin="-1,-4,-1,0"
-                                   DisplayDateStart="{Binding Path=ArrivalTime}"/>
-
-                                                                <materialDesign:Clock
-                                                                                     
-                                          Time="{Binding Path=DepartureTime}"
-                                          DisplayAutomation ="ToMinutesOnly"
-                                          Is24Hours="True" />
-                                                            </StackPanel>
-
-                                                            <StackPanel Grid.Row="1"
-                              Margin="8"
-                              HorizontalAlignment="Right"
-                              Orientation="Horizontal">
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="0"
-                            Content="CANCEL"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="1"
-                            Content="OK"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Button.CommandParameter>
-                                                </Button>
-                                            </materialDesign:DialogHost>
-                                        </StackPanel>
-                                        <Button
-                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrain.RemoveStationFromSchedule}"
-    Content="Удалить станцию"
-                                    CommandParameter="{Binding}"
-    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
-
-                                    </StackPanel>
-                                </DataTemplate>
-                            </StackPanel.Resources>
-                            <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStationSchedule}"
-               ItemsSource="{Binding Source={StaticResource CollectionForAddingStationInTrain}, Path=StationSchedule}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                            <Button
-            Command="{Binding Path=EditorTrain.AddStationInSchedule}"
-    Content="Добавить станцию в расписание"
-    Style="{StaticResource MaterialDesignRaisedLightButton}">
-                            </Button>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1">
-                            <StackPanel.Resources>
-
-                                <DataTemplate x:Key="TemplateForDateTimesStartTrip" DataType="{x:Type localModel:TimesForStationModel}">
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock VerticalAlignment="Center"
-                       FontSize="24"
-                                           Text="{Binding Path=DepartureTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
-                                            <materialDesign:DialogHost>
-                                                <Button Margin="8,0,0,0"
-                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                    Content="Изменить">
-                                                    <Button.CommandParameter>
-
-                                                        <Grid Margin="-1">
-                                                            <Grid.RowDefinitions>
-                                                                <RowDefinition Height="*" />
-                                                                <RowDefinition Height="Auto" />
-                                                            </Grid.RowDefinitions>
-
-                                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                                                <Calendar x:Name="CombinedCalendar" 
-                                   SelectedDate="{Binding Path=DepartureTime}" 
-                                   Margin="-1,-4,-1,0"/>
-
-                                                                <materialDesign:Clock x:Name="CombinedClock"
-                                                                                     
-                                          Time="{Binding Path=DepartureTime}"
-                                          DisplayAutomation ="ToMinutesOnly"
-                                          Is24Hours="True" />
-                                                            </StackPanel>
-
-                                                            <StackPanel Grid.Row="1"
-                              Margin="8"
-                              HorizontalAlignment="Right"
-                              Orientation="Horizontal">
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="0"
-                            Content="CANCEL"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-
-                                                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                            CommandParameter="1"
-                            Content="OK"
-                            Style="{StaticResource MaterialDesignFlatButton}" />
-                                                            </StackPanel>
-                                                        </Grid>
-                                                    </Button.CommandParameter>
-                                                </Button>
-                                            </materialDesign:DialogHost>
-                                        </StackPanel>
-                                        <Button
-                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrain.RemoveStartTripDateTime}"
-    Content="Удалить время отправления"
-                                    CommandParameter="{Binding}"
-    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
-
-                                    </StackPanel>
-                                </DataTemplate>
-                            </StackPanel.Resources>
-                            <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForDateTimesStartTrip}"
-               ItemsSource="{Binding Source={StaticResource CollectionForAddingDateTimeDepartureInTrain}, Path=Collection}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                            <Button
-            Command="{Binding Path=EditorTrain.AddStartTripDateTime}"
-    Content="Добавить время отправления поезда"
-    Style="{StaticResource MaterialDesignRaisedLightButton}">
-                            </Button>
-                        </StackPanel>
                     </Grid>
                 </TabItem>
                 <TabItem IsEnabled="True">

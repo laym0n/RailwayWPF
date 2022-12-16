@@ -10,10 +10,19 @@ namespace CourseProject.Model
     {
         public int? CostPerStation { get; }
         public int? NumberOfSeatInVan { get; }
-        public CellStrucureVanModel(int? costPerStation, int? numberOfSeatInVan)
+        public TypeOccupied typeOccupied { get; }
+        public CellStrucureVanModel(int? costPerStation, int? numberOfSeatInVan, TypeOccupied typeOccupied)
         {
             this.CostPerStation = costPerStation;
             this.NumberOfSeatInVan = numberOfSeatInVan;
+            this.typeOccupied = typeOccupied;
         }
+    }
+    public enum TypeOccupied
+    {
+        Occupied,
+        Free,
+        ReserveForBuy,
+        NotSeat
     }
 }

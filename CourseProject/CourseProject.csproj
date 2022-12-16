@@ -94,6 +94,7 @@
     <Compile Include="Model\Collections\TimesForStationModelCollection.cs" />
     <Compile Include="Model\Collections\TrainInProfileModelCollection.cs" />
     <Compile Include="Model\Collections\TypeOfVanModelCollection.cs" />
+    <Compile Include="Model\Collections\VansStrucureWithSeatsCollection.cs" />
     <Compile Include="Model\ConcreteWayFromStationToStation.cs" />
     <Compile Include="Model\DateTimeModel.cs" />
     <Compile Include="Model\MenuShow.cs" />
@@ -119,7 +120,9 @@
     <Compile Include="Model\VanModel.cs" />
     <Compile Include="Model\ConcreteWayTrainModel.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
+    <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />
+    <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
     <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
@@ -136,6 +139,9 @@
     <Compile Include="ViewModel\ViewModelUnit.cs" />
     <Compile Include="View\BuyTicketPage.xaml.cs">
       <DependentUpon>BuyTicketPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SearchWaysPage.xaml.cs">
       <DependentUpon>SearchWaysPage.xaml</DependentUpon>
@@ -165,6 +171,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SearchWaysPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,88 @@
+﻿<Page x:Class="CourseProject.View.ReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProject.View"
+      mc:Ignorable="d" 
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+      Title="ReportPage">
+    <Page.Resources>
+        <localModelcol:StationModelCollection x:Key="Stations"/>
+        <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="64*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"></ColumnDefinition>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <DatePicker
+                SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
+                DisplayDateStart="{x:Static system:DateTime.Now}"
+                DisplayDate="{x:Static system:DateTime.Now}"
+                Grid.Column="2"
+  Width="140"
+  materialDesign:HintAssist.HelperText="Helper text"
+  materialDesign:HintAssist.Hint="Pick Date"
+  Style="{StaticResource MaterialDesignFilledDatePicker}" />
+            <Button Command="{Binding Path=SearcherWays.FindWays}"
+                   
+                    Content="Find"
+                    Grid.Column="3"/>
+
+            <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
+                Grid.Column="0"
+  Width="256"
+  materialDesign:HintAssist.Hint="Откуда"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+            </ComboBox>
+            <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
+                Grid.Column="1"
+  Width="256"
+  materialDesign:HintAssist.Hint="Куда"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+            </ComboBox>
+
+
+
+        </Grid>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    
+                </StackPanel>
+                <ListView>
+
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
+        
+    </Grid>
+</Page>

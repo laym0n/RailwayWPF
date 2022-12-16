@@ -12,6 +12,8 @@ namespace CourseProject.ViewModel.Interfaces
     public interface IShowerStructureVan
     {
         void SetStructureVanWithoutSeats(TypeOfVanModel van);
+        void SetStrucureWithSeats(ConcreteWayFromStationToStation way);
         ObservableCollection<List<CellStrucureVanModel>> StructureVanWithoutSeats { get; }
+        ObservableCollection<List<List<CellStrucureVanModel>>> StructureVansWithSeats { get; }
     }
 }

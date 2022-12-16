@@ -23,6 +23,7 @@ namespace CourseProject.ViewModel
         {
             get => pathsFound; 
         }
+        public event Action<ConcreteWayFromStationToStation> UserChooseWay;
         IUnitOfWork db;
         public SearcherWays(IUnitOfWork db)
         {
@@ -76,6 +77,16 @@ namespace CourseProject.ViewModel
                 }
                 if (pathsFound.Count == 0)
                     MessageBox.Show("Путь не найден!");
+            });
+        }
+        public ICommand EnterBuyPage
+        {
+            get => new RelayCommand((obj) =>
+            {
+                if(obj is ConcreteWayFromStationToStation concreteWayFromStationToStation)
+                {
+                    UserChooseWay?.Invoke(concreteWayFromStationToStation);
+                }
             });
         }
         struct NodeCurrentStation
@@ -184,6 +195,7 @@ namespace CourseProject.ViewModel
                 PathsFound.Add(FindedWay);
             }
         }
+        
         ConcreteWayFromStationToStation FindConcreteWayFromStationToStation(List<TrainWayWithoutTime> Way, List<TimeForWay> timeForWays, int IndexInList, DateTime DepartureTimeNextStation)
         {
             if (IndexInList == -1)
