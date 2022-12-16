@@ -1,4 +1,5 @@
-﻿using CourseProject.ViewModel.Interfaces;
+﻿using CourseProject.Model.Collections;
+using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,7 @@ namespace CourseProject
         {
             InitializeComponent();
             this.mediator1 = mediator;
+            ((StationModelCollection)TryFindResource("Stations")).Collection = mediator1.EditorTrain.StationModels;
             DataContext = mediator1;
         }
     }

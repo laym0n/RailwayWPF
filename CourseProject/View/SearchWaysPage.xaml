@@ -3,7 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:CourseProject"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
@@ -11,6 +14,8 @@
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
       Title="Page1" Background="White">
     <Page.Resources>
+        <localModelcol:StationModelCollection x:Key="Stations"/>
+        <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
         <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
             <Setter Property="Opacity" Value=".68" />
             <Setter Property="Text" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
@@ -50,30 +55,41 @@
                 <ColumnDefinition Width="25*"/>
             </Grid.ColumnDefinitions>
             <DatePicker
+                SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
+                DisplayDateStart="{x:Static system:DateTime.Now}"
+                DisplayDate="{x:Static system:DateTime.Now}"
                 Grid.Column="2"
   Width="140"
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
-            <Button Command="{Binding Path=SearcherWays.FindWays}" Content="Find"
+            <Button Command="{Binding Path=SearcherWays.FindWays}"
+                    CommandParameter="{StaticResource InfoAboutWay}"
+                    Content="Find"
                     Grid.Column="3"/>
 
             <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
                 Grid.Column="0"
   Width="256"
   materialDesign:HintAssist.Hint="Откуда"
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
-  ItemsSource="{Binding ShortStringList}"
   Style="{StaticResource MaterialDesignFilledComboBox}">
             </ComboBox>
             <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
                 Grid.Column="1"
   Width="256"
   materialDesign:HintAssist.Hint="Куда"
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
-  ItemsSource="{Binding ShortStringList}"
   Style="{StaticResource MaterialDesignFilledComboBox}">
             </ComboBox>
             

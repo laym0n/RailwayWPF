@@ -31,16 +31,16 @@ namespace CourseProject.ViewModel
         const int MaxCountOfTrainTransfers = 6;
         public ICommand FindWays
         {
-            get => new RelayCommand((obj1) =>
+            get => new RelayCommand((obj) =>
             {
-                //if (!(obj is InfoAboutSearchingWaysModel))
-                //    return;
-                InfoAboutSearchingWaysModel obj = new InfoAboutSearchingWaysModel()
-                {
-                    IdEndStation = 5,
-                    IdStartStation = 1,
-                    DateTimeArriving = new DateTime(2025, 1, 1)
-                };
+                if (!(obj is InfoAboutSearchingWaysModel))
+                    return;
+                //InfoAboutSearchingWaysModel obj = new InfoAboutSearchingWaysModel()
+                //{
+                //    IdEndStation = 5,
+                //    IdStartStation = 1,
+                //    DateTimeArriving = new DateTime(2025, 1, 1)
+                //};
                 pathsFound.Clear();
                 NodeForSearchWay NodeForSearch = new NodeForSearchWay()
                 {

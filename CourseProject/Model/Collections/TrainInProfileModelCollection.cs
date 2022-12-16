@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model.Collections
 {
-    public class TrainInProfileModelCollection : ModelCollection<TrainInProfileModel>
+    public class TrainInProfileModelCollection : ModelObservableCollection<TrainInProfileModel>
     {
     }
 }

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model.Collections
 {
-    public class ModelCollection<T> : INotifyPropertyChanged
+    public class ModelObservableCollection <T> : INotifyPropertyChanged
     {
-        public List<T> collection { get; set; }
-        public List<T> Collection
+        public ObservableCollection<T> collection { get; set; }
+        public ObservableCollection<T> Collection
         {
             get => collection;
             set

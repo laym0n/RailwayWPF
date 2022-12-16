@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model.Collections
 {
-    public class TimesForStationModelCollection : ModelObservableCollection<TimesForStationModel>
+    public class StationModelCollection : ModelCollection<StationModel>
     {
     }
 }

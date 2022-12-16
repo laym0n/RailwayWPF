@@ -12,7 +12,7 @@ namespace CourseProject.Model.ModelsForGetInfoFromView
     {
         int idStartStation;
         int idEndStation;
-        DateTime dateTimeArriving;
+        DateTime dateTimeArriving = DateTime.Now;
         public int IdStartStation
         {
             get => idStartStation;

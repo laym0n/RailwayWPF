@@ -86,7 +86,9 @@
     <Compile Include="Model\CellStrucureVanModel.cs" />
     <Compile Include="Model\Collections\DateTimeCollection.cs" />
     <Compile Include="Model\Collections\ModelCollection.cs" />
+    <Compile Include="Model\Collections\ModelObservableCollection.cs" />
     <Compile Include="Model\Collections\StationCollection.cs" />
+    <Compile Include="Model\Collections\StationModelCollection.cs" />
     <Compile Include="Model\Collections\StationTrainScheduleCollection.cs" />
     <Compile Include="Model\Collections\TimesForStationModelCollection.cs" />
     <Compile Include="Model\Collections\TrainInProfileModelCollection.cs" />
