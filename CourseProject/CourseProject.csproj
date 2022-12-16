@@ -84,6 +84,7 @@
     <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
     <Compile Include="Model\BehaviourPasswordBox.cs" />
     <Compile Include="Model\CellStrucureVanModel.cs" />
+    <Compile Include="Model\Collections\ConcreteWayFromStationToStationObservableCollection.cs" />
     <Compile Include="Model\Collections\DateTimeCollection.cs" />
     <Compile Include="Model\Collections\ModelCollection.cs" />
     <Compile Include="Model\Collections\ModelObservableCollection.cs" />

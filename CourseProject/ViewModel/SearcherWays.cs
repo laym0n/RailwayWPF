@@ -176,14 +176,21 @@ namespace CourseProject.ViewModel
                 ).ToList();
             ConcreteWayFromStationToStation FindedWay = FindConcreteWayFromStationToStation(Way, timesForStationsForWay, Way.Count - 1, DateTimeArriving);
             if(FindedWay != null)
+            {
+                FindedWay.NameStartStation = FindedWay.ConcreteWayTrainModels.First().StartStationModel.Name;
+                FindedWay.NameEndStation = FindedWay.ConcreteWayTrainModels.Last().EndStationModel.Name;
+                FindedWay.DepartureTimeStartStation = FindedWay.ConcreteWayTrainModels.First().StartTimesForStationModel.DepartureTime;
+                FindedWay.ArrivingTimeEndStation = FindedWay.ConcreteWayTrainModels.Last().EndTimesForStationModel.ArrivalTime;
                 PathsFound.Add(FindedWay);
+            }
         }
         ConcreteWayFromStationToStation FindConcreteWayFromStationToStation(List<TrainWayWithoutTime> Way, List<TimeForWay> timeForWays, int IndexInList, DateTime DepartureTimeNextStation)
         {
             if (IndexInList == -1)
                 return new ConcreteWayFromStationToStation() { ConcreteWayTrainModels = new List<ConcreteWayTrainModel>() };
             ConcreteWayFromStationToStation FindedWay = null;
-            timeForWays.Where(i => i.Track.TrainId == Way[IndexInList].ToStationSchedule.IdTrain && i.EndTimesForStation.ArrivalTime < DepartureTimeNextStation).ToList().ForEach(i =>
+            bool needContinueSearching = true;
+            timeForWays.Where(i => needContinueSearching && i.Track.TrainId == Way[IndexInList].ToStationSchedule.IdTrain && i.EndTimesForStation.ArrivalTime < DepartureTimeNextStation).ToList().ForEach(i =>
             {
                 FindedWay = FindConcreteWayFromStationToStation(Way, timeForWays, IndexInList - 1, i.StartTimesForStation.DepartureTime);
                 if (FindedWay != null)
@@ -197,6 +204,7 @@ namespace CourseProject.ViewModel
                         StartTimesForStationModel = new TimesForStationModel(i.StartTimesForStation),
                         EndTimesForStationModel = new TimesForStationModel(i.EndTimesForStation)
                     });
+                    needContinueSearching = false;
                     return;
                 }
             });

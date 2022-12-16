@@ -16,6 +16,7 @@
     <Page.Resources>
         <localModelcol:StationModelCollection x:Key="Stations"/>
         <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
+        <localModelcol:ConcreteWayFromStationToStationObservableCollection x:Key="Waysfound"/>
         <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
             <Setter Property="Opacity" Value=".68" />
             <Setter Property="Text" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
@@ -120,9 +121,218 @@
                     </Border>
 
 
-                        
+                    <DataTemplate x:Key="DataTemplateForFoundWays" DataType="{x:Type localModel:ConcreteWayFromStationToStation}">
+                        <GroupBox
+                                        Margin="16"
+  Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="Train" />
+                                </DataTemplate>
+
+
+                            </GroupBox.HeaderTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding NameStartStation}" />
+                                <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Grid.Column="1"
+  Text="{Binding NameEndStation}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding DepartureTimeStartStation}" />
+                                <TextBlock Grid.Column="1" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding ArrivingTimeEndStation}" />
+                                <materialDesign:Card Grid.Row="2"
+                                      Grid.ColumnSpan="2">
+                                    <Expander 
+      HorizontalAlignment="Stretch">
+                                        <Expander.Header>
+                                            <TextBlock Text="Поезда" />
+                                        </Expander.Header>
+
+                                        <StackPanel
+        Margin="24,8,24,16"
+        Orientation="Vertical"
+        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                            <ItemsControl
+               ItemsSource="{Binding Path=ConcreteWayTrainModels}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type localModel:ConcreteWayTrainModel}">
+                                                        <Border Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                                                            <StackPanel>
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition></RowDefinition>
+                                                                        <RowDefinition></RowDefinition>
+                                                                    </Grid.RowDefinitions>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition/>
+                                                                        <ColumnDefinition/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock Grid.Row="0" 
+                                                                                   Text="{Binding Path=StartStationModel.Name}" 
+                                                                                   HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                                                                   Text="{Binding Path=EndStationModel.Name}" 
+                                                                                   HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock  Grid.Row="1" Text="{Binding 
+                                                                            Path=StartTimesForStationModel.DepartureTime}" 
+                                                                                    HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock  Grid.Row="1" Grid.Column="1" 
+                                                                                    Text="{Binding Path=EndTimesForStationModel.ArrivalTime}" 
+                                                                                    HorizontalAlignment="Center"></TextBlock>
+                                                                </Grid>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Expander>
+                                </materialDesign:Card>
+                                <Button Grid.Column="1" Grid.Row="3"
+  Content="Купить билет" />
+
+
+                            </Grid>
+
+                        </GroupBox>
+                    </DataTemplate>
+
 
                 </StackPanel.Resources>
+                <ItemsControl ItemTemplate="{StaticResource ResourceKey=DataTemplateForFoundWays}"
+               ItemsSource="{Binding Source={StaticResource Waysfound}, Path=Collection}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
+                <!--<GroupBox
+                                        Margin="16"
+  Header="ФИО Пассажира"
+  Style="{StaticResource MaterialDesignCardGroupBox}">
+                    <GroupBox.HeaderTemplate>
+                        <DataTemplate>
+                            <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="Train" />
+                        </DataTemplate>
+
+
+                    </GroupBox.HeaderTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Откуда" />
+                        <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Grid.Column="1"
+  Text="Куда" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Дата отправления" />
+                        <TextBlock Grid.Column="1" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="Дата прибытия" />
+                        <materialDesign:Card Grid.Row="2"
+                                      Grid.ColumnSpan="2">
+                            <Expander 
+      HorizontalAlignment="Stretch">
+                                <Expander.Header>
+                                    <TextBlock Text="Поезда" />
+                                </Expander.Header>
+
+                                <StackPanel
+        Margin="24,8,24,16"
+        Orientation="Vertical"
+        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                    <Border Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock  Grid.Row="1" Text="время отправления" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock  Grid.Row="1" Grid.Column="1" Text="время прибытия" HorizontalAlignment="Center"></TextBlock>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                                        <StackPanel>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition></RowDefinition>
+                                                    <RowDefinition></RowDefinition>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock  Grid.Row="1" Text="время отправления" HorizontalAlignment="Center"></TextBlock>
+                                                <TextBlock  Grid.Row="1" Grid.Column="1" Text="время прибытия" HorizontalAlignment="Center"></TextBlock>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Expander>
+                        </materialDesign:Card>
+                        <Button Grid.Column="1" Grid.Row="3"
+  Content="Купить билет" />
+
+
+                    </Grid>
+
+                </GroupBox>
+
                 <Border Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
                     <StackPanel>
                         <Grid>
@@ -207,7 +417,7 @@
                             </Border>
                         </StackPanel>
                     </Expander>
-                </materialDesign:Card>
+                </materialDesign:Card>-->
             </StackPanel>
         </ScrollViewer>
     </Grid>
