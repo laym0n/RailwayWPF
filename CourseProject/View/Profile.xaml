@@ -195,13 +195,13 @@
       Margin="4"
       Content="Мужской"
       IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
-      ConverterParameter={x:Static localModel:PassengerViewModel+Peoplegender.man}}"
+      ConverterParameter={x:Static localModel:Peoplegender.man}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                             <RadioButton
       Margin="4"
       Content="Женский"
       IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
-      ConverterParameter={x:Static localModel:PassengerViewModel+Peoplegender.woman}}"
+      ConverterParameter={x:Static localModel:Peoplegender.woman}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                         </StackPanel>
                                                     </materialDesign:ColorZone>

@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ConverterForColorSeat.cs" />
     <Compile Include="Converters\ConverterForPassengerGender.cs" />
     <Compile Include="Converters\ConverterForViewSeat.cs" />
     <Compile Include="Converters\ConverterToPasswordChangeModel.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />
     <Compile Include="Model\PasswordChangeModel.cs" />
+    <Compile Include="Model\Peoplegender.cs" />
     <Compile Include="Model\RelayCommand.cs" />
     <Compile Include="Model\SeatViewCollection.cs" />
     <Compile Include="Model\SeatViewModel.cs" />
@@ -119,6 +121,7 @@
     <Compile Include="Model\VanModelCollection.cs" />
     <Compile Include="Model\VanModel.cs" />
     <Compile Include="Model\ConcreteWayTrainModel.cs" />
+    <Compile Include="Model\WayModelForBuyTicket.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />

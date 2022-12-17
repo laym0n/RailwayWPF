@@ -9,6 +9,8 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents.Serialization;
+using System.Windows.Input;
 
 namespace CourseProject.ViewModel
 {
@@ -54,22 +56,31 @@ namespace CourseProject.ViewModel
                  where van.TrainId == concreteWayTrain.StartStationTrainScheduleModel.IdTrain && van.NumberInTrain == 1
                  select van).First());
                 List<List<CellStrucureVanModel>> StructureVanWithoutSeats = GetStrucureVanModels(VanForShow.TypeOfVanId);
-                //List<List<CellStrucureVanModel>>  AddedVan = (
-                // from cellRow in StructureVanWithoutSeats
-                // select (
-                //    (
-                //    from cell in cellRow
-                //    join timesForStation in db.TimesForStation.GetList()
-                //    on concreteWayTrain.EndTimesForStationModel.TrackId equals timesForStation.TrackId
-                //    join ticket in db.Ticket.GetList()
-                //    on timesForStation.Id equals ticket.IdTimesForStationSource
-                //    from seat in db.Seat.GetList().Where(i => i.TypeOfVanId == VanForShow.TypeOfVanId && cell.NumberOfSeatInVan == i.NumberOfSeatInVan).DefaultIfEmpty()
-                //    select new CellStrucureVanModel(cell.CostPerStation, cell.NumberOfSeatInVan, (cell.typeOccupied == TypeOccupied.NotSeat ? TypeOccupied.NotSeat :
-                //    ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied))
-                //    ).ToList()
-                // )).ToList();
-                //structureVansWithSeats.Add(AddedVan);
-                structureVansWithSeats.Add(StructureVanWithoutSeats);
+                List<List<CellStrucureVanModel>> AddedVan = (
+                 from cellRow in StructureVanWithoutSeats
+                 select (
+                    (
+                    from cell in cellRow
+                    from ticket in (from ticket in db.Ticket.GetList().DefaultIfEmpty()
+                    join timesForStation in db.TimesForStation.GetList()
+                    on concreteWayTrain.EndTimesForStationModel.TrackId equals timesForStation.TrackId
+                    where ticket?.IdTimesForStationSource == timesForStation.Id
+                    select ticket).DefaultIfEmpty()
+                    select new CellStrucureVanModel(cell.CostPerStation, cell.NumberOfSeatInVan, (cell.typeOccupied == TypeOccupied.NotSeat ? TypeOccupied.NotSeat :
+                    ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied))
+                    ).ToList()
+                 )).ToList();
+                structureVansWithSeats.Add(AddedVan);
+            });
+        }
+        public ICommand ShowNextVan
+        {
+            get => new RelayCommand((obj) =>
+            {
+                if(obj is ConcreteWayTrainModel way)
+                {
+
+                }
             });
         }
         ObservableCollection<List<CellStrucureVanModel>> structureVanWithoutSeats = new ObservableCollection<List<CellStrucureVanModel>>();

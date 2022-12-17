@@ -31,7 +31,9 @@ namespace DAL.Realizations.Repositories
         }
         public void Update(Passenger item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            Passenger UpdatePassenger = GetItem(item.Id);
+            if (UpdatePassenger != null)
+                db.Entry(UpdatePassenger).CurrentValues.SetValues(item);
         }
         public void Delete(int id)
         {

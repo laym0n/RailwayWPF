@@ -11,11 +11,6 @@ namespace CourseProject.Model
 {
     public class PassengerViewModel : INotifyPropertyChanged
     {
-        public enum Peoplegender
-        {
-            man,
-            woman
-        }
         private int id;
         private int passport;
         private int userId;
@@ -85,6 +80,7 @@ namespace CourseProject.Model
         public PassengerViewModel(Passenger passenger, bool loadedInDB)
         {
             this.passport = passenger.Passport;
+            this.userId = passenger.UserId;
             this.id = passenger.Id;
             this.name = passenger.Name;
             this.birthday = passenger.Birthday;

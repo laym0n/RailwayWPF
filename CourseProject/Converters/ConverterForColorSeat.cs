@@ -9,11 +9,19 @@ using System.Windows.Data;
 
 namespace CourseProject.Converters
 {
-    public class ConverterForPassengerGender : IValueConverter
+    public class ConverterForColorSeat : IValueConverter
     {
         public object Convert(object value, Type Target_Type, object Parameter, CultureInfo culture)
         {
-            return ((Peoplegender)Parameter == (Peoplegender)value);
+            TypeOccupied typeOccupied = (TypeOccupied)value;
+            if (typeOccupied == TypeOccupied.NotSeat)
+                return "White";
+            else if (typeOccupied == TypeOccupied.Occupied)
+                return "Crimson";
+            else if (typeOccupied == TypeOccupied.Free)
+                return "Green";
+            else
+                return "Yellow";
         }
         public object ConvertBack(object value, Type targetTypes, object parameter, System.Globalization.CultureInfo culture)
         {

@@ -8,6 +8,7 @@
       xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
       xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
       xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
       mc:Ignorable="d" 
@@ -29,6 +30,7 @@
                 <TabItem
       Margin="4">
                     <TabItem.Resources>
+                        <localConverters:ConverterForColorSeat x:Key="ConverterForColorSeat"/>
                         <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
                             <ItemsControl
                ItemsSource="{Binding}">
@@ -40,10 +42,13 @@
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type localModel:CellStrucureVanModel}">
-                                        <StackPanel Margin="10">
-                                            <TextBlock Text="{Binding CostPerStation}"/>
-                                            <TextBlock Text="{Binding NumberOfSeatInVan}"/>
-                                        </StackPanel>
+                                        <Button 
+   Background="{Binding typeOccupied, Converter={StaticResource ConverterForColorSeat}}">
+                                            <StackPanel Margin="10">
+                                                <TextBlock Text="{Binding CostPerStation}"/>
+                                                <TextBlock Text="{Binding NumberOfSeatInVan}"/>
+                                            </StackPanel>
+                                        </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
