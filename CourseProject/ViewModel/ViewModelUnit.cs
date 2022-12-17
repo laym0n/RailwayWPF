@@ -24,7 +24,7 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region BuyTicket
-
+            SearcherWays.UserChooseWay += BuyTicket.GetWayForBuyticket;
             #endregion
 
             #region ShowerStructureVan

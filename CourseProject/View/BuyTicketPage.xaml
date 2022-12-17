@@ -13,6 +13,7 @@
       xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Name="PageBuyTicket"
       Title="BuyTicketPage">
     <Page.Resources>
         <localModelcol:VansStrucureWithSeatsCollection x:Key="StructureVans"/>
@@ -31,7 +32,7 @@
       Margin="4">
                     <TabItem.Resources>
                         <localConverters:ConverterForColorSeat x:Key="ConverterForColorSeat"/>
-                        <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
+                        <DataTemplate x:Key="LabelRowTemplate">
                             <ItemsControl
                ItemsSource="{Binding}">
                                 <ItemsControl.ItemsPanel>
@@ -56,10 +57,11 @@
                             
                         </DataTemplate>
 
-                        <DataTemplate x:Key="AlternativeAddressTemplate">
+                        <DataTemplate x:Key="AlternativeAddressTemplate"
+                                      DataType="{x:Type localModel:WayModelForBuyTicket}">
                             <StackPanel Orientation="Vertical">
                                 <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
-               ItemsSource="{Binding}">
+               ItemsSource="{Binding Path=StrucureVanModels}">
                                     <ItemsControl.ItemsPanel>
 
                                         <ItemsPanelTemplate>
@@ -68,10 +70,15 @@
                                     </ItemsControl.ItemsPanel>
                                 </ItemsControl>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Content="Предыдущий вагон"/>
+                                    <Button Content="Предыдущий вагон"
+                                            CommandParameter="{Binding}"
+                        Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowPreviousVan}"
+                                            />
 
 
-                                    <Button Content="Следующий вагон"/>
+                                    <Button Content="Следующий вагон"
+            CommandParameter="{Binding}"
+            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowNextVan}"/>
 
 
                                 </StackPanel>
@@ -93,7 +100,7 @@
                         </StackPanel>
                     </TabItem.Header>
                     <ScrollViewer>
-                        <ItemsControl ItemsSource="{Binding Source={StaticResource StructureVans}, Path=Collection}"
+                        <ItemsControl
                                       Grid.Column="1" 
                                       x:Name="rad" 
                                       ItemTemplate="{StaticResource AlternativeAddressTemplate}">

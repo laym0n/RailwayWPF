@@ -23,7 +23,7 @@ namespace CourseProject.ViewModel
         {
             get => pathsFound; 
         }
-        public event Action<ConcreteWayFromStationToStation> UserChooseWay;
+        public event Action<List<WayModelForBuyTicket>> UserChooseWay;
         IUnitOfWork db;
         public SearcherWays(IUnitOfWork db)
         {
@@ -85,7 +85,8 @@ namespace CourseProject.ViewModel
             {
                 if(obj is ConcreteWayFromStationToStation concreteWayFromStationToStation)
                 {
-                    UserChooseWay?.Invoke(concreteWayFromStationToStation);
+                    List<WayModelForBuyTicket> parametr = concreteWayFromStationToStation.ConcreteWayTrainModels.Select(i=> new WayModelForBuyTicket() { Way = i}).ToList();
+                    UserChooseWay?.Invoke(parametr);
                 }
             });
         }
@@ -202,8 +203,10 @@ namespace CourseProject.ViewModel
                 return new ConcreteWayFromStationToStation() { ConcreteWayTrainModels = new List<ConcreteWayTrainModel>() };
             ConcreteWayFromStationToStation FindedWay = null;
             bool needContinueSearching = true;
-            timeForWays.Where(i => needContinueSearching && i.Track.TrainId == Way[IndexInList].ToStationSchedule.IdTrain && i.EndTimesForStation.ArrivalTime < DepartureTimeNextStation).ToList().ForEach(i =>
+            timeForWays.Where(i => i.Track.TrainId == Way[IndexInList].ToStationSchedule.IdTrain && i.EndTimesForStation.ArrivalTime < DepartureTimeNextStation).ToList().ForEach(i =>
             {
+                if (!needContinueSearching)
+                    return;
                 FindedWay = FindConcreteWayFromStationToStation(Way, timeForWays, IndexInList - 1, i.StartTimesForStation.DepartureTime);
                 if (FindedWay != null)
                 {

@@ -18,13 +18,13 @@ namespace CourseProject.ViewModel
         {
             this.db = db;
         }
-        ObservableCollection<ObservableCollection<SeatViewModel>> seatsForBuy = new ObservableCollection<ObservableCollection<SeatViewModel>>();
-        public ObservableCollection<ObservableCollection<SeatViewModel>> SeatsForBuy
+        ObservableCollection<WayModelForBuyTicket> seatsForBuy = new ObservableCollection<WayModelForBuyTicket>();
+        public ObservableCollection<WayModelForBuyTicket> SeatsForBuy
         {
             get { return seatsForBuy; }
         }
-        public void GetWayForBuyticket(ConcreteWayFromStationToStation way) { 
-
+        public void GetWayForBuyticket(List<WayModelForBuyTicket> way) {
+            way.ForEach(i => seatsForBuy.Add(i));
         }
         public ICommand BuyTicket
         {

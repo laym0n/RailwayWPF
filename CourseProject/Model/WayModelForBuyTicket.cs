@@ -10,9 +10,9 @@ namespace CourseProject.Model
 {
     public class WayModelForBuyTicket
     {
-        public ObservableCollection<List<CellStrucureVanModel>> StrucureVanModels { get; set; }
-        public List<Ticket> Tickets { get; set; }
-        public VanModel VanForShow { get; set; }
-        public ConcreteWayFromStationToStation Way { get; set; }
+        public ObservableCollection<List<CellStrucureVanModel>> StrucureVanModels { get; set; } = new ObservableCollection<List<CellStrucureVanModel>>();
+        public List<Ticket> Tickets { get; set; } = new List<Ticket> ();
+        public VanModel VanForShow { get; set; } = null;
+        public ConcreteWayTrainModel Way { get; set; }
     }
 }
