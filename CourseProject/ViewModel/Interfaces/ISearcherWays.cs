@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace CourseProject.ViewModel.Interfaces
 {
-    public interface ISearcherWays
+    public interface ISearcherWaysService
     {
         event Action<List<WayModelForBuyTicket>> UserChooseWay;
         ObservableCollection<ConcreteWayFromStationToStation> PathsFound { get; }

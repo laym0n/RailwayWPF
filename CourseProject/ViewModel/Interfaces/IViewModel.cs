@@ -13,7 +13,7 @@ namespace CourseProject.ViewModel.Interfaces
         IInfoProfile InfoProfileService { get; }
         IEditorTrain EditorTrainService { get; }
         IShowerStructureVan ShowerStructureVan { get; }
-        ISearcherWays SearcherWaysService { get; }
+        ISearcherWaysService SearcherWaysService { get; }
         IBuyTicket BuyTicketService { get; }
         IMainMenuController MainMenuControllerService { get; }
     }

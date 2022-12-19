@@ -16,7 +16,7 @@ namespace CourseProject.ViewModel
             INavigation navigationService, 
             IEditorTrain editorTrain, 
             IShowerStructureVan showerStructureVan, 
-            ISearcherWays searcherWays, 
+            ISearcherWaysService searcherWays, 
             IBuyTicket buyTicket, IMainMenuController mainMenuController)
         {
             this.SignInService = signIn;
@@ -73,7 +73,7 @@ namespace CourseProject.ViewModel
         public IInfoProfile InfoProfileService { get; protected set; }
         public INavigation NavigationService { get; protected set; }
         public IShowerStructureVan ShowerStructureVan { get; }
-        public ISearcherWays SearcherWaysService { get; }
+        public ISearcherWaysService SearcherWaysService { get; }
         public IBuyTicket BuyTicketService { get; }
         public IMainMenuController MainMenuControllerService { get; }
     }

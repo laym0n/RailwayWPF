@@ -7,42 +7,19 @@
       xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
       xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
       Title="Page1" Background="White"
-      Name="SearchPage">
+      Name="SearchPage"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
     <Page.Resources>
         <localModelcol:StationModelCollection x:Key="Stations"/>
         <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
         <localModelcol:ConcreteWayFromStationToStationObservableCollection x:Key="Waysfound"/>
-        <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
-            <Setter Property="Opacity" Value=".68" />
-            <Setter Property="Text" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-
-        <Style x:Key="VerticalExpanderContentTextBlock"
-           TargetType="{x:Type TextBlock}"
-           BasedOn="{StaticResource HorizontalExpanderContentTextBlock}">
-            <Setter Property="MaxWidth" Value="180" />
-        </Style>
-        <Style x:Key="HorizontalDividerBorder" TargetType="{x:Type Border}">
-            <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
-            <Setter Property="Height" Value="1" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="UseLayoutRounding" Value="True" />
-        </Style>
-
-        <Style x:Key="VerticalDividerBorder"
-           TargetType="{x:Type Border}"
-           BasedOn="{StaticResource HorizontalDividerBorder}">
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="Width" Value="1" />
-        </Style>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -65,11 +42,10 @@
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
-            <Button Command="{Binding Path=SearcherWays.FindWays}"
+            <Button Command="{Binding Path=SearcherWaysService.FindWays}"
                     CommandParameter="{StaticResource InfoAboutWay}"
                     Content="Find"
                     Grid.Column="3"/>
-
             <ComboBox
                 SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
                 ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
@@ -94,34 +70,12 @@
   IsEditable="True"
   Style="{StaticResource MaterialDesignFilledComboBox}">
             </ComboBox>
-            
-
-
         </Grid>
         <ScrollViewer Grid.Row ="1">
 
             <StackPanel Orientation="Vertical">
                 <StackPanel.Resources>
-                    <Border x:Key="DescriptionTrain" Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition></RowDefinition>
-                                    <RowDefinition></RowDefinition>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Row="0" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
-                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Откуда" HorizontalAlignment="Center"></TextBlock>
-                                <TextBlock  Grid.Row="1" Text="время отправления" HorizontalAlignment="Center"></TextBlock>
-                                <TextBlock  Grid.Row="1" Grid.Column="1" Text="время прибытия" HorizontalAlignment="Center"></TextBlock>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
-
-
+                    
                     <DataTemplate x:Key="DataTemplateForFoundWays" DataType="{x:Type localModel:ConcreteWayFromStationToStation}">
                         <GroupBox
                                         Margin="16"
@@ -216,7 +170,7 @@
                                     </Expander>
                                 </materialDesign:Card>
                                 <Button Grid.Column="1" Grid.Row="3"
-  Command="{Binding ElementName=SearchPage, Path=DataContext.SearcherWays.EnterBuyPage}"
+  Command="{Binding ElementName=SearchPage, Path=DataContext.SearcherWaysService.EnterBuyPage}"
                                         CommandParameter="{Binding}"
   Content="Купить билет" />
 
@@ -225,8 +179,7 @@
 
                         </GroupBox>
                     </DataTemplate>
-
-
+                    
                 </StackPanel.Resources>
                 <ItemsControl ItemTemplate="{StaticResource ResourceKey=DataTemplateForFoundWays}"
                ItemsSource="{Binding Source={StaticResource Waysfound}, Path=Collection}">

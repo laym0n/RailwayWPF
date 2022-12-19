@@ -12,10 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CourseProject.ViewModel
 {
-    public class SearcherWays : ISearcherWays
+    public class SearcherWaysService : ISearcherWaysService
     {
         ObservableCollection<ConcreteWayFromStationToStation> pathsFound = new ObservableCollection<ConcreteWayFromStationToStation>();
 
@@ -25,7 +26,7 @@ namespace CourseProject.ViewModel
         }
         public event Action<List<WayModelForBuyTicket>> UserChooseWay;
         IUnitOfWork db;
-        public SearcherWays(IUnitOfWork db)
+        public SearcherWaysService(IUnitOfWork db)
         {
             this.db = db;
         }
@@ -77,6 +78,14 @@ namespace CourseProject.ViewModel
                 }
                 if (pathsFound.Count == 0)
                     MessageBox.Show("Путь не найден!");
+            }, (obj) =>
+            {
+                if (!(obj is InfoAboutSearchingWaysModel))
+                    return false;
+                InfoAboutSearchingWaysModel model = obj as InfoAboutSearchingWaysModel;
+                if (model.IdEndStation == 0 || model.IdStartStation == 0 || model.DateTimeArriving <= DateTime.Now)
+                    return false;
+                return true;
             });
         }
         public ICommand EnterBuyPage
