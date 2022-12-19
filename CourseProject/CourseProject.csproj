@@ -105,6 +105,7 @@
     <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\InfoButtonsOnTrainEditPage.cs" />
+    <Compile Include="Model\ModelsForGetInfoFromView\InfoAboutFilters.cs" />
     <Compile Include="Model\ModelsForGetInfoFromView\InfoAboutSearchingWaysModel.cs" />
     <Compile Include="Model\PassangerViewModel.cs" />
     <Compile Include="Model\PassengerProfileCollection.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="ViewModel\ProfileService.cs" />
     <Compile Include="ViewModel\SearcherWays.cs" />
     <Compile Include="ViewModel\Interfaces\AbstractClasses\SetterVisibleButtonsMainMenu.cs" />
+    <Compile Include="ViewModel\FabricStrategySearchWay.cs" />
     <Compile Include="ViewModel\SetterVisibleButtonsMenuShowAdminAndSimpleUser.cs" />
     <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />

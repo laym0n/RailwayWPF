@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using CourseProject.ViewModel;
 using CourseProject.ViewModel.Interfaces;
+using CourseProject.ViewModel.StrategiesSearchWay;
 using CourseProject.ViewModel.Tests;
 using DAL.Realizations;
 using DLL.Interfaces;
@@ -36,6 +37,7 @@ namespace CourseProject.Util
             Bind<IBuyTicket>().To<BuyTicketService>().InSingletonScope();
             Bind<IMainMenuController>().To<MainMenuController>().InSingletonScope();
             Bind<SetterVisibleButtonsMainMenu>().To<SetterVisibleButtonsMenuShowAdminAndSimpleUser>();
+            Bind<ISearchWayStrategy>().To<SearchWayStrategyWithMaxTransfer>().WithConstructorArgument(6);
         }
     }
 }

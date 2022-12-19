@@ -4,11 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelInfoFromView="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
       xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
       xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
       xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
       mc:Ignorable="d" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -23,17 +25,18 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29*"></RowDefinition>
-            <RowDefinition Height="188*"></RowDefinition>
+            <RowDefinition Height="19*"></RowDefinition>
+            <RowDefinition Height="71*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" Margin="0,0,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"/>
-            </Grid.ColumnDefinitions>
-            <DatePicker
+        <StackPanel Grid.Row="0">
+            <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker
                 SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
                 DisplayDateStart="{x:Static system:DateTime.Now}"
                 DisplayDate="{x:Static system:DateTime.Now}"
@@ -42,11 +45,11 @@
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
-            <Button Command="{Binding Path=SearcherWaysService.FindWays}"
+                <Button Command="{Binding Path=SearcherWaysService.FindWays}"
                     CommandParameter="{StaticResource InfoAboutWay}"
                     Content="Find"
                     Grid.Column="3"/>
-            <ComboBox
+                <ComboBox
                 SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
                 ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
                 SelectedValuePath="Id"
@@ -57,8 +60,8 @@
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
   Style="{StaticResource MaterialDesignFilledComboBox}">
-            </ComboBox>
-            <ComboBox
+                </ComboBox>
+                <ComboBox
                 SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
                 ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
                 SelectedValuePath="Id"
@@ -69,13 +72,44 @@
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
   Style="{StaticResource MaterialDesignFilledComboBox}">
-            </ComboBox>
-        </Grid>
+                </ComboBox>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <localModelInfoFromView:InfoAboutFilters x:Key="InfoAboutFiltersSearch"/>
+                    <x:Array x:Key="CountTransfers" Type="system:Int32">
+                        <system:Int32>0</system:Int32>
+                        <system:Int32>1</system:Int32>
+                        <system:Int32>2</system:Int32>
+                        <system:Int32>3</system:Int32>
+                        <system:Int32>4</system:Int32>
+                        <system:Int32>5</system:Int32>
+                        <system:Int32>6</system:Int32>
+                    </x:Array>
+                </StackPanel.Resources>
+                <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutFiltersSearch}, Path=MaxCountTransfers}"
+                    SelectedIndex="6"
+                Grid.Column="0"
+  Width="283"
+  materialDesign:HintAssist.Hint="Максималльное количество пересадок"
+  ItemsSource="{StaticResource ResourceKey=CountTransfers}"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+                            Command="{Binding Path=SearcherWaysService.SetFilters}"
+                            CommandParameter="{StaticResource InfoAboutFiltersSearch}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
         <ScrollViewer Grid.Row ="1">
 
             <StackPanel Orientation="Vertical">
                 <StackPanel.Resources>
-                    
+
                     <DataTemplate x:Key="DataTemplateForFoundWays" DataType="{x:Type localModel:ConcreteWayFromStationToStation}">
                         <GroupBox
                                         Margin="16"
@@ -179,7 +213,7 @@
 
                         </GroupBox>
                     </DataTemplate>
-                    
+
                 </StackPanel.Resources>
                 <ItemsControl ItemTemplate="{StaticResource ResourceKey=DataTemplateForFoundWays}"
                ItemsSource="{Binding Source={StaticResource Waysfound}, Path=Collection}">
