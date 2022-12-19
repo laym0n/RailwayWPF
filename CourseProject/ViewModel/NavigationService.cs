@@ -1,92 +1,85 @@
 ﻿using CourseProject.Model;
+using CourseProject.Model.Enumerations;
 using CourseProject.View;
 using CourseProject.ViewModel.Interfaces;
 using DAL;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml.Serialization;
 
 namespace CourseProject.ViewModel
 {
     public class NavigationService : INavigation
     {
-        public IMediator ViewModel { get; set; }
-        public event Action<Page> Leave;
-        public event Action<Page> Enter;
-        public MenuShow VisibleButtons { get; }
+        Stack<Page> HistoryPages = new Stack<Page>();
+        FabricPages fabricPages;
+        private Frame PageFrame;
+
         public NavigationService(Frame frame)
         {
             this.PageFrame = frame;
-            VisibleButtons = new MenuShow()
-            {
-                VisibleBuyTicket = "Collapsed",
-                VisibleCreateTrain = "Collapsed",
-                VisibleProfile = "Collapsed",
-                VisibleSignIn = "Visible",
-                VisibleSignOut = "Collapsed",
-                VisibleSignUp = "Visible",
-            };
         }
-        public Frame PageFrame { get; set; }
-        public void LoadPageBuyTicket()
+
+        public void SetPageFrame(Frame frame)
         {
-            Navigate(new BuyTicketPage(ViewModel));
+            PageFrame = frame;
         }
-        public void LoadPageAfterSaveTrain()
+        public void SetViewModel(IMediator mediator)
         {
-            Navigate(new Profile(ViewModel));
+            fabricPages = new FabricPages(mediator);
         }
-        public void LoadTrainEditPageForEditTrain()
-        {
-            PageFrame.Navigate(new TrainEditPage(ViewModel));
-        }
-        public void SetMainMenuWhenSignOut()
-        {
-            VisibleButtons.VisibleBuyTicket = "Collapsed";
-            VisibleButtons.VisibleCreateTrain = "Collapsed";
-            VisibleButtons.VisibleProfile = "Collapsed";
-            VisibleButtons.VisibleSignIn = "Visible";
-            VisibleButtons.VisibleSignOut = "Collapsed";
-            VisibleButtons.VisibleSignUp = "Visible";
-            NavigateBuyTicket.Execute(null);
-        }
-        public void SetMainMenuWhenSignIn()
-        {
-            VisibleButtons.VisibleBuyTicket = "Visible";
-            VisibleButtons.VisibleCreateTrain = "Visible";
-            VisibleButtons.VisibleProfile = "Visible";
-            VisibleButtons.VisibleSignIn = "Collapsed";
-            VisibleButtons.VisibleSignOut = "Visible";
-            VisibleButtons.VisibleSignUp = "Collapsed";
-        }
-        private void Navigate(Page page)
+        public event Action<Page> Leave;
+        public event Action<Page> Enter;
+        public void LoadPageWithNotify(TypePage typePage)
         {
             Leave?.Invoke(PageFrame.Content as Page);
-            PageFrame.Navigate(page);
-            Enter?.Invoke(page);
+            LoadPage(typePage);
+            Enter?.Invoke(PageFrame.Content as Page);
         }
-        public ICommand NavigateBuyTicket
+        public void LoadPage(TypePage typePage)
         {
-            get => new RelayCommand((obj) => {
-                Navigate(new SearchWaysPage(ViewModel));
-            });
+            Page NewPage = fabricPages.GetPage(typePage);
+            PageFrame.Navigate(NewPage);
         }
-        public ICommand NavigateProfile
+        public void LoadNextPageWithNotify(TypePage typePage)
         {
-            get => new RelayCommand((obj) => {
-                Navigate(new Profile(ViewModel));
-            });
+
+            Page CurrentPage = PageFrame.Content as Page;
+            HistoryPages.Push(CurrentPage);
+            LoadPageWithNotify(typePage);
         }
-        public ICommand NavigateEditTrain
+        public void LoadPreviousPageWithNotify()
         {
-            get => new RelayCommand((obj) => {
-                Navigate(new TrainEditPage(ViewModel));
-            });
+            Leave?.Invoke(PageFrame.Content as Page);
+            LoadPreviousPage();
+            Enter?.Invoke(PageFrame.Content as Page);
+        }
+        public void LoadNextPage(TypePage typePage)
+        {
+            Page CurrentPage = PageFrame.Content as Page;
+            HistoryPages.Push(CurrentPage);
+            LoadPage(typePage);
+        }
+        public void LoadPreviousPage()
+        {
+            if (HistoryPages.Count == 0)
+            {
+                return;
+            }
+            Page NewPage = HistoryPages.Peek();
+            HistoryPages.Pop();
+            PageFrame.Navigate(NewPage);
+        }
+        public void ClearHistoryPage()
+        {
+            HistoryPages.Clear();
         }
     }
 }

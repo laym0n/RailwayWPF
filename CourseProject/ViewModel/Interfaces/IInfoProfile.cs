@@ -13,7 +13,7 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IInfoProfile
     {
-        void SetCurrentUser(User user);
+        void SetCurrentUser(UserModel user);
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
         ObservableCollection<TrainInProfileModel> TrainInProfileModels { get; }
         event Action<TrainModel> EditExistTrain;

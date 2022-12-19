@@ -9,11 +9,12 @@ namespace CourseProject.ViewModel.Interfaces
     public interface IMediator
     {
         INavigation NavigationService { get; }
-        ISignIn SignIn { get; }
-        IInfoProfile InfoProfile { get; }
-        IEditorTrain EditorTrain { get; }
+        ISignIn SignInService { get; }
+        IInfoProfile InfoProfileService { get; }
+        IEditorTrain EditorTrainService { get; }
         IShowerStructureVan ShowerStructureVan { get; }
-        ISearcherWays SearcherWays { get; }
-        IBuyTicket BuyTicket { get; }
+        ISearcherWays SearcherWaysService { get; }
+        IBuyTicket BuyTicketService { get; }
+        IMainMenuController MainMenuControllerService { get; }
     }
 }

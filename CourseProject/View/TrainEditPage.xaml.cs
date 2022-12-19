@@ -28,11 +28,11 @@ namespace CourseProject.View
             InitializeComponent();
             var a = ViewModelObject.ShowerStructureVan.StructureVanWithoutSeats;
             rad.ItemsSource = a;
-            ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrain.TypeOfVanModels;
-            ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrain.Vans;
-            ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrain.ModelForEditingScheduleCollection;
-            ((StationCollection)TryFindResource("CollectionForStatioinComboBox")).Stations = ViewModelObject.EditorTrain.StationModels;
-            ((TimesForStationModelCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).Collection = ViewModelObject.EditorTrain.TimesForDeparture;
+            ((TypeOfVanModelCollection)TryFindResource("CollectionForComboBox")).TypeOfVanModels = ViewModelObject.EditorTrainService.TypeOfVanModels;
+            ((VanModelCollection)TryFindResource("CollectionForVans")).VanCollection = ViewModelObject.EditorTrainService.Vans;
+            ((StationTrainScheduleCollection)TryFindResource("CollectionForAddingStationInTrain")).StationSchedule = ViewModelObject.EditorTrainService.ModelForEditingScheduleCollection;
+            ((StationCollection)TryFindResource("CollectionForStatioinComboBox")).Stations = ViewModelObject.EditorTrainService.StationModels;
+            ((TimesForStationModelCollection)TryFindResource("CollectionForAddingDateTimeDepartureInTrain")).Collection = ViewModelObject.EditorTrainService.TimesForDeparture;
             this.DataContext = ViewModelObject;
         }
     }

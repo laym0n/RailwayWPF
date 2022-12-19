@@ -34,6 +34,8 @@ namespace CourseProject.Util
             Bind<IMediator>().To<ViewModelUnit>().InSingletonScope();
             Bind<ISearcherWays>().To<SearcherWays>().InSingletonScope();
             Bind<IBuyTicket>().To<BuyTicketService>().InSingletonScope();
+            Bind<IMainMenuController>().To<MainMenuController>().InSingletonScope();
+            Bind<SetterVisibleButtonsMainMenu>().To<SetterVisibleButtonsMenuShowAdminAndSimpleUser>();
         }
     }
 }

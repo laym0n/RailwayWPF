@@ -17,9 +17,9 @@ namespace CourseProject.ViewModel
 {
     internal class ProfileService: IInfoProfile
     {
-        private User currentUser;
+        private UserModel currentUser;
         private IUnitOfWork unitOfWork;
-        public void SetCurrentUser(User user) => currentUser = user;
+        public void SetCurrentUser(UserModel user) => currentUser = user;
         public void ClearDataWhenLeavePage(Page page)
         {
             if(page is Profile)
@@ -126,7 +126,8 @@ namespace CourseProject.ViewModel
                 if (obj is PasswordChangeModel passwordChangeModel && currentUser.Password == passwordChangeModel.OldPassword)
                 {
                     currentUser.Password = passwordChangeModel.NewPassword;
-                    unitOfWork.Users.Update(currentUser);
+                    User user = unitOfWork.Users.GetItem(currentUser.Id);
+                    unitOfWork.Users.Update(user);
                     unitOfWork.Save();
                     MessageBox.Show("Пароль успешно сменен!");
 

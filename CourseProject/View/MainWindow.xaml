@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseProject.Model"
+        xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
         mc:Ignorable="d"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
@@ -11,7 +12,7 @@
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         xmlns:materialDesignThemesWPF="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
         Title="MainWindow" Height="450" Width="800"
-        >
+        d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -84,8 +85,8 @@
                     <system:Double x:Key="ButtonHeight">50</system:Double>
                 </StackPanel.Resources>
                 <Button
-                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleProfile}"
-                    Command="{Binding Path=NavigationService.NavigateProfile}"
+                    Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleProfile}"
+                    Command="{Binding Path=MainMenuControllerService.LoadProfile}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -97,25 +98,35 @@
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
-    Visibility="{Binding Path =NavigationService.VisibleButtons.VisibleCreateTrain}"
+    Visibility="{Binding Path =MainMenuControllerService.VisibleButtons.VisibleCreateTrain}"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
                     Content="Создать поезд"
-                    Command="{Binding Path=NavigationService.NavigateEditTrain}">
+                    Command="{Binding Path=MainMenuControllerService.LoadEditTrain}">
                 </Button>
                 <Button
-                    
-                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleBuyTicket}"
+                    Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleReport}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Command="{Binding Path=MainMenuControllerService.LoadReports}"
+                    Content="Отчет">
+                </Button>
+                <Button
+                    Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleBuyTicket}"
+                    Margin="10"
+    Height="{StaticResource ButtonHeight}"
+    materialDesign:ButtonAssist.CornerRadius="10"
+    Style="{StaticResource MaterialDesignRaisedButton}"
+    ToolTip="MaterialDesignRaisedButton with Round Corners"
+                    Command="{Binding Path=MainMenuControllerService.LoadSearchWay}"
                     Content="Купить билет">
                 </Button>
                 <Button
-                    Command="{Binding Path=SignIn.SignOut}"
-                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleSignOut}"
+                    Command="{Binding Path=SignInService.SignOut}"
+                    Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleSignOut}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -125,8 +136,8 @@
                 </Button>
                 <Button
                     Name="SignInButton"
-                    Command="{Binding Path=SignIn.SignIn}"
-                    Visibility="{Binding Path=NavigationService.VisibleButtons.VisibleSignIn}"
+                    Command="{Binding Path=SignInService.SignIn}"
+                    Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleSignIn}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"
@@ -135,8 +146,8 @@
                     Content="Войти">
                 </Button>
                 <Button
-                    Command="{Binding Path=SignIn.SignUp}"
-                    Visibility="{Binding  Path=NavigationService.VisibleButtons.VisibleSignUp}"
+                    Command="{Binding Path=SignInService.SignUp}"
+                    Visibility="{Binding  Path=MainMenuControllerService.VisibleButtons.VisibleSignUp}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
     materialDesign:ButtonAssist.CornerRadius="10"

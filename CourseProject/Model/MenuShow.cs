@@ -17,6 +17,7 @@ namespace CourseProject.Model
         private string visibleSignOut;
         private string visibleSignIn;
         private string visibleSignUp;
+        private string visibleReport;
         public string VisibleProfile
         {
             get => visibleProfile;
@@ -69,6 +70,15 @@ namespace CourseProject.Model
             {
                 visibleSignUp = value;
                 OnPropertyChanged("VisibleSignUp");
+            }
+        }
+        public string VisibleReport
+        {
+            get => visibleReport;
+            set
+            {
+                visibleReport = value;
+                OnPropertyChanged("VisibleReport");
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

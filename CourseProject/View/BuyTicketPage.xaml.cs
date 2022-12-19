@@ -26,7 +26,7 @@ namespace CourseProject.View
         {
             InitializeComponent();
             this.ViewModel = ViewModelObject;
-            var a = ViewModelObject.BuyTicket.SeatsForBuy;
+            var a = ViewModelObject.BuyTicketService.SeatsForBuy;
             rad.ItemsSource = a;
             DataContext = ViewModelObject;
         }

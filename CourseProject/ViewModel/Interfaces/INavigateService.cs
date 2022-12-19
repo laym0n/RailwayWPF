@@ -7,23 +7,22 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using DAL;
+using CourseProject.Model.Enumerations;
 
 namespace CourseProject.ViewModel.Interfaces
 {
     public interface INavigation
     {
-        IMediator ViewModel { get; set; }
         event Action<Page> Leave;
         event Action<Page> Enter;
-        Frame PageFrame { get; }
-        MenuShow VisibleButtons { get; }
-        void LoadTrainEditPageForEditTrain();
-        void LoadPageBuyTicket();
-        void SetMainMenuWhenSignOut();
-        void SetMainMenuWhenSignIn();
-        void LoadPageAfterSaveTrain();
-        ICommand NavigateBuyTicket { get; }
-        ICommand NavigateProfile { get; }
-        ICommand NavigateEditTrain { get; }
+        void SetPageFrame(Frame frame);
+        void ClearHistoryPage();
+        void LoadPreviousPage();
+        void LoadNextPage(TypePage typePage);
+        void LoadPreviousPageWithNotify();
+        void LoadNextPageWithNotify(TypePage typePage);
+        void LoadPage(TypePage typePage);
+        void LoadPageWithNotify(TypePage typePage);
+        void SetViewModel(IMediator mediator);
     }
 }

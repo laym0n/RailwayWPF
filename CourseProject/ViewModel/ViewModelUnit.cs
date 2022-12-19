@@ -1,4 +1,5 @@
-﻿using CourseProject.ViewModel.Interfaces;
+﻿using CourseProject.Model.Enumerations;
+using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,58 +10,71 @@ namespace CourseProject.ViewModel
 {
     public class ViewModelUnit : IMediator
     {
-        public ViewModelUnit(ISignIn signIn, IInfoProfile infoProfile, INavigation navigationService, IEditorTrain editorTrain, IShowerStructureVan showerStructureVan, ISearcherWays searcherWays, IBuyTicket buyTicket)
+        public ViewModelUnit
+            (ISignIn signIn, 
+            IInfoProfile infoProfile, 
+            INavigation navigationService, 
+            IEditorTrain editorTrain, 
+            IShowerStructureVan showerStructureVan, 
+            ISearcherWays searcherWays, 
+            IBuyTicket buyTicket, IMainMenuController mainMenuController)
         {
-            this.SignIn = signIn;
-            this.InfoProfile = infoProfile;
+            this.SignInService = signIn;
+            this.InfoProfileService = infoProfile;
             this.NavigationService = navigationService;
-            this.EditorTrain = editorTrain;
+            this.EditorTrainService = editorTrain;
             this.ShowerStructureVan = showerStructureVan;
-            this.SearcherWays = searcherWays;
-            this.BuyTicket = buyTicket;
+            this.SearcherWaysService = searcherWays;
+            this.BuyTicketService = buyTicket;
+            this.MainMenuControllerService = mainMenuController;
 
             #region SignIn
 
             #endregion
 
             #region BuyTicket
-            SearcherWays.UserChooseWay += BuyTicket.GetWayForBuyticket;
+            SearcherWaysService.UserChooseWay += BuyTicketService.GetWayForBuyticket;
             #endregion
 
             #region ShowerStructureVan
-            EditorTrain.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
-            SearcherWays.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
+            EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
+            SearcherWaysService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
             #endregion
 
             #region InfoProfile
-            SignIn.UserSignOut += InfoProfile.CurrentUserSignOut;
-            SignIn.UserSignIn += InfoProfile.SetCurrentUser;
-            NavigationService.Leave += InfoProfile.ClearDataWhenLeavePage;
-            NavigationService.Enter += InfoProfile.LoadDataWhenEnteringPage;
+            SignInService.UserSignOut += InfoProfileService.CurrentUserSignOut;
+            SignInService.UserSignIn += InfoProfileService.SetCurrentUser;
+            NavigationService.Leave += InfoProfileService.ClearDataWhenLeavePage;
+            NavigationService.Enter += InfoProfileService.LoadDataWhenEnteringPage;
             #endregion
 
             #region NavigationService
-            SearcherWays.UserChooseWay += (obj) => NavigationService.LoadPageBuyTicket();
-            SignIn.UserSignOut += NavigationService.SetMainMenuWhenSignOut;
-            SignIn.UserSignIn += (obj) => NavigationService.SetMainMenuWhenSignIn();
-            InfoProfile.EditExistTrain += obj => NavigationService.LoadTrainEditPageForEditTrain();
-            EditorTrain.TrainSaved += NavigationService.LoadPageAfterSaveTrain;
-            NavigationService.ViewModel = this;
+            MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
+            SearcherWaysService.UserChooseWay += (obj) => NavigationService.LoadNextPage(Model.Enumerations.TypePage.ChooseTicketPage);
+            InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
+            EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);
+            NavigationService.SetViewModel(this);
             #endregion
 
             #region EditorTrain
-            InfoProfile.EditExistTrain += EditorTrain.EditTrain;
-            SignIn.UserSignIn += EditorTrain.GetUser;
-            NavigationService.Leave += EditorTrain.SetDataWhenUserLeavePage;
-            NavigationService.Enter += EditorTrain.SetDataWhenUserEnterPage;
+            InfoProfileService.EditExistTrain += EditorTrainService.EditTrain;
+            SignInService.UserSignIn += EditorTrainService.GetUser;
+            NavigationService.Leave += EditorTrainService.SetDataWhenUserLeavePage;
+            NavigationService.Enter += EditorTrainService.SetDataWhenUserEnterPage;
+            #endregion
+
+            #region MainMenuController
+            SignInService.UserSignOut += MainMenuControllerService.SetUserSignOut;
+            SignInService.UserSignIn += MainMenuControllerService.SetUserSignIn;
             #endregion
         }
-        public IEditorTrain EditorTrain { get; }
-        public ISignIn SignIn { get; private set; }
-        public IInfoProfile InfoProfile { get; protected set; }
+        public IEditorTrain EditorTrainService { get; }
+        public ISignIn SignInService { get; private set; }
+        public IInfoProfile InfoProfileService { get; protected set; }
         public INavigation NavigationService { get; protected set; }
         public IShowerStructureVan ShowerStructureVan { get; }
-        public ISearcherWays SearcherWays { get; }
-        public IBuyTicket BuyTicket { get; }
+        public ISearcherWays SearcherWaysService { get; }
+        public IBuyTicket BuyTicketService { get; }
+        public IMainMenuController MainMenuControllerService { get; }
     }
 }

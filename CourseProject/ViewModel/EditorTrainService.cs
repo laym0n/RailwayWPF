@@ -21,7 +21,7 @@ namespace CourseProject.ViewModel
 {
     public class EditorTrainService : IEditorTrain
     {
-        private User currentUser;
+        private UserModel currentUser;
         public event Action TrainSaved;
         public event Action<TypeOfVanModel> VanChoosen;
         private IUnitOfWork db;
@@ -29,7 +29,7 @@ namespace CourseProject.ViewModel
         {
             this.db = db;
         }
-        public void GetUser(User user) => this.currentUser = user;
+        public void GetUser(UserModel user) => this.currentUser = user;
         List<TypeOfVanModel> typeOfVanModels = null;
         public List<TypeOfVanModel> TypeOfVanModels
         {

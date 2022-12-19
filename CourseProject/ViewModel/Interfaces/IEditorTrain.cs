@@ -15,7 +15,7 @@ namespace CourseProject.ViewModel.Interfaces
     public interface IEditorTrain
     {
         void EditTrain(TrainModel trainModel);
-        void GetUser(User user);
+        void GetUser(UserModel user);
         void SetDataWhenUserEnterPage(Page page);
         void SetDataWhenUserLeavePage(Page page);
         void RemoveTrain(TrainModel trainModel);

@@ -48,7 +48,7 @@ namespace CourseProject.ViewModel
                     }
                     else
                     {
-                        wayModel.Tickets.Remove();
+                        //wayModel.Tickets.Remove();
                     }
                 }
             });
@@ -56,9 +56,6 @@ namespace CourseProject.ViewModel
         public ICommand GoToPurchase
         {
             get => new RelayCommand((obj) =>
-            {
-
-            }, (obj) =>
             {
 
             });
