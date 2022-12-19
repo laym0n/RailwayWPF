@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ConverterForChooseTicketforBuy.cs" />
     <Compile Include="Converters\ConverterForColorSeat.cs" />
     <Compile Include="Converters\ConverterForPassengerGender.cs" />
     <Compile Include="Converters\ConverterForViewSeat.cs" />

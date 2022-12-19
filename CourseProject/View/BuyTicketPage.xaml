@@ -31,6 +31,7 @@
                 <TabItem
       Margin="4">
                     <TabItem.Resources>
+                        <localConverters:ConverterForChooseTicketforBuy x:Key="ConverterForChooseTicket"/>
                         <localConverters:ConverterForColorSeat x:Key="ConverterForColorSeat"/>
                         <DataTemplate x:Key="LabelRowTemplate">
                             <ItemsControl
@@ -44,11 +45,18 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type localModel:CellStrucureVanModel}">
                                         <Button 
+                                            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.BuyTicket.BuyTicket}"
    Background="{Binding typeOccupied, Converter={StaticResource ConverterForColorSeat}}">
                                             <StackPanel Margin="10">
-                                                <TextBlock Text="{Binding CostPerStation}"/>
-                                                <TextBlock Text="{Binding NumberOfSeatInVan}"/>
+                                                <TextBlock Foreground="White" Text="{Binding CostPerStation}"/>
+                                                <TextBlock Foreground="White" Text="{Binding NumberOfSeatInVan}"/>
                                             </StackPanel>
+                                            <Button.CommandParameter>
+                                                <MultiBinding Converter="{StaticResource ConverterForChooseTicket}">
+                                                    <Binding/>
+                                                    <Binding ElementName="Way" Path="ItemsSource"/>
+                                                </MultiBinding>
+                                            </Button.CommandParameter>
                                         </Button>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -60,7 +68,7 @@
                         <DataTemplate x:Key="AlternativeAddressTemplate"
                                       DataType="{x:Type localModel:WayModelForBuyTicket}">
                             <StackPanel Orientation="Vertical">
-                                <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
+                                <ItemsControl Name="Way" ItemTemplate="{StaticResource LabelRowTemplate}"
                ItemsSource="{Binding Path=StrucureVanModels}">
                                     <ItemsControl.ItemsPanel>
 

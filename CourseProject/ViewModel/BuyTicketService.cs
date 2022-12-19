@@ -18,17 +18,47 @@ namespace CourseProject.ViewModel
         {
             this.db = db;
         }
-        ObservableCollection<WayModelForBuyTicket> seatsForBuy = new ObservableCollection<WayModelForBuyTicket>();
+        ObservableCollection<WayModelForBuyTicket> WayModels = new ObservableCollection<WayModelForBuyTicket>();
         public ObservableCollection<WayModelForBuyTicket> SeatsForBuy
         {
-            get { return seatsForBuy; }
+            get { return WayModels; }
         }
         public void GetWayForBuyticket(List<WayModelForBuyTicket> way) {
-            way.ForEach(i => seatsForBuy.Add(i));
+            way.ForEach(i => WayModels.Add(i));
         }
         public ICommand BuyTicket
         {
             get => new RelayCommand((obj) =>
+            {
+                object[] objects = (obj as object[]);
+                CellStrucureVanModel cellStructureForChoose = objects[0] as CellStrucureVanModel;
+                if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy || cellStructureForChoose.typeOccupied == TypeOccupied.Free)
+                {
+                    cellStructureForChoose.typeOccupied = cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy ? TypeOccupied.Free : TypeOccupied.ReserveForBuy;
+                    WayModelForBuyTicket wayModel = WayModels.FirstOrDefault(i => i.StrucureVanModels == (objects[0] as ObservableCollection<List<CellStrucureVanModel>>));
+                    if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy)
+                    {
+                        wayModel.Tickets.Add(new DAL.Ticket()
+                        {
+                            Cost = (cellStructureForChoose.CostPerStation ?? 0) * wayModel.Way.EndStationTrainScheduleModel.NumberInTrip - wayModel.Way.StartStationTrainScheduleModel.NumberInTrip,
+                            SeatId = cellStructureForChoose.NumberOfSeatInVan ?? 0,
+                            IdTimesForStationSource = wayModel.Way.StartTimesForStationModel.Id,
+                            IdTimesForStationDestiny = wayModel.Way.EndTimesForStationModel.Id
+                        });
+                    }
+                    else
+                    {
+                        wayModel.Tickets.Remove();
+                    }
+                }
+            });
+        }
+        public ICommand GoToPurchase
+        {
+            get => new RelayCommand((obj) =>
+            {
+
+            }, (obj) =>
             {
 
             });
