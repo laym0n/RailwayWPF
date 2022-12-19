@@ -136,6 +136,7 @@
     <Compile Include="ViewModel\Interfaces\IMainMenuController.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
     <Compile Include="ViewModel\Interfaces\ISearcherWays.cs" />
+    <Compile Include="ViewModel\Interfaces\ISearchWayStrategy.cs" />
     <Compile Include="ViewModel\Interfaces\IShowerStructureVan.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="ViewModel\SetterVisibleButtonsMenuShowAdminAndSimpleUser.cs" />
     <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
+    <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
     <Compile Include="ViewModel\ViewModelUnit.cs" />
     <Compile Include="View\BuyTicketPage.xaml.cs">
