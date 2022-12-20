@@ -17,12 +17,12 @@ using System.Windows.Shapes;
 namespace CourseProject.View
 {
     /// <summary>
-    /// Логика взаимодействия для BuyTicketPage.xaml
+    /// Логика взаимодействия для ChooseSeatsPage.xaml
     /// </summary>
-    public partial class BuyTicketPage : Page
+    public partial class ChooseSeatsPage : Page
     {
         IMediator ViewModel;
-        public BuyTicketPage(IMediator ViewModelObject)
+        public ChooseSeatsPage(IMediator ViewModelObject)
         {
             InitializeComponent();
             this.ViewModel = ViewModelObject;

@@ -18,12 +18,12 @@ using System.Windows.Shapes;
 namespace CourseProject
 {
     /// <summary>
-    /// Логика взаимодействия для SearchWaysPage.xaml
+    /// Логика взаимодействия для SearchWaysForBuyTicketPage.xaml
     /// </summary>
-    public partial class SearchWaysPage : Page
+    public partial class SearchWaysForBuyTicketPage : Page
     {
         IMediator mediator1;
-        public SearchWaysPage(IMediator mediator)
+        public SearchWaysForBuyTicketPage(IMediator mediator)
         {
             InitializeComponent();
             this.mediator1 = mediator;

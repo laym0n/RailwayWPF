@@ -15,7 +15,7 @@ namespace CourseProject.ViewModel.Interfaces
         ICommand ShowNextVan { get; }
         ICommand ShowPreviousVan { get; }
         void SetStructureVanWithoutSeats(TypeOfVanModel van);
-        void SetStrucureWithSeats(List<WayModelForBuyTicket> way);
+        void SetStrucureWithSeats(List<WayModelForChooseTicket> way);
         ObservableCollection<List<CellStrucureVanModel>> StructureVanWithoutSeats { get; }
         ObservableCollection<List<List<CellStrucureVanModel>>> StructureVansWithSeats { get; }
     }

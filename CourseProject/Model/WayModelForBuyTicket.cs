@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CourseProject.Model
 {
-    public class WayModelForBuyTicket
+    public class WayModelForChooseTicket
     {
-        public ObservableCollection<List<CellStrucureVanModel>> StrucureVanModels { get; set; } = new ObservableCollection<List<CellStrucureVanModel>>();
+        public ObservableCollection<List<CellStrucureVanModel>> StructureVanModels { get; set; } = new ObservableCollection<List<CellStrucureVanModel>>();
         public List<Ticket> Tickets { get; set; } = new List<Ticket> ();
         public VanModel VanForShow { get; set; } = null;
         public ConcreteWayTrainModel Way { get; set; }

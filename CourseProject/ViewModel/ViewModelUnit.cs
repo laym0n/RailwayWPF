@@ -17,7 +17,8 @@ namespace CourseProject.ViewModel
             IEditorTrain editorTrain, 
             IShowerStructureVan showerStructureVan, 
             ISearcherWaysService searcherWays, 
-            IBuyTicket buyTicket, IMainMenuController mainMenuController)
+            IBuyTicket buyTicket, 
+            IMainMenuController mainMenuController)
         {
             this.SignInService = signIn;
             this.InfoProfileService = infoProfile;
@@ -32,13 +33,15 @@ namespace CourseProject.ViewModel
 
             #endregion
 
+
             #region BuyTicket
-            SearcherWaysService.UserChooseWay += BuyTicketService.GetWayForBuyticket;
+            //SearcherWaysService.UserChooseWay += BuyTicketService.GetWayForBuyticket;
             #endregion
 
             #region ShowerStructureVan
             EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
-            SearcherWaysService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
+            BuyTicketService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
+            //SearcherWaysService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
             #endregion
 
             #region InfoProfile
@@ -50,9 +53,16 @@ namespace CourseProject.ViewModel
 
             #region NavigationService
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
-            SearcherWaysService.UserChooseWay += (obj) => NavigationService.LoadNextPage(Model.Enumerations.TypePage.ChooseTicketPage);
+            //SearcherWaysService.UserChooseWay += (obj) => NavigationService.LoadNextPage(Model.Enumerations.TypePage.ChooseTicketPage);
             InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
             EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);
+            BuyTicketService.UserChooseWay += (obj) => NavigationService.LoadNextPage(TypePage.ChooseTicketPage);
+            BuyTicketService.ChooseTicketService.UserChooseTicket += (obj) => NavigationService.LoadNextPage(TypePage.FillPassengerForBuyTicketPage);
+            BuyTicketService.TicketPurchased += () =>
+            {
+                NavigationService.ClearHistoryPage();
+                NavigationService.LoadNextPageWithNotify(TypePage.ProfilePage);
+            };
             NavigationService.SetViewModel(this);
             #endregion
 

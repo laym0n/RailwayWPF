@@ -14,16 +14,21 @@ namespace CourseProject.ViewModel
     public class BuyTicketService : IBuyTicket
     {
         IUnitOfWork db;
-        public BuyTicketService(IUnitOfWork db)
+        public event Action TicketPurchased;
+        public event Action<List<WayModelForChooseTicket>> UserChooseWay;
+        public BuyTicketService(IUnitOfWork db, IChooseTicketService ChooseTicketService)
         {
             this.db = db;
+            this.ChooseTicketService = ChooseTicketService;
         }
-        ObservableCollection<WayModelForBuyTicket> WayModels = new ObservableCollection<WayModelForBuyTicket>();
-        public ObservableCollection<WayModelForBuyTicket> SeatsForBuy
+        public IChooseTicketService ChooseTicketService { get; }
+        public IFillPassengerForTicketService FillPassengerForTicketService { get; }
+        ObservableCollection<WayModelForChooseTicket> WayModels = new ObservableCollection<WayModelForChooseTicket>();
+        public ObservableCollection<WayModelForChooseTicket> SeatsForBuy
         {
             get { return WayModels; }
         }
-        public void GetWayForBuyticket(List<WayModelForBuyTicket> way) {
+        public void GetWayForBuyticket(List<WayModelForChooseTicket> way) {
             way.ForEach(i => WayModels.Add(i));
         }
         public ICommand BuyTicket
@@ -35,7 +40,7 @@ namespace CourseProject.ViewModel
                 if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy || cellStructureForChoose.typeOccupied == TypeOccupied.Free)
                 {
                     cellStructureForChoose.typeOccupied = cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy ? TypeOccupied.Free : TypeOccupied.ReserveForBuy;
-                    WayModelForBuyTicket wayModel = WayModels.FirstOrDefault(i => i.StrucureVanModels == (objects[0] as ObservableCollection<List<CellStrucureVanModel>>));
+                    WayModelForChooseTicket wayModel = WayModels.FirstOrDefault(i => i.StructureVanModels == (objects[0] as ObservableCollection<List<CellStrucureVanModel>>));
                     if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy)
                     {
                         wayModel.Tickets.Add(new DAL.Ticket()
@@ -53,11 +58,18 @@ namespace CourseProject.ViewModel
                 }
             });
         }
-        public ICommand GoToPurchase
+
+        public ICommand StartTicketProcessing
         {
             get => new RelayCommand((obj) =>
             {
-
+                if(obj is ConcreteWayFromStationToStation way)
+                {
+                    List<WayModelForChooseTicket> ways = way.ConcreteWayTrainModels.Select(i => new WayModelForChooseTicket() { Way = i }).ToList();
+                    ways.ForEach(i => WayModels.Add(i));
+                    UserChooseWay?.Invoke(ways);
+                    ChooseTicketService.SetConcreteWayFromStationToStation(ways);
+                }
             });
         }
     }

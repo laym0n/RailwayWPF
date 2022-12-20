@@ -22,11 +22,13 @@ namespace CourseProject.Model
                 OnPropertyChanged("typeOccupied");
             }
         }
-        public CellStrucureVanModel(int? costPerStation, int? numberOfSeatInVan, TypeOccupied typeOccupied)
+        public int? SeatId { get; set; }
+        public CellStrucureVanModel(int? costPerStation, int? numberOfSeatInVan, TypeOccupied typeOccupied, int? seatId)
         {
             this.CostPerStation = costPerStation;
             this.NumberOfSeatInVan = numberOfSeatInVan;
             this.typeOccupied = typeOccupied;
+            SeatId = seatId;
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

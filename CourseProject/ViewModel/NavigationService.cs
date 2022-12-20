@@ -81,5 +81,13 @@ namespace CourseProject.ViewModel
         {
             HistoryPages.Clear();
         }
+        public ICommand GoToPreviousPageWithNotify 
+        {
+            get => new RelayCommand((obj) => LoadPreviousPageWithNotify());
+        }
+        public ICommand GoToPreviousPage
+        {
+            get => new RelayCommand((obj) => LoadPreviousPage());
+        }
     }
 }

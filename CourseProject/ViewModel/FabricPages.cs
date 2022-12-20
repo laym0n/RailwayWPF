@@ -25,11 +25,11 @@ namespace CourseProject.ViewModel
             else if ( typePage == TypePage.EditTrainPage)
                 PageForCreate = new TrainEditPage(mediator);
             else if (typePage == TypePage.ChooseTicketPage)
-                PageForCreate = new BuyTicketPage(mediator);
+                PageForCreate = new ChooseSeatsPage(mediator);
             else if (typePage == TypePage.SearchWayPage)
-                PageForCreate = new SearchWaysPage(mediator);
+                PageForCreate = new SearchWaysForBuyTicketPage(mediator);
             else
-                PageForCreate = new BuyTicketPage(mediator);
+                PageForCreate = new ChooseSeatsPage(mediator);
             return PageForCreate;
         }
     }

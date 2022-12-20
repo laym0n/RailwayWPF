@@ -24,5 +24,7 @@ namespace CourseProject.ViewModel.Interfaces
         void LoadPage(TypePage typePage);
         void LoadPageWithNotify(TypePage typePage);
         void SetViewModel(IMediator mediator);
+        ICommand GoToPreviousPageWithNotify { get; }
+        ICommand GoToPreviousPage { get; }
     }
 }

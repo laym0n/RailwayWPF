@@ -11,8 +11,13 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IBuyTicket
     {
+        event Action TicketPurchased;
+        event Action<List<WayModelForChooseTicket>> UserChooseWay;
+        IChooseTicketService ChooseTicketService { get; }
+        IFillPassengerForTicketService FillPassengerForTicketService { get; }
+        ObservableCollection<WayModelForChooseTicket> SeatsForBuy { get; }
+        void GetWayForBuyticket(List<WayModelForChooseTicket> way);
         ICommand BuyTicket { get; }
-        ObservableCollection<WayModelForBuyTicket> SeatsForBuy { get; }
-        void GetWayForBuyticket(List<WayModelForBuyTicket> way);
+        ICommand StartTicketProcessing { get; }
     }
 }

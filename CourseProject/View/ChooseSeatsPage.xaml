@@ -1,0 +1,124 @@
+﻿<Page x:Class="CourseProject.View.ChooseSeatsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:CourseProject.View"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Name="PageBuyTicket"
+      Title="BuyTicketPage"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
+    <Page.Resources>
+        <localModelcol:VansStrucureWithSeatsCollection x:Key="StructureVans"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <localConverters:ConverterForChooseTicketforBuy x:Key="ConverterForChooseTicket"/>
+            <localConverters:ConverterForColorSeat x:Key="ConverterForColorSeat"/>
+            <DataTemplate x:Key="LabelRowTemplate">
+                <ItemsControl
+               ItemsSource="{Binding}">
+                    <ItemsControl.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type localModel:CellStrucureVanModel}">
+                            <Button 
+                                            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.BuyTicketService.ChooseTicketService.ChooseTicket}"
+   Background="{Binding typeOccupied, Converter={StaticResource ConverterForColorSeat}}">
+                                <StackPanel Margin="10">
+                                    <TextBlock Foreground="White" Text="{Binding CostPerStation}"/>
+                                    <TextBlock Foreground="White" Text="{Binding NumberOfSeatInVan}"/>
+                                </StackPanel>
+                                <Button.CommandParameter>
+                                    <MultiBinding Converter="{StaticResource ConverterForChooseTicket}">
+                                        <Binding/>
+                                        <Binding ElementName="Way" Path="DataContext"/>
+                                    </MultiBinding>
+                                </Button.CommandParameter>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+
+            </DataTemplate>
+
+            <DataTemplate x:Key="AlternativeAddressTemplate"
+                                      DataType="{x:Type localModel:WayModelForChooseTicket}">
+                <StackPanel Orientation="Vertical" Name="Way" DataContext="{Binding}"  >
+                    <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
+               ItemsSource="{Binding Path=StructureVanModels}">
+                        <ItemsControl.ItemsPanel>
+
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Предыдущий вагон"
+                                            CommandParameter="{Binding}"
+                        Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowPreviousVan}"
+                                            />
+
+
+                        <Button Content="Следующий вагон"
+            CommandParameter="{Binding}"
+            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowNextVan}"/>
+
+
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+        <ScrollViewer Grid.Row="0">
+            <ItemsControl
+                                      Grid.Column="1" 
+                                      x:Name="rad" 
+                                      ItemTemplate="{StaticResource AlternativeAddressTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button
+ Command="{Binding Path=NavigationService.GoToPreviousPage}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowLeft" />
+            </Button>
+            <Button
+ Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteChoose}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowRight" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

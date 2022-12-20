@@ -129,10 +129,13 @@
     <Compile Include="Model\WayModelForBuyTicket.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="ViewModel\BuyTicketService.cs" />
+    <Compile Include="ViewModel\ChooseTicketService.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />
     <Compile Include="ViewModel\FabricPages.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
+    <Compile Include="ViewModel\Interfaces\IChooseSeatService.cs" />
     <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
+    <Compile Include="ViewModel\Interfaces\IFillPassengerForTicketService.cs" />
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IMainMenuController.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
@@ -153,14 +156,14 @@
     <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
     <Compile Include="ViewModel\ViewModelUnit.cs" />
-    <Compile Include="View\BuyTicketPage.xaml.cs">
-      <DependentUpon>BuyTicketPage.xaml</DependentUpon>
+    <Compile Include="View\ChooseSeatsPage.xaml.cs">
+      <DependentUpon>ChooseSeatsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ReportPage.xaml.cs">
       <DependentUpon>ReportPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\SearchWaysPage.xaml.cs">
-      <DependentUpon>SearchWaysPage.xaml</DependentUpon>
+    <Compile Include="View\SearchWaysForBuyTicketPag.xaml.cs">
+      <DependentUpon>SearchWaysForBuyTicketPag.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
@@ -171,7 +174,7 @@
     <Compile Include="View\TrainEditPage.xaml.cs">
       <DependentUpon>TrainEditPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\BuyTicketPage.xaml">
+    <Page Include="View\ChooseSeatsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -191,7 +194,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SearchWaysPage.xaml">
+    <Page Include="View\SearchWaysForBuyTicketPag.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

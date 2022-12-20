@@ -24,7 +24,6 @@ namespace CourseProject.ViewModel
         {
             get => pathsFound; 
         }
-        public event Action<List<WayModelForBuyTicket>> UserChooseWay;
         IUnitOfWork db;
         ISearchWayStrategy searchWayStrategy;
         public void SetStrategySearch(ISearchWayStrategy searchWayStrategy)
@@ -67,17 +66,6 @@ namespace CourseProject.ViewModel
                 if (model.IdEndStation == 0 || model.IdStartStation == 0 || model.DateTimeArriving <= DateTime.Now)
                     return false;
                 return true;
-            });
-        }
-        public ICommand EnterBuyPage
-        {
-            get => new RelayCommand((obj) =>
-            {
-                if(obj is ConcreteWayFromStationToStation concreteWayFromStationToStation)
-                {
-                    List<WayModelForBuyTicket> parametr = concreteWayFromStationToStation.ConcreteWayTrainModels.Select(i=> new WayModelForBuyTicket() { Way = i}).ToList();
-                    UserChooseWay?.Invoke(parametr);
-                }
             });
         }
         public ICommand SetFilters

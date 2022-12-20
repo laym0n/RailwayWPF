@@ -38,6 +38,7 @@ namespace CourseProject.Util
             Bind<IMainMenuController>().To<MainMenuController>().InSingletonScope();
             Bind<SetterVisibleButtonsMainMenu>().To<SetterVisibleButtonsMenuShowAdminAndSimpleUser>();
             Bind<ISearchWayStrategy>().To<SearchWayStrategyWithMaxTransfer>().WithConstructorArgument(6);
+            Bind<IChooseTicketService>().To<ChooseTicketService>();
         }
     }
 }

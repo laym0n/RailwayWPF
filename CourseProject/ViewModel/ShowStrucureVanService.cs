@@ -41,12 +41,12 @@ namespace CourseProject.ViewModel
             List<List<CellStrucureVanModel>> Added = new List<List<CellStrucureVanModel>>();
             (from cell in db.CellStructureVan.GetList().Where(i => i.TypeOfVanId == IdTypeOfVan)
              from seat in db.Seat.GetList().Where(i => i.TypeOfVanId == IdTypeOfVan && cell.NumberOfSeatInVan == i.NumberOfSeatInVan).DefaultIfEmpty()
-             group new CellStrucureVanModel(seat?.CostPerStation, cell.NumberOfSeatInVan, (seat == null ? TypeOccupied.NotSeat : TypeOccupied.Free)) by cell.NumberOfRow into CellSeat
+             group new CellStrucureVanModel(seat?.CostPerStation, cell.NumberOfSeatInVan, (seat == null ? TypeOccupied.NotSeat : TypeOccupied.Free), seat?.Id) by cell.NumberOfRow into CellSeat
              select CellSeat.ToList()).ToList().ForEach(i => Added.Add(i));
             loadedStructureVans.Add(IdTypeOfVan, Added);
             return Added;
         }
-        public void SetStrucureWithSeats(List<WayModelForBuyTicket> way)
+        public void SetStrucureWithSeats(List<WayModelForChooseTicket> way)
         {
             structureVanWithoutSeats.Clear();
             way.ForEach(concreteWayTrain =>
@@ -74,7 +74,7 @@ namespace CourseProject.ViewModel
                 //structureVansWithSeats.Add(AddedVan);
             });
         }
-        void ShowVanWithNumberInTrainMoreThanInParametr(WayModelForBuyTicket concreteWayTrain, int NumberInTrain)
+        void ShowVanWithNumberInTrainMoreThanInParametr(WayModelForChooseTicket concreteWayTrain, int NumberInTrain)
         {
             concreteWayTrain.VanForShow = new VanModel(
                 ((from van in db.Van.GetList()
@@ -92,17 +92,17 @@ namespace CourseProject.ViewModel
                                 where ticket?.IdTimesForStationSource == timesForStation.Id
                                 select ticket).DefaultIfEmpty()
                 select new CellStrucureVanModel(cell.CostPerStation, cell.NumberOfSeatInVan, (cell.typeOccupied == TypeOccupied.NotSeat ? TypeOccupied.NotSeat :
-                ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied))
+                ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied), ticket?.Id)
                 ).ToList()
              )).ToList();
-            concreteWayTrain.StrucureVanModels.Clear();
-            AddedVan.ForEach(i => concreteWayTrain.StrucureVanModels.Add(i));
+            concreteWayTrain.StructureVanModels.Clear();
+            AddedVan.ForEach(i => concreteWayTrain.StructureVanModels.Add(i));
         }
         public ICommand ShowNextVan
         {
             get => new RelayCommand((obj) =>
             {
-                if(obj is WayModelForBuyTicket way)
+                if(obj is WayModelForChooseTicket way)
                 {
                     int MaxNumber = db.Van.GetList().Where(i => i.TrainId == way.VanForShow.TrainId).Max(i => i.NumberInTrain);
                     ShowVanWithNumberInTrainMoreThanInParametr(way,
@@ -114,7 +114,7 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) =>
             {
-                if (obj is WayModelForBuyTicket way)
+                if (obj is WayModelForChooseTicket way)
                 {
                     ShowVanWithNumberInTrainMoreThanInParametr(way, 
                         (way.VanForShow.NumberInTrain - 2 >= 0 ? way.VanForShow.NumberInTrain - 2:
