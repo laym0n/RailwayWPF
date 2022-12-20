@@ -102,7 +102,7 @@
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button
- Command="{Binding Path=NavigationService.GoToPreviousPage}"
+ Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon

@@ -22,14 +22,16 @@ namespace CourseProject.ViewModel
             Page PageForCreate;
             if (typePage == TypePage.ProfilePage)
                 PageForCreate = new Profile(mediator);
-            else if ( typePage == TypePage.EditTrainPage)
+            else if (typePage == TypePage.EditTrainPage)
                 PageForCreate = new TrainEditPage(mediator);
             else if (typePage == TypePage.ChooseTicketPage)
                 PageForCreate = new ChooseSeatsPage(mediator);
             else if (typePage == TypePage.SearchWayPage)
                 PageForCreate = new SearchWaysForBuyTicketPage(mediator);
-            else
+            else if (typePage == TypePage.FillPassengerForBuyTicketPage)
                 PageForCreate = new FillPassengerForTickets(mediator);
+            else
+                PageForCreate = new FinalPageBuyTicket(mediator);
             return PageForCreate;
         }
     }

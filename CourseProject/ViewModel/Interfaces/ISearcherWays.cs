@@ -11,7 +11,7 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface ISearcherWaysService
     {
-        //event Action<List<WayModelForChooseTicket>> UserChooseWay;
+        void ClearResults();
         void SetStrategySearch(ISearchWayStrategy searchWayStrategy);
         ObservableCollection<ConcreteWayFromStationToStation> PathsFound { get; }
         ICommand FindWays { get; }

@@ -22,6 +22,10 @@ namespace CourseProject.ViewModel
             way.ForEach(i => ChoosenTickets.Add(i, new HashSet<CellStrucureVanModel>()));
             ShowNewWay?.Invoke(way);
         }
+        public void CancelCurrentProcessTicket()
+        {
+            ChoosenTickets.Clear();
+        }
         public ICommand СompleteProcess
         {
             get => new RelayCommand((obj) =>
@@ -38,6 +42,8 @@ namespace CourseProject.ViewModel
                 ProcessComplete?.Invoke(Tickets);
             }, (obj) =>
             {
+                if (ChoosenTickets.Count == 0)
+                    return false;
                 int count = ChoosenTickets.First().Value.Count;
                 if (count == 0)
                     return false;

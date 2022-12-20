@@ -14,8 +14,10 @@ namespace CourseProject.ViewModel.Interfaces
     {
         void SetUser(UserModel user);
         event Action TicketsPurchased;
-        List<Ticket> Tickets { get; }
+        event Action CancelProcess;
+        List<TicketViewModel> Tickets { get; }
         IChooseTicketService ChooseTicketService { get; }
         ICommand StartTicketProcessing { get; }
+        ICommand CancelCurrentProcess { get; }
     }
 }

@@ -19,7 +19,10 @@ namespace CourseProject.ViewModel
     public class SearcherWaysService : ISearcherWaysService
     {
         ObservableCollection<ConcreteWayFromStationToStation> pathsFound = new ObservableCollection<ConcreteWayFromStationToStation>();
-
+        public void ClearResults()
+        {
+            pathsFound.Clear();
+        }
         public ObservableCollection<ConcreteWayFromStationToStation> PathsFound 
         {
             get => pathsFound; 

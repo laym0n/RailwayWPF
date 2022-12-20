@@ -47,6 +47,21 @@ namespace CourseProject.ViewModel
             db.Station.GetList().ForEach(i => InfoForPassToFillPassengersPage.Stations.Add(new StationModel(i)));
         }
         public void SetConcreteWayFromStationToStation(List<WayModelForChooseTicket> way) => chooseTicketService.SetConcreteWayFromStationToStation(way);
+        public void CancelCurrentProcessTicket()
+        {
+            if (active)
+                ClearDate();
+            else
+                chooseTicketService.CancelCurrentProcessTicket();
+        }
+        void ClearDate()
+        {
+            tickets.Clear();
+            InfoForPassToFillPassengersPage.PassengersInProfile.Clear();
+            InfoForPassToFillPassengersPage.Stations.Clear();
+            InfoForPassToFillPassengersPage.PassengersForTickets.Clear();
+            passengers.Clear();
+        }
         public ICommand DoProcess
         {
             get => !active ? chooseTicketService.DoProcess : null ;
@@ -62,7 +77,10 @@ namespace CourseProject.ViewModel
                 {
                     i.ForEach(ticket =>
                     {
-                        ticket.Passenger = passengers[index].GetPassanger();
+                        Passenger passengerForTicket = passengers[index].LoadedInDB ? db.Passengers.GetItem(passengers[index].Id) : passengers[index].GetPassanger();
+                        if (!passengers[index].LoadedInDB)
+                            passengerForTicket.UserId = null;
+                        ticket.Passenger = passengerForTicket;
                         index = (index + 1) % count;
                         UdatedTickets.Add(ticket);
                     });

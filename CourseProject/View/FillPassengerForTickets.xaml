@@ -34,7 +34,7 @@
                     Name="UseLoadedProfilesPassengers"
       Margin="0,0,0,8"
       Content="Использовать сохраненные профили пассжиров"
-      IsChecked="False" />
+      IsChecked="{Binding Path=LoadedInDB}" />
                         <StackPanel>
                             <StackPanel.Style>
                                 <Style TargetType="StackPanel">
@@ -175,7 +175,7 @@
         </ScrollViewer>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button
- Command="{Binding Path=NavigationService.GoToPreviousPage}"
+ Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon

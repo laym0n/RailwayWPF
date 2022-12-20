@@ -1,0 +1,230 @@
+﻿<Page x:Class="CourseProject.View.SearchWaysForReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelInfoFromView="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
+      mc:Ignorable="d" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+      xmlns:local="clr-namespace:CourseProject.View"
+      Name="SearchPage"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SearchWaysForReportPage"
+      d:DataContext = "{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
+    <Page.Resources>
+        <localModelcol:StationModelCollection x:Key="Stations"/>
+        <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
+        <localModelcol:ConcreteWayFromStationToStationObservableCollection x:Key="Waysfound"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="19*"></RowDefinition>
+            <RowDefinition Height="71*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <Grid Margin="0,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"></ColumnDefinition>
+                    <ColumnDefinition Width="25*"/>
+                </Grid.ColumnDefinitions>
+                <DatePicker
+                SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
+                DisplayDateStart="{x:Static system:DateTime.Now}"
+                DisplayDate="{x:Static system:DateTime.Now}"
+                Grid.Column="2"
+  Width="140"
+  materialDesign:HintAssist.HelperText="Helper text"
+  materialDesign:HintAssist.Hint="Pick Date"
+  Style="{StaticResource MaterialDesignFilledDatePicker}" />
+                <Button Command="{Binding Path=SearcherWaysService.FindWays}"
+                    CommandParameter="{StaticResource InfoAboutWay}"
+                    Content="Find"
+                    Grid.Column="3"/>
+                <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
+                Grid.Column="0"
+  Width="256"
+  materialDesign:HintAssist.Hint="Откуда"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+                </ComboBox>
+                <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
+                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
+                Grid.Column="1"
+  Width="256"
+  materialDesign:HintAssist.Hint="Куда"
+  materialDesign:TextFieldAssist.HasClearButton="True"
+  IsEditable="True"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+                </ComboBox>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <localModelInfoFromView:InfoAboutFilters x:Key="InfoAboutFiltersSearch"/>
+                    <x:Array x:Key="CountTransfers" Type="system:Int32">
+                        <system:Int32>0</system:Int32>
+                        <system:Int32>1</system:Int32>
+                        <system:Int32>2</system:Int32>
+                        <system:Int32>3</system:Int32>
+                        <system:Int32>4</system:Int32>
+                        <system:Int32>5</system:Int32>
+                        <system:Int32>6</system:Int32>
+                    </x:Array>
+                </StackPanel.Resources>
+                <ComboBox
+                SelectedValue="{Binding Source={StaticResource InfoAboutFiltersSearch}, Path=MaxCountTransfers}"
+                    SelectedIndex="6"
+                Grid.Column="0"
+  Width="283"
+  materialDesign:HintAssist.Hint="Максималльное количество пересадок"
+  ItemsSource="{StaticResource ResourceKey=CountTransfers}"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction
+                            Command="{Binding Path=SearcherWaysService.SetFilters}"
+                            CommandParameter="{StaticResource InfoAboutFiltersSearch}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+        <ScrollViewer Grid.Row ="1">
+
+            <StackPanel Orientation="Vertical">
+                <StackPanel.Resources>
+
+                    <DataTemplate x:Key="DataTemplateForFoundWays" DataType="{x:Type localModel:ConcreteWayFromStationToStation}">
+                        <GroupBox
+                                        Margin="16"
+  Style="{StaticResource MaterialDesignCardGroupBox}">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="Train" />
+                                </DataTemplate>
+
+
+                            </GroupBox.HeaderTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding NameStartStation}" />
+                                <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                            Grid.Column="1"
+  Text="{Binding NameEndStation}" />
+
+                                <TextBlock Grid.Column="0" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding DepartureTimeStartStation}" />
+                                <TextBlock Grid.Column="1" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding ArrivingTimeEndStation}" />
+                                <materialDesign:Card Grid.Row="2"
+                                      Grid.ColumnSpan="2">
+                                    <Expander 
+      HorizontalAlignment="Stretch">
+                                        <Expander.Header>
+                                            <TextBlock Text="Поезда" />
+                                        </Expander.Header>
+
+                                        <StackPanel
+        Margin="24,8,24,16"
+        Orientation="Vertical"
+        TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                            <ItemsControl
+               ItemsSource="{Binding Path=ConcreteWayTrainModels}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type localModel:ConcreteWayTrainModel}">
+                                                        <Border Margin="20,20,0,20" HorizontalAlignment="Stretch" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                                                            <StackPanel>
+                                                                <Grid>
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition></RowDefinition>
+                                                                        <RowDefinition></RowDefinition>
+                                                                    </Grid.RowDefinitions>
+                                                                    <Grid.ColumnDefinitions>
+                                                                        <ColumnDefinition/>
+                                                                        <ColumnDefinition/>
+                                                                    </Grid.ColumnDefinitions>
+                                                                    <TextBlock Grid.Row="0" 
+                                                                                   Text="{Binding Path=StartStationModel.Name}" 
+                                                                                   HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock Grid.Row="0" Grid.Column="1" 
+                                                                                   Text="{Binding Path=EndStationModel.Name}" 
+                                                                                   HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock  Grid.Row="1" Text="{Binding 
+                                                                            Path=StartTimesForStationModel.DepartureTime}" 
+                                                                                    HorizontalAlignment="Center"></TextBlock>
+                                                                    <TextBlock  Grid.Row="1" Grid.Column="1" 
+                                                                                    Text="{Binding Path=EndTimesForStationModel.ArrivalTime}" 
+                                                                                    HorizontalAlignment="Center"></TextBlock>
+                                                                </Grid>
+                                                            </StackPanel>
+                                                        </Border>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </Expander>
+                                </materialDesign:Card>
+                                <Button Grid.Column="1" Grid.Row="3"
+  Command="{Binding ElementName=SearchPage, Path=DataContext.BuyTicketService.}"
+                                        CommandParameter="{Binding}"
+  Content="Купить билет" />
+
+
+                            </Grid>
+
+                        </GroupBox>
+                    </DataTemplate>
+
+                </StackPanel.Resources>
+                <ItemsControl ItemTemplate="{StaticResource ResourceKey=DataTemplateForFoundWays}"
+               ItemsSource="{Binding Source={StaticResource ResourceKey=Waysfound}, Path=Collection}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

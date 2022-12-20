@@ -33,16 +33,21 @@ namespace CourseProject.ViewModel
 
             #endregion
 
+            #region SearcherWaysService
+            NavigationService.Leave += (page) =>
+            {
+                if (page is SearchWaysForBuyTicketPage)
+                    SearcherWaysService.ClearResults();
+            };
+            #endregion
 
             #region BuyTicket
-            //SearcherWaysService.UserChooseWay += BuyTicketService.GetWayForBuyticket;
             SignInService.UserSignIn += BuyTicketService.SetUser;
             #endregion
 
             #region ShowerStructureVan
             EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
             ChooseTicketService.ShowNewWay += ShowerStructureVan.SetStrucureWithSeats;
-            //SearcherWaysService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
             #endregion
 
             #region InfoProfile
@@ -54,16 +59,17 @@ namespace CourseProject.ViewModel
 
             #region NavigationService
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
-            //SearcherWaysService.UserChooseWay += (obj) => NavigationService.LoadNextPage(Model.Enumerations.TypePage.ChooseTicketPage);
             InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
             EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);
             ChooseTicketService.ShowNewWay += (obj) => NavigationService.LoadNextPage(TypePage.ChooseTicketPage);
             FillPassengersForTicketService.UserStartFillPassenger += () => NavigationService.LoadNextPage(TypePage.FillPassengerForBuyTicketPage);
-            //BuyTicketService.TicketsPurchased += () =>
-            //{
-            //    NavigationService.ClearHistoryPage();
-            //    NavigationService.LoadNextPageWithNotify(TypePage.ProfilePage);
-            //};
+            BuyTicketService.TicketsPurchased += () =>
+            {
+                SearcherWaysService.ClearResults();
+                NavigationService.ClearHistoryPage();
+                NavigationService.LoadPage(TypePage.FinalPageBuyTicket);
+            };
+            BuyTicketService.CancelProcess += NavigationService.LoadPreviousPage;
             NavigationService.SetViewModel(this);
             #endregion
 

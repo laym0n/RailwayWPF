@@ -106,6 +106,7 @@
     <Compile Include="Model\Enumerations\TypeUser.cs" />
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\ModelForEditingSchedule.cs" />
+    <Compile Include="Model\ReportModel.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToChooseTicketPage.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToFillPassengersPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Model\StationModel.cs" />
     <Compile Include="Model\StationTrainScheduleModel.cs" />
     <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\TicketViewModel.cs" />
     <Compile Include="Model\TimesForStationModel.cs" />
     <Compile Include="Model\TrainInProfileModel.cs" />
     <Compile Include="Model\TrainModel.cs" />
@@ -149,6 +151,8 @@
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IMainMenuController.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
+    <Compile Include="ViewModel\Interfaces\IReportCompileStrategy.cs" />
+    <Compile Include="ViewModel\Interfaces\IReportService.cs" />
     <Compile Include="ViewModel\Interfaces\ISearcherWays.cs" />
     <Compile Include="ViewModel\Interfaces\ISearchWayStrategy.cs" />
     <Compile Include="ViewModel\Interfaces\IShowerStructureVan.cs" />
@@ -157,6 +161,7 @@
     <Compile Include="ViewModel\MainMenuController.cs" />
     <Compile Include="ViewModel\NavigationService.cs" />
     <Compile Include="ViewModel\ProfileService.cs" />
+    <Compile Include="ViewModel\ReportService.cs" />
     <Compile Include="ViewModel\SearcherWays.cs" />
     <Compile Include="ViewModel\Interfaces\AbstractClasses\SetterVisibleButtonsMainMenu.cs" />
     <Compile Include="ViewModel\FabricStrategySearchWay.cs" />
@@ -164,6 +169,7 @@
     <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
+    <Compile Include="ViewModel\StrategyCompileReport\StrategyIncludesAnyTicketsInWay.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
     <Compile Include="ViewModel\ViewModelUnit.cs" />
     <Compile Include="View\ChooseSeatsPage.xaml.cs">
@@ -186,6 +192,9 @@
     </Compile>
     <Compile Include="View\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SearchWaysForReportPage.xaml.cs">
+      <DependentUpon>SearchWaysForReportPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TrainEditPage.xaml.cs">
       <DependentUpon>TrainEditPage.xaml</DependentUpon>
@@ -227,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SearchWaysForReportPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

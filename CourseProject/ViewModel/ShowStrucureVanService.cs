@@ -92,7 +92,7 @@ namespace CourseProject.ViewModel
                 from ticket in (from ticket in db.Ticket.GetList().DefaultIfEmpty()
                                 join timesForStation in db.TimesForStation.GetList()
                                     on concreteWayTrain.Way.EndTimesForStationModel.TrackId equals timesForStation.TrackId
-                                where ticket?.IdTimesForStationSource == timesForStation.Id
+                                where ticket?.IdTimesForStationSource == timesForStation.Id && cell.SeatId == ticket.SeatId
                                 select ticket).DefaultIfEmpty()
                 select new CellStrucureVanModel(cell.CostPerStation, cell.NumberOfSeatInVan, (cell.typeOccupied == TypeOccupied.NotSeat ? TypeOccupied.NotSeat :
                 ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied), cell.SeatId)

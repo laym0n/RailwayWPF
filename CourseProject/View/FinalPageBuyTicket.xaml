@@ -6,9 +6,39 @@
       xmlns:local="clr-namespace:CourseProject.View"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FinalPageBuyTicket">
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
+      Title="FinalPageBuyTicket"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="359*"/>
+            <RowDefinition Height="91*"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock>Добавленные билеты</TextBlock>
+            <ListView ItemsSource="{Binding Path=BuyTicketService.Tickets}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Passenger.Name}"/>
+                        <GridViewColumn Header="Откуда" DisplayMemberBinding="{Binding Path=Way.EndStationModel.Name}"/>
+                        <GridViewColumn Header="Куда" DisplayMemberBinding="{Binding Path=Way.StartStationModel.Name}"/>
+                        <GridViewColumn Header="Время прибытия поезда на станцию отправки" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.ArrivalTime}"/>
+                        <GridViewColumn Header="Время отправления поезда на станции отправления" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.DepartureTime}"/>
+                        <GridViewColumn Header="Время прибытия поезда на станцию прибытия" DisplayMemberBinding="{Binding Path=Way.EndTimesForStationModel.ArrivalTime}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            
+        </StackPanel>
     </Grid>
 </Page>

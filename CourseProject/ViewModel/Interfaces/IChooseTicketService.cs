@@ -13,6 +13,7 @@ namespace CourseProject.ViewModel.Interfaces
     {
         event Action<List<Ticket>> ProcessComplete;
         void SetConcreteWayFromStationToStation(List<WayModelForChooseTicket> way);
+        void CancelCurrentProcessTicket();
         ICommand DoProcess { get; }
         ICommand СompleteProcess { get; }
     }

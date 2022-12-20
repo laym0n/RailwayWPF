@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,10 @@ namespace CourseProject.View
     /// </summary>
     public partial class FinalPageBuyTicket : Page
     {
-        public FinalPageBuyTicket()
+        public FinalPageBuyTicket(IMediator meditor)
         {
             InitializeComponent();
+            DataContext = meditor;
         }
     }
 }
