@@ -38,6 +38,7 @@ namespace DAL
                 .HasMany(e => e.Ticket)
                 .WithRequired(e => e.Passenger)
                 .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Passenger>().HasOptional(e => e.User).WithMany(e => e.Passenger);
 
             modelBuilder.Entity<Seat>().HasKey(e => new { e.Id });
             modelBuilder.Entity<Seat>()
@@ -92,12 +93,17 @@ namespace DAL
                 .HasMany(e => e.Seat)
                 .WithRequired(e => e.TypeOfVan)
                 .WillCascadeOnDelete(false);
-            
 
             modelBuilder.Entity<User>()
-                .HasMany(e => e.Passenger)
+                .HasMany(e => e.Ticket)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Passenger)
+                .WithOptional(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Ticket>().HasOptional(e=>e.User);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Train)

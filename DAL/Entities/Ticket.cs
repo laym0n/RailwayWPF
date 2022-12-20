@@ -21,7 +21,9 @@ namespace DAL
         public int IdTimesForStationSource { get; set; }
 
         public int IdTimesForStationDestiny { get; set; }
-
+        public int? UserId { get; set; }
+        [Column("UserId")]
+        public virtual User User { get; set; }
         public virtual Passenger Passenger { get; set; }
 
         public virtual Seat Seat { get; set; }

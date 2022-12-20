@@ -14,6 +14,7 @@ namespace DAL
         {
             Passenger = new HashSet<Passenger>();
             Train = new HashSet<Train>();
+            Ticket = new HashSet<Ticket>();
         }
 
         public int Id { get; set; }
@@ -35,6 +36,7 @@ namespace DAL
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Train> Train { get; set; }
+        public virtual ICollection<Ticket> Ticket { get; set; }
 
         public virtual UserType UserType { get; set; }
     }

@@ -25,7 +25,7 @@ namespace DAL
 
         public int Passport { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public bool Gender { get; set; }
 
         public virtual User User { get; set; }

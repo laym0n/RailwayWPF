@@ -39,6 +39,8 @@ namespace CourseProject.ViewModel
             }, (obj) =>
             {
                 int count = ChoosenTickets.First().Value.Count;
+                if (count == 0)
+                    return false;
                 return ChoosenTickets.All(i => i.Value.Count == count);
             });
         }

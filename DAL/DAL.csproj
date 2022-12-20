@@ -122,6 +122,14 @@
     <Compile Include="Migrations\202212151400288_CascadeDeleteTrack.designer.cs">
       <DependentUpon>202212151400288_CascadeDeleteTrack.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212200126236_AddReferenceToUserFromTicket.cs" />
+    <Compile Include="Migrations\202212200126236_AddReferenceToUserFromTicket.designer.cs">
+      <DependentUpon>202212200126236_AddReferenceToUserFromTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212200136109_AddNullableToReferenceBetweenUserAndPassenger.cs" />
+    <Compile Include="Migrations\202212200136109_AddNullableToReferenceBetweenUserAndPassenger.designer.cs">
+      <DependentUpon>202212200136109_AddNullableToReferenceBetweenUserAndPassenger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RailWayDB.cs" />
@@ -192,6 +200,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212151400288_CascadeDeleteTrack.resx">
       <DependentUpon>202212151400288_CascadeDeleteTrack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212200126236_AddReferenceToUserFromTicket.resx">
+      <DependentUpon>202212200126236_AddReferenceToUserFromTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212200136109_AddNullableToReferenceBetweenUserAndPassenger.resx">
+      <DependentUpon>202212200136109_AddNullableToReferenceBetweenUserAndPassenger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

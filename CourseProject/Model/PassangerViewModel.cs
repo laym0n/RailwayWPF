@@ -13,7 +13,7 @@ namespace CourseProject.Model
     {
         private int id;
         private int passport;
-        private int userId;
+        private int? userId;
         private DateTime birthday = DateTime.Now;
         private Peoplegender gender;
         private string name;
@@ -54,7 +54,7 @@ namespace CourseProject.Model
                 OnPropertyChanged("Passport");
             }
         }
-        public int UserId
+        public int? UserId
         {
             get => userId;
             set
