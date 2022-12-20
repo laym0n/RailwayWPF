@@ -17,6 +17,6 @@ namespace CourseProject.ViewModel.Interfaces
         void SetStructureVanWithoutSeats(TypeOfVanModel van);
         void SetStrucureWithSeats(List<WayModelForChooseTicket> way);
         ObservableCollection<List<CellStrucureVanModel>> StructureVanWithoutSeats { get; }
-        ObservableCollection<List<List<CellStrucureVanModel>>> StructureVansWithSeats { get; }
+        ObservableCollection<WayModelForChooseTicket> StructureVansWithSeats { get; }
     }
 }

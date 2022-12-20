@@ -1,4 +1,5 @@
-﻿using CourseProject.ViewModel.Interfaces;
+﻿using CourseProject.Model.StaticModelsForPassInfo;
+using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace CourseProject.View
         {
             InitializeComponent();
             this.ViewModel = ViewModelObject;
-            var a = ViewModelObject.BuyTicketService.SeatsForBuy;
+            var a = ViewModel.ShowerStructureVan.StructureVansWithSeats;
             rad.ItemsSource = a;
             DataContext = ViewModelObject;
         }

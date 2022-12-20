@@ -18,7 +18,7 @@
       Title="FillPassengerForTickets"
       d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
     <Page.Resources>
-        <localModelcol:PassengerViewModelCollection x:Key="LoadedPassengers"/>
+        <localModelcol:PassengerModelObservableCollection x:Key="LoadedPassengers"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -53,9 +53,7 @@
                             <GroupBox
                                         Margin="16"
   Header="ФИО Пассажира"
-  Style="{StaticResource MaterialDesignCardGroupBox}"
-                    >
-
+  Style="{StaticResource MaterialDesignCardGroupBox}">
                                 <GroupBox.HeaderTemplate>
                                     <DataTemplate>
                                         <StackPanel
@@ -86,7 +84,6 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
                                         <RowDefinition/>
-                                        <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBox
                                                         Text="{Binding Name}"
@@ -112,7 +109,7 @@
                                             <RadioButton
       Margin="4"
       Content="Женский"
-      IsChecked="{Binding Path=Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
       ConverterParameter={x:Static localModel:Peoplegender.woman}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                         </StackPanel>
@@ -155,7 +152,7 @@
                                 </Style>
                             </StackPanel.Style>
                             <ComboBox
-                SelectedValue="{Binding}"
+                SelectedValue="{Binding Path=Id}"
                 ItemsSource="{Binding Source={StaticResource LoadedPassengers}, Path=Collection}"
                 SelectedValuePath="Id"
                 DisplayMemberPath="Name"
@@ -167,6 +164,7 @@
                     </StackPanel>
                 </DataTemplate>
             </ScrollViewer.Resources>
+
             <ItemsControl x:Name="PassengerItemsControl" ItemTemplate="{StaticResource ResourceKey=TemplateForPassengers}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -186,13 +184,13 @@
     Kind="ArrowLeft" />
             </Button>
             <Button
- Command="{Binding Path=BuyTicketService.BuyT}"
+ Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
-    Kind="Ticket" />
+    Kind="ArrowRight" />
             </Button>
         </StackPanel>
     </Grid>

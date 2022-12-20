@@ -10,59 +10,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace CourseProject.ViewModel
 {
     public class BuyTicketService : IBuyTicket
     {
         IUnitOfWork db;
-        public event Action TicketPurchased;
-        public event Action<List<WayModelForChooseTicket>> UserChooseWay;
-        public BuyTicketService(IUnitOfWork db, TypeChooseTicket typeChooseTicket, IFillPassengerForTicketService fillPassenger)
+        private UserModel user;
+        public void SetUser(UserModel user) => this.user = user;
+        public event Action<List<Ticket>> TicketsPurchased;
+        IChooseTicketService chooseTicketService;
+        public IChooseTicketService ChooseTicketService { get => chooseTicketService; }
+        public BuyTicketService(IUnitOfWork db)
         {
             this.db = db;
-            SetChooseTicketService(typeChooseTicket);
-            this.FillPassengerForTicketService = fillPassenger;
-            this.FillPassengerForTicketService.PassengersFilled +=;
         }
-        public void SetChooseTicketService(TypeChooseTicket type)
+        public void SetChooseTicketService()
         {
-            this.ChooseTicketService = FabricChooseTicket.GetChooseTicketService(type);
-            ChooseTicketService.UserChooseTicket += SetPassengersForTickets;
+            FabricChooseTicket fabric = new FabricChooseTicket(user, db);
+            chooseTicketService = fabric.GetChooseTicketService();
+            ChooseTicketService.ProcessComplete += AddTicketsToUser;
         }
-        void SetPassengersForTickets(List<Ticket> tickets)
+        void AddTicketsToUser(List<Ticket> tickets)
         {
-            FillPassengerForTicketService.GetTicketsForFilling(tickets);
-        }
-        public IChooseTicketService ChooseTicketService { get; set; }
-        public IFillPassengerForTicketService FillPassengerForTicketService { get; set; }
-        ObservableCollection<WayModelForChooseTicket> WayModels = new ObservableCollection<WayModelForChooseTicket>();
-        public ObservableCollection<WayModelForChooseTicket> SeatsForBuy
-        {
-            get { return WayModels; }
-        }
-        public void GetWayForBuyticket(List<WayModelForChooseTicket> way) {
-            way.ForEach(i => WayModels.Add(i));
-        }
-        public ICommand BuyTicket
-        {
-            get => new RelayCommand((obj) =>
-            {
-                
-            });
+            
         }
         public ICommand StartTicketProcessing
         {
             get => new RelayCommand((obj) =>
             {
-                if(obj is ConcreteWayFromStationToStation way)
+                if (obj is ConcreteWayFromStationToStation way)
                 {
+                    SetChooseTicketService();
                     List<WayModelForChooseTicket> ways = way.ConcreteWayTrainModels.Select(i => new WayModelForChooseTicket() { Way = i }).ToList();
-                    ways.ForEach(i => WayModels.Add(i));
-                    UserChooseWay?.Invoke(ways);
                     ChooseTicketService.SetConcreteWayFromStationToStation(ways);
                 }
-            });
+            }, (obj) => user != null);
         }
     }
 }

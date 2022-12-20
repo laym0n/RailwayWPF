@@ -36,11 +36,12 @@ namespace CourseProject.ViewModel
 
             #region BuyTicket
             //SearcherWaysService.UserChooseWay += BuyTicketService.GetWayForBuyticket;
+            SignInService.UserSignIn += BuyTicketService.SetUser;
             #endregion
 
             #region ShowerStructureVan
             EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
-            BuyTicketService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
+            ChooseTicketService.ShowNewWay += ShowerStructureVan.SetStrucureWithSeats;
             //SearcherWaysService.UserChooseWay += ShowerStructureVan.SetStrucureWithSeats;
             #endregion
 
@@ -56,13 +57,13 @@ namespace CourseProject.ViewModel
             //SearcherWaysService.UserChooseWay += (obj) => NavigationService.LoadNextPage(Model.Enumerations.TypePage.ChooseTicketPage);
             InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
             EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);
-            BuyTicketService.UserChooseWay += (obj) => NavigationService.LoadNextPage(TypePage.ChooseTicketPage);
-            BuyTicketService.ChooseTicketService.UserChooseTicket += (obj) => NavigationService.LoadNextPage(TypePage.FillPassengerForBuyTicketPage);
-            BuyTicketService.TicketPurchased += () =>
-            {
-                NavigationService.ClearHistoryPage();
-                NavigationService.LoadNextPageWithNotify(TypePage.ProfilePage);
-            };
+            ChooseTicketService.ShowNewWay += (obj) => NavigationService.LoadNextPage(TypePage.ChooseTicketPage);
+            FillPassengersForTicketService.UserStartFillPassenger += () => NavigationService.LoadNextPage(TypePage.FillPassengerForBuyTicketPage);
+            //BuyTicketService.TicketsPurchased += () =>
+            //{
+            //    NavigationService.ClearHistoryPage();
+            //    NavigationService.LoadNextPageWithNotify(TypePage.ProfilePage);
+            //};
             NavigationService.SetViewModel(this);
             #endregion
 

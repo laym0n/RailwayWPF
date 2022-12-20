@@ -49,9 +49,11 @@ namespace CourseProject.ViewModel
         public void SetStrucureWithSeats(List<WayModelForChooseTicket> way)
         {
             structureVanWithoutSeats.Clear();
+            structureVansWithSeats.Clear();
             way.ForEach(concreteWayTrain =>
             {
                 ShowVanWithNumberInTrainMoreThanInParametr(concreteWayTrain, 0);
+                structureVansWithSeats.Add(concreteWayTrain);
                 //VanModel VanForShow = new VanModel(
                 //(from van in db.Van.GetList()
                 // where van.TrainId == concreteWayTrain.Way.StartStationTrainScheduleModel.IdTrain && van.NumberInTrain == 1
@@ -73,6 +75,7 @@ namespace CourseProject.ViewModel
                 // )).ToList();
                 //structureVansWithSeats.Add(AddedVan);
             });
+            
         }
         void ShowVanWithNumberInTrainMoreThanInParametr(WayModelForChooseTicket concreteWayTrain, int NumberInTrain)
         {
@@ -92,7 +95,7 @@ namespace CourseProject.ViewModel
                                 where ticket?.IdTimesForStationSource == timesForStation.Id
                                 select ticket).DefaultIfEmpty()
                 select new CellStrucureVanModel(cell.CostPerStation, cell.NumberOfSeatInVan, (cell.typeOccupied == TypeOccupied.NotSeat ? TypeOccupied.NotSeat :
-                ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied), ticket?.Id)
+                ticket == null ? TypeOccupied.Free : TypeOccupied.Occupied), cell.SeatId)
                 ).ToList()
              )).ToList();
             concreteWayTrain.StructureVanModels.Clear();
@@ -123,8 +126,8 @@ namespace CourseProject.ViewModel
             });
         }
         ObservableCollection<List<CellStrucureVanModel>> structureVanWithoutSeats = new ObservableCollection<List<CellStrucureVanModel>>();
-        ObservableCollection<List<List<CellStrucureVanModel>>> structureVansWithSeats = new ObservableCollection<List<List<CellStrucureVanModel>>>();
-        public ObservableCollection<List<List<CellStrucureVanModel>>> StructureVansWithSeats
+        ObservableCollection<WayModelForChooseTicket> structureVansWithSeats = new ObservableCollection<WayModelForChooseTicket>();
+        public ObservableCollection<WayModelForChooseTicket> StructureVansWithSeats
         {
             get => structureVansWithSeats;
         }

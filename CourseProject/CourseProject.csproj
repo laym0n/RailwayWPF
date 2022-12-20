@@ -90,6 +90,7 @@
     <Compile Include="Model\Collections\DateTimeCollection.cs" />
     <Compile Include="Model\Collections\ModelCollection.cs" />
     <Compile Include="Model\Collections\ModelObservableCollection.cs" />
+    <Compile Include="Model\Collections\PassengerModelObservableCollection.cs" />
     <Compile Include="Model\Collections\PassengerViewModelCollection.cs" />
     <Compile Include="Model\Collections\StationCollection.cs" />
     <Compile Include="Model\Collections\StationModelCollection.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="Model\Enumerations\TypeUser.cs" />
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\ModelForEditingSchedule.cs" />
+    <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToChooseTicketPage.cs" />
+    <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToFillPassengersPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\InfoButtonsOnTrainEditPage.cs" />
     <Compile Include="Model\ModelsForGetInfoFromView\InfoAboutFilters.cs" />
@@ -135,11 +138,14 @@
     <Compile Include="ViewModel\EditorTrainService.cs" />
     <Compile Include="ViewModel\FabricChooseTicket.cs" />
     <Compile Include="ViewModel\FabricPages.cs" />
-    <Compile Include="ViewModel\FillPassengersForTicketService.cs" />
+    <Compile Include="ViewModel\DecoratorsChooseTicketService\FillPassengersForTicketService.cs" />
+    <Compile Include="ViewModel\GetCollectionsService.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
-    <Compile Include="ViewModel\Interfaces\IChooseSeatService.cs" />
+    <Compile Include="ViewModel\Interfaces\IChooseTicketService.cs" />
+    <Compile Include="ViewModel\Interfaces\IDecoratorChooseTicketService.cs" />
     <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
     <Compile Include="ViewModel\Interfaces\IFillPassengerForTicketService.cs" />
+    <Compile Include="ViewModel\Interfaces\IGetCollectionsService.cs" />
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IMainMenuController.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
@@ -166,6 +172,9 @@
     <Compile Include="View\FillPassengerForTickets.xaml.cs">
       <DependentUpon>FillPassengerForTickets.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\FinalPageBuyTicket.xaml.cs">
+      <DependentUpon>FinalPageBuyTicket.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ReportPage.xaml.cs">
       <DependentUpon>ReportPage.xaml</DependentUpon>
     </Compile>
@@ -186,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FillPassengerForTickets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\FinalPageBuyTicket.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

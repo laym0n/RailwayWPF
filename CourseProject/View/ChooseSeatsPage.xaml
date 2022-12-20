@@ -40,7 +40,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate DataType="{x:Type localModel:CellStrucureVanModel}">
                             <Button 
-                                            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.BuyTicketService.ChooseTicketService.ChooseTicket}"
+                                            Command="{Binding ElementName=PageBuyTicket, Path=DataContext.BuyTicketService.ChooseTicketService.DoProcess}"
    Background="{Binding typeOccupied, Converter={StaticResource ConverterForColorSeat}}">
                                 <StackPanel Margin="10">
                                     <TextBlock Foreground="White" Text="{Binding CostPerStation}"/>
@@ -111,7 +111,7 @@
     Kind="ArrowLeft" />
             </Button>
             <Button
- Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteChoose}"
+ Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon

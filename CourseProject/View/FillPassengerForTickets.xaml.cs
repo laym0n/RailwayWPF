@@ -1,4 +1,7 @@
-﻿using CourseProject.ViewModel.Interfaces;
+﻿using CourseProject.Model;
+using CourseProject.Model.Collections;
+using CourseProject.Model.ModelsForEditingInfo;
+using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +29,8 @@ namespace CourseProject.View
         {
             InitializeComponent();
             this.mediator = mediator;
-
+            PassengerItemsControl.ItemsSource = InfoForPassToFillPassengersPage.PassengersForTickets;
+            ((PassengerModelObservableCollection)TryFindResource("LoadedPassengers")).Collection = InfoForPassToFillPassengersPage.PassengersInProfile;
             this.DataContext = mediator;
         }
     }

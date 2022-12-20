@@ -29,7 +29,7 @@ namespace CourseProject.ViewModel
             else if (typePage == TypePage.SearchWayPage)
                 PageForCreate = new SearchWaysForBuyTicketPage(mediator);
             else
-                PageForCreate = new ChooseSeatsPage(mediator);
+                PageForCreate = new FillPassengerForTickets(mediator);
             return PageForCreate;
         }
     }

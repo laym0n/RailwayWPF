@@ -11,9 +11,9 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IChooseTicketService
     {
-        event Action<List<Ticket>> UserChooseTicket;
+        event Action<List<Ticket>> ProcessComplete;
         void SetConcreteWayFromStationToStation(List<WayModelForChooseTicket> way);
-        ICommand ChooseTicket { get; }
-        ICommand СompleteChoose { get; }
+        ICommand DoProcess { get; }
+        ICommand СompleteProcess { get; }
     }
 }

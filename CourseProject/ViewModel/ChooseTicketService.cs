@@ -13,16 +13,16 @@ namespace CourseProject.ViewModel
 {
     public class ChooseTicketService : IChooseTicketService
     {
-        public event Action<List<Ticket>> UserChooseTicket;
-        List<WayModelForChooseTicket> wayModels;
+        public event Action<List<Ticket>> ProcessComplete;
+        public static event Action<List<WayModelForChooseTicket>> ShowNewWay;
         Dictionary<WayModelForChooseTicket, HashSet<CellStrucureVanModel>> ChoosenTickets = new Dictionary<WayModelForChooseTicket, HashSet<CellStrucureVanModel>>();
         public void SetConcreteWayFromStationToStation(List<WayModelForChooseTicket> way)
         {
-            wayModels = way;
             ChoosenTickets.Clear();
             way.ForEach(i => ChoosenTickets.Add(i, new HashSet<CellStrucureVanModel>()));
+            ShowNewWay?.Invoke(way);
         }
-        public ICommand СompleteChoose
+        public ICommand СompleteProcess
         {
             get => new RelayCommand((obj) =>
             {
@@ -35,7 +35,7 @@ namespace CourseProject.ViewModel
                     IdTimesForStationSource = i.Key.Way.StartTimesForStationModel.Id
 
                 })));
-                UserChooseTicket?.Invoke(Tickets);
+                ProcessComplete?.Invoke(Tickets);
             }, (obj) =>
             {
                 int count = ChoosenTickets.First().Value.Count;
@@ -44,7 +44,7 @@ namespace CourseProject.ViewModel
                 return ChoosenTickets.All(i => i.Value.Count == count);
             });
         }
-        public ICommand ChooseTicket
+        public ICommand DoProcess
         {
             get => new RelayCommand((obj) =>
             {

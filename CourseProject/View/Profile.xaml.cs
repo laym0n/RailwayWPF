@@ -30,7 +30,7 @@ namespace CourseProject
             InitializeComponent();
             ViewModel = viewModel;
             DataContext = viewModel;
-            ((PassengerProfileCollection)TryFindResource("Passengers")).PassengerCollection = ViewModel.InfoProfileService.PassengerViewModels;
+            ((PassengerProfileCollection)TryFindResource("PassengersInProfile")).PassengerCollection = ViewModel.InfoProfileService.PassengerViewModels;
             ((TrainInProfileModelCollection)TryFindResource("Trains")).Collection = ViewModel.InfoProfileService.TrainInProfileModels;
         }
 
