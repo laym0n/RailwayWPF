@@ -16,5 +16,6 @@ namespace CourseProject.ViewModel.Interfaces
         ISearcherWaysService SearcherWaysService { get; }
         IBuyTicket BuyTicketService { get; }
         IMainMenuController MainMenuControllerService { get; }
+        IReportService ReportService { get; }
     }
 }

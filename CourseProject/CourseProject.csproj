@@ -104,6 +104,7 @@
     <Compile Include="Model\Enumerations\TypeChooseTicket.cs" />
     <Compile Include="Model\Enumerations\TypePage.cs" />
     <Compile Include="Model\Enumerations\TypeUser.cs" />
+    <Compile Include="Model\FiltersForStrategyCompileReport.cs" />
     <Compile Include="Model\MenuShow.cs" />
     <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\ReportModel.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="ViewModel\FabricChooseTicket.cs" />
     <Compile Include="ViewModel\FabricPages.cs" />
     <Compile Include="ViewModel\DecoratorsChooseTicketService\FillPassengersForTicketService.cs" />
+    <Compile Include="ViewModel\FabricStrategyCompileReport.cs" />
     <Compile Include="ViewModel\GetCollectionsService.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
     <Compile Include="ViewModel\Interfaces\IChooseTicketService.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
+    <Compile Include="ViewModel\StrategyCompileReport\StrategyFindPassengersThatMadeAllWay.cs" />
     <Compile Include="ViewModel\StrategyCompileReport\StrategyIncludesAnyTicketsInWay.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />
     <Compile Include="ViewModel\ViewModelUnit.cs" />

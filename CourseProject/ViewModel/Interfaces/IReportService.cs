@@ -11,8 +11,10 @@ namespace CourseProject.ViewModel.Interfaces
     public interface IReportService
     {
         event Action ReportReady;
-        void SetStrategy(IReportCompileStrategy strategy);
+        event Action ShowReportEnded;
+        ICommand SetStrategy { get; }
         ReportModel Report { get; }
         ICommand MakeReport { get; }
+        ICommand GoBack { get; }
     }
 }

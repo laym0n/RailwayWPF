@@ -19,7 +19,21 @@ namespace CourseProject.ViewModel.StrategyCompileReport
 
         public ReportModel CompileReport(ConcreteWayFromStationToStation way)
         {
-
+            ReportModel reportModel = new ReportModel();
+            db.Ticket.GetList().ForEach(ticket =>
+            {
+                PassengerViewModel Passenger = new PassengerViewModel(db.Passengers.GetItem(ticket.PassengerId), true);
+                way.ConcreteWayTrainModels.ForEach(i =>
+                {
+                    if (i.StartTimesForStationModel.Id == ticket.IdTimesForStationSource && i.EndTimesForStationModel.Id == ticket.IdTimesForStationDestiny)
+                        reportModel.Tickets.Add(new TicketViewModel()
+                        {
+                            Passenger = Passenger,
+                            Way = i
+                        });
+                });
+            });
+            return reportModel;
         }
     }
 }

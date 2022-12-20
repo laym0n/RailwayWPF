@@ -5,84 +5,100 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProject.View"
       mc:Ignorable="d" 
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
       xmlns:localModel="clr-namespace:CourseProject.Model"
       xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
       xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
       d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-      Title="ReportPage">
+      Title="ReportPage"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
     <Page.Resources>
+        <localModel:FiltersForStrategyCompileReport x:Key="Filter"/>
         <localModelcol:StationModelCollection x:Key="Stations"/>
         <localModelForGetInfo:InfoAboutSearchingWaysModel x:Key="InfoAboutWay"/>
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="64*"/>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="312*"/>
+            <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <RadioButton
+  Content="Искать любые билеты в пути"
+                GroupName="Filter"
+                IsChecked="{Binding Source={StaticResource Filter}, Path=SearchAllTickets}"
+  Style="{StaticResource MaterialDesignRadioButton}"
+  Tag="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Checked">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=ReportService.SetStrategy}"
+                            CommandParameter="{StaticResource Filter}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Unchecked">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=ReportService.SetStrategy}"
+                            CommandParameter="{StaticResource Filter}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </RadioButton>
 
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"></ColumnDefinition>
-                <ColumnDefinition Width="25*"/>
-            </Grid.ColumnDefinitions>
-            <DatePicker
-                SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
-                DisplayDateStart="{x:Static system:DateTime.Now}"
-                DisplayDate="{x:Static system:DateTime.Now}"
-                Grid.Column="2"
-  Width="140"
-  materialDesign:HintAssist.HelperText="Helper text"
-  materialDesign:HintAssist.Hint="Pick Date"
-  Style="{StaticResource MaterialDesignFilledDatePicker}" />
-            <Button Command="{Binding Path=SearcherWays.FindWays}"
-                   
-                    Content="Find"
-                    Grid.Column="3"/>
+            <RadioButton
+  Content="Искать пассажиров, проехавших весь путь"
+  IsChecked="{Binding Source={StaticResource Filter}, Path=SearchPassengersMadeAllWays}"
 
-            <ComboBox
-                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
-                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
-                SelectedValuePath="Id"
-                DisplayMemberPath="Name"
-                Grid.Column="0"
-  Width="256"
-  materialDesign:HintAssist.Hint="Откуда"
-  materialDesign:TextFieldAssist.HasClearButton="True"
-  IsEditable="True"
-  Style="{StaticResource MaterialDesignFilledComboBox}">
-            </ComboBox>
-            <ComboBox
-                SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
-                ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
-                SelectedValuePath="Id"
-                DisplayMemberPath="Name"
-                Grid.Column="1"
-  Width="256"
-  materialDesign:HintAssist.Hint="Куда"
-  materialDesign:TextFieldAssist.HasClearButton="True"
-  IsEditable="True"
-  Style="{StaticResource MaterialDesignFilledComboBox}">
-            </ComboBox>
-
-
-
-        </Grid>
+                GroupName="Filter"
+  Style="{StaticResource MaterialDesignRadioButton}"
+  Tag="True">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Checked">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=ReportService.SetStrategy}"
+                            CommandParameter="{StaticResource Filter}" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Unchecked">
+                        <i:InvokeCommandAction
+                            Command="{Binding Path=ReportService.SetStrategy}"
+                            CommandParameter="{StaticResource Filter}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </RadioButton>
+        </StackPanel>
         <ScrollViewer Grid.Row="1">
             <StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    
-                </StackPanel>
-                <ListView>
-
+                <TextBlock Text="Найдено билетов "/>
+                <TextBlock Text="{Binding Path=ReportService.Report.CountTickets}"/>
+                <ListView ItemsSource="{Binding Path=ReportService.Report.Tickets}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Passenger.Name}"/>
+                            <GridViewColumn Header="Откуда" DisplayMemberBinding="{Binding Path=Way.EndStationModel.Name}"/>
+                            <GridViewColumn Header="Куда" DisplayMemberBinding="{Binding Path=Way.StartStationModel.Name}"/>
+                            <GridViewColumn Header="Время прибытия поезда на станцию отправки" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.ArrivalTime}"/>
+                            <GridViewColumn Header="Время отправления поезда на станции отправления" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.DepartureTime}"/>
+                            <GridViewColumn Header="Время прибытия поезда на станцию прибытия" DisplayMemberBinding="{Binding Path=Way.EndTimesForStationModel.ArrivalTime}"/>
+                        </GridView>
+                    </ListView.View>
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button
+ Command="{Binding Path=ReportService.GoBack}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowLeft" />
+            </Button>
+        </StackPanel>
+
     </Grid>
 </Page>

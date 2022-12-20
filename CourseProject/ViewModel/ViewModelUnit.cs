@@ -18,7 +18,8 @@ namespace CourseProject.ViewModel
             IShowerStructureVan showerStructureVan, 
             ISearcherWaysService searcherWays, 
             IBuyTicket buyTicket, 
-            IMainMenuController mainMenuController)
+            IMainMenuController mainMenuController,
+            IReportService reportService)
         {
             this.SignInService = signIn;
             this.InfoProfileService = infoProfile;
@@ -28,9 +29,14 @@ namespace CourseProject.ViewModel
             this.SearcherWaysService = searcherWays;
             this.BuyTicketService = buyTicket;
             this.MainMenuControllerService = mainMenuController;
+            this.ReportService = reportService;
 
             #region SignIn
 
+            #endregion
+
+            #region ReportService
+            ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
             #endregion
 
             #region SearcherWaysService
@@ -93,5 +99,6 @@ namespace CourseProject.ViewModel
         public ISearcherWaysService SearcherWaysService { get; }
         public IBuyTicket BuyTicketService { get; }
         public IMainMenuController MainMenuControllerService { get; }
+        public IReportService ReportService { get; }
     }
 }

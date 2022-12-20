@@ -11,15 +11,15 @@ namespace CourseProject.Model
 {
     public class ReportModel : INotifyPropertyChanged
     {
-        ObservableCollection<ConcreteWayFromStationToStation> ways = new ObservableCollection<ConcreteWayFromStationToStation>();
+        ObservableCollection<TicketViewModel> tickets = new ObservableCollection<TicketViewModel>();
         private int countTickets;
-        public ObservableCollection<ConcreteWayFromStationToStation> Ways
+        public ObservableCollection<TicketViewModel> Tickets
         {
-            get => ways;
+            get => tickets;
             set
             {
-                ways = value;
-                OnPropertyChanged("Ways");
+                tickets = value;
+                OnPropertyChanged("Tickets");
             }
         }
         public int CountTickets

@@ -15,13 +15,18 @@ namespace CourseProject.ViewModel
         IReportCompileStrategy strategy;
         IUnitOfWork db;
         public event Action ReportReady;
+        public event Action ShowReportEnded;
         public ReportService(IUnitOfWork db)
         {
             this.db = db;
         }
-        public void SetStrategy(IReportCompileStrategy strategy)
+        public ICommand SetStrategy
         {
-            this.strategy = strategy;
+            get => new RelayCommand((obj) =>
+            {
+                if (obj is FiltersForStrategyCompileReport filters)
+                    strategy = FabricStrategyCompileReport.GetStrateguy(filters, db);
+            });
         }
         ReportModel report;
         public ReportModel Report { get => report; }
@@ -34,6 +39,13 @@ namespace CourseProject.ViewModel
                     report = strategy.CompileReport(way);
                     ReportReady?.Invoke();
                 }
+            });
+        }
+        public ICommand GoBack
+        {
+            get => new RelayCommand((obj) =>
+            {
+                ShowReportEnded?.Invoke();
             });
         }
     }

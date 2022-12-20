@@ -207,7 +207,7 @@
                                 <Button Grid.Column="1" Grid.Row="3"
   Command="{Binding ElementName=SearchPage, Path=DataContext.BuyTicketService.}"
                                         CommandParameter="{Binding}"
-  Content="Купить билет" />
+  Content="Посмотреть отчет" />
 
 
                             </Grid>
