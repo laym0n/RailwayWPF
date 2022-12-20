@@ -1,5 +1,7 @@
 ﻿using CourseProject.Model;
+using CourseProject.Model.Enumerations;
 using CourseProject.ViewModel.Interfaces;
+using DAL;
 using DLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,13 +18,24 @@ namespace CourseProject.ViewModel
         IUnitOfWork db;
         public event Action TicketPurchased;
         public event Action<List<WayModelForChooseTicket>> UserChooseWay;
-        public BuyTicketService(IUnitOfWork db, IChooseTicketService ChooseTicketService)
+        public BuyTicketService(IUnitOfWork db, TypeChooseTicket typeChooseTicket, IFillPassengerForTicketService fillPassenger)
         {
             this.db = db;
-            this.ChooseTicketService = ChooseTicketService;
+            SetChooseTicketService(typeChooseTicket);
+            this.FillPassengerForTicketService = fillPassenger;
+            this.FillPassengerForTicketService.PassengersFilled +=;
         }
-        public IChooseTicketService ChooseTicketService { get; }
-        public IFillPassengerForTicketService FillPassengerForTicketService { get; }
+        public void SetChooseTicketService(TypeChooseTicket type)
+        {
+            this.ChooseTicketService = FabricChooseTicket.GetChooseTicketService(type);
+            ChooseTicketService.UserChooseTicket += SetPassengersForTickets;
+        }
+        void SetPassengersForTickets(List<Ticket> tickets)
+        {
+            FillPassengerForTicketService.GetTicketsForFilling(tickets);
+        }
+        public IChooseTicketService ChooseTicketService { get; set; }
+        public IFillPassengerForTicketService FillPassengerForTicketService { get; set; }
         ObservableCollection<WayModelForChooseTicket> WayModels = new ObservableCollection<WayModelForChooseTicket>();
         public ObservableCollection<WayModelForChooseTicket> SeatsForBuy
         {
@@ -35,30 +48,9 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) =>
             {
-                object[] objects = (obj as object[]);
-                CellStrucureVanModel cellStructureForChoose = objects[0] as CellStrucureVanModel;
-                if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy || cellStructureForChoose.typeOccupied == TypeOccupied.Free)
-                {
-                    cellStructureForChoose.typeOccupied = cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy ? TypeOccupied.Free : TypeOccupied.ReserveForBuy;
-                    WayModelForChooseTicket wayModel = WayModels.FirstOrDefault(i => i.StructureVanModels == (objects[0] as ObservableCollection<List<CellStrucureVanModel>>));
-                    if(cellStructureForChoose.typeOccupied == TypeOccupied.ReserveForBuy)
-                    {
-                        wayModel.Tickets.Add(new DAL.Ticket()
-                        {
-                            Cost = (cellStructureForChoose.CostPerStation ?? 0) * wayModel.Way.EndStationTrainScheduleModel.NumberInTrip - wayModel.Way.StartStationTrainScheduleModel.NumberInTrip,
-                            SeatId = cellStructureForChoose.NumberOfSeatInVan ?? 0,
-                            IdTimesForStationSource = wayModel.Way.StartTimesForStationModel.Id,
-                            IdTimesForStationDestiny = wayModel.Way.EndTimesForStationModel.Id
-                        });
-                    }
-                    else
-                    {
-                        //wayModel.Tickets.Remove();
-                    }
-                }
+                
             });
         }
-
         public ICommand StartTicketProcessing
         {
             get => new RelayCommand((obj) =>

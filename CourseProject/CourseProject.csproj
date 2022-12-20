@@ -100,6 +100,7 @@
     <Compile Include="Model\Collections\VansStrucureWithSeatsCollection.cs" />
     <Compile Include="Model\ConcreteWayFromStationToStation.cs" />
     <Compile Include="Model\DateTimeModel.cs" />
+    <Compile Include="Model\Enumerations\TypeChooseTicket.cs" />
     <Compile Include="Model\Enumerations\TypePage.cs" />
     <Compile Include="Model\Enumerations\TypeUser.cs" />
     <Compile Include="Model\MenuShow.cs" />
@@ -132,7 +133,9 @@
     <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\ChooseTicketService.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />
+    <Compile Include="ViewModel\FabricChooseTicket.cs" />
     <Compile Include="ViewModel\FabricPages.cs" />
+    <Compile Include="ViewModel\FillPassengersForTicketService.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
     <Compile Include="ViewModel\Interfaces\IChooseSeatService.cs" />
     <Compile Include="ViewModel\Interfaces\IEditorTrain.cs" />
