@@ -4,11 +4,196 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CourseProject.View"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModelInfoFromView="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelForGetInfo="clr-namespace:CourseProject.Model.ModelsForGetInfoFromView"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="FillPassengerForTickets">
-
+      Title="FillPassengerForTickets"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
+    <Page.Resources>
+        <localModelcol:PassengerViewModelCollection x:Key="LoadedPassengers"/>
+    </Page.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="17*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <ScrollViewer.Resources>
+                <localConverters:ConverterForPassengerGender x:Key="ConverterForPassengerGender"/>
+                <DataTemplate x:Key="TemplateForPassengers" DataType="{x:Type localModel:PassengerViewModel}">
+                    <StackPanel>
+                        <CheckBox
+                    Name="UseLoadedProfilesPassengers"
+      Margin="0,0,0,8"
+      Content="Использовать сохраненные профили пассжиров"
+      IsChecked="False" />
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=UseLoadedProfilesPassengers, Path=IsChecked}"
+                        Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=UseLoadedProfilesPassengers, Path=IsChecked}"
+                        Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <GroupBox
+                                        Margin="16"
+  Header="ФИО Пассажира"
+  Style="{StaticResource MaterialDesignCardGroupBox}"
+                    >
+
+                                <GroupBox.HeaderTemplate>
+                                    <DataTemplate>
+                                        <StackPanel
+        Orientation="Horizontal">
+                                            <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="CardAccountDetails" />
+                                            <TextBlock
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="{Binding}" />
+
+
+                                        </StackPanel>
+
+                                    </DataTemplate>
+
+
+                                </GroupBox.HeaderTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBox
+                                                        Text="{Binding Name}"
+                                            Grid.Row ="0"
+    MaxWidth="400"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="ФИО"
+    AcceptsReturn="True"
+    
+    Style="{StaticResource MaterialDesignFilledTextBox}"
+    TextWrapping="Wrap" />
+                                    <materialDesign:ColorZone
+  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
+                                        <StackPanel
+    Margin="2"
+    Orientation="Horizontal">
+                                            <RadioButton
+      Margin="4"
+      Content="Мужской"
+      IsChecked="{Binding Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:Peoplegender.man}}"
+      Style="{StaticResource MaterialDesignTabRadioButton}" />
+                                            <RadioButton
+      Margin="4"
+      Content="Женский"
+      IsChecked="{Binding Path=Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:Peoplegender.woman}}"
+      Style="{StaticResource MaterialDesignTabRadioButton}" />
+                                        </StackPanel>
+                                    </materialDesign:ColorZone>
+                                    <DatePicker
+                                            SelectedDate="{Binding Birthday}"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+  Width="140"
+  materialDesign:HintAssist.HelperText="Helper text"
+  materialDesign:HintAssist.Hint="Pick Date"
+  Style="{StaticResource MaterialDesignFilledDatePicker}" />
+                                    <TextBox
+                                                        Text="{Binding Passport}"
+                                            Grid.Row ="1"
+    MaxWidth="400"
+    VerticalAlignment="Top"
+    materialDesign:HintAssist.Hint="Пасспорт"
+    AcceptsReturn="True"
+   
+    Style="{StaticResource MaterialDesignFilledTextBox}"
+    TextWrapping="Wrap" />
+                                </Grid>
+
+                            </GroupBox>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel.Style>
+                                <Style TargetType="StackPanel">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=UseLoadedProfilesPassengers, Path=IsChecked}"
+                        Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=UseLoadedProfilesPassengers, Path=IsChecked}"
+                        Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+                            <ComboBox
+                SelectedValue="{Binding}"
+                ItemsSource="{Binding Source={StaticResource LoadedPassengers}, Path=Collection}"
+                SelectedValuePath="Id"
+                DisplayMemberPath="Name"
+  Width="256"
+  materialDesign:HintAssist.Hint="Пассажир"
+  Style="{StaticResource MaterialDesignFilledComboBox}">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </ScrollViewer.Resources>
+            <ItemsControl x:Name="PassengerItemsControl" ItemTemplate="{StaticResource ResourceKey=TemplateForPassengers}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button
+ Command="{Binding Path=NavigationService.GoToPreviousPage}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowLeft" />
+            </Button>
+            <Button
+ Command="{Binding Path=BuyTicketService.BuyT}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="Ticket" />
+            </Button>
+        </StackPanel>
     </Grid>
 </Page>
