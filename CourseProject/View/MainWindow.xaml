@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:CourseProject.Model"
         xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
         mc:Ignorable="d"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localModelEnum="clr-namespace:CourseProject.Model.Enumerations"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
         xmlns:materialDesignThemesWPF="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
@@ -85,6 +90,7 @@
                     <system:Double x:Key="ButtonHeight">50</system:Double>
                 </StackPanel.Resources>
                 <Button
+                    
                     Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleProfile}"
                     Command="{Binding Path=MainMenuControllerService.LoadProfile}"
                     Margin="10"
@@ -102,9 +108,10 @@
     Style="{StaticResource MaterialDesignRaisedButton}"
     ToolTip="MaterialDesignRaisedButton with Round Corners"
                     Content="Создать поезд"
-                    Command="{Binding Path=MainMenuControllerService.LoadEditTrain}">
+                    Command="{Binding Path=EditorTrainService.StartProcess}">
                 </Button>
                 <Button
+                    
                     Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleReport}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"
@@ -115,6 +122,7 @@
                     Content="Отчет">
                 </Button>
                 <Button
+                   
                     Visibility="{Binding Path=MainMenuControllerService.VisibleButtons.VisibleBuyTicket}"
                     Margin="10"
     Height="{StaticResource ButtonHeight}"

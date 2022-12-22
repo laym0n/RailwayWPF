@@ -45,7 +45,7 @@ namespace CourseProject.ViewModel
         }
         public ICommand LoadEditTrain
         {
-            get => new RelayCommand((obj) => UserChoosePage(TypePage.EditTrainPage));
+            get => new RelayCommand((obj) => UserChoosePage(TypePage.EditVanPage));
         }
         public ICommand LoadReports
         {

@@ -103,6 +103,8 @@
     <Compile Include="Model\DateTimeModel.cs" />
     <Compile Include="Model\Enumerations\TypeChooseTicket.cs" />
     <Compile Include="Model\Enumerations\TypePage.cs" />
+    <Compile Include="Model\Enumerations\TypeProcesser.cs" />
+    <Compile Include="Model\Enumerations\TypeService.cs" />
     <Compile Include="Model\Enumerations\TypeUser.cs" />
     <Compile Include="Model\FiltersForStrategyCompileReport.cs" />
     <Compile Include="Model\MenuShow.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="ViewModel\FabricPages.cs" />
     <Compile Include="ViewModel\DecoratorsChooseTicketService\FillPassengersForTicketService.cs" />
     <Compile Include="ViewModel\FabricStrategyCompileReport.cs" />
+    <Compile Include="ViewModel\Fabrics\FabricEditTrain.cs" />
     <Compile Include="ViewModel\Fabrics\FabricStrategyAddPassengerInProfile.cs" />
     <Compile Include="ViewModel\GetCollectionsService.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />

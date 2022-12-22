@@ -27,7 +27,7 @@ namespace CourseProject.View
         {
             InitializeComponent();
             this.mediator = mediator1;
-            ((StationModelCollection)TryFindResource("Stations")).Collection = mediator1.EditorTrainService.StationModels;
+            ((StationModelCollection)TryFindResource("Stations")).Collection = mediator1.GetCollectionsService.StationModels;
             ((ConcreteWayFromStationToStationObservableCollection)TryFindResource("Waysfound")).Collection = mediator1.SearcherWaysService.PathsFound;
             DataContext = mediator1;
         }

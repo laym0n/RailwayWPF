@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace CourseProject.View
     /// </summary>
     public partial class EditVanPage : Page
     {
-        public EditVanPage()
+        public EditVanPage(IMediator mediator)
         {
             InitializeComponent();
+            rad.ItemsSource = mediator.ShowerStructureVan.StructureVanWithoutSeats;
+            DataContext = mediator;
         }
     }
 }

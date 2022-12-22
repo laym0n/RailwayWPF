@@ -15,6 +15,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditVanPage"
+      Name="Page"
       d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
 
     <Grid>
@@ -46,17 +47,17 @@
                     <StackPanel>
                         <TextBlock Text="{Binding NumberInTrain}" />
                         <ComboBox
-                                    SelectedValue="{Binding TypeOfVanId}"
-                                    ItemsSource="{Binding Source={StaticResource CollectionForComboBox}, Path=TypeOfVanModels}"
-                                    DisplayMemberPath="Name"
-                                    SelectedValuePath="Id"
+       SelectedValue="{Binding TypeOfVanId}"
+       ItemsSource="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.InfoForView.TypeOfvanModels}"
+       DisplayMemberPath="Name"
+       SelectedValuePath="Id"
                                     
   materialDesign:ComboBoxAssist.MaxLength="2"
   materialDesign:HintAssist.Hint="Search"
   materialDesign:HintAssist.HintOpacity=".26"/>
 
                         <Button
-                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrain.RemoveVan}"
+                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.UndoProcess}"
     Content="Удалить вагон"
                                     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>
@@ -67,7 +68,7 @@
             <ScrollViewer Grid.Column="0">
                     <StackPanel>
                     <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
-     ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}"         >
+     ItemsSource="{Binding Path=EditorTrainService.ProcesserTrain.InfoForView.VanModels}"         >
                         
                         <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -76,7 +77,7 @@
                             </ItemsControl.ItemsPanel>
                         </ItemsControl>
                         <Button
-            Command="{Binding Path=EditorTrain.AddVan}"
+            Command="{Binding Path=EditorTrainService.ProcesserTrain.DoProcess}"
     Content="Добавить вагон"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
                         </Button>
@@ -101,7 +102,7 @@
     Kind="ArrowLeft" />
             </Button>
             <Button
- Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
+ Command="{Binding Path=EditorTrainService.ProcesserTrain.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon

@@ -11,7 +11,8 @@ namespace CourseProject.ViewModel.Interfaces
     public interface IGetCollectionsService
     {
         void SetUser(UserModel user);
-        List<Station> GetStations();
-        List<PassengerViewModel> GetPassengerInProfile();
+        List<Station> Stations { get; }
+        List<PassengerViewModel> PassengerInProfile { get; }
+        List<StationModel> StationModels { get; }
     }
 }

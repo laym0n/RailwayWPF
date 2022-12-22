@@ -22,13 +22,17 @@ namespace CourseProject.ViewModel
         {
             currentUser = user;
         }
-        public List<Station> GetStations()
+        public List<Station> Stations
         {
-            return db.Station.GetList();
+            get => db.Station.GetList();
         }
-        public List<PassengerViewModel> GetPassengerInProfile()
+        public List<StationModel> StationModels
         {
-            return db.Passengers.GetList().Where(i=>i.UserId == currentUser.Id).Select(i => new PassengerViewModel(i, true)).ToList();
+            get => db.Station.GetList().Select(i => new StationModel(i)).ToList();
+        }
+        public List<PassengerViewModel> PassengerInProfile
+        {
+            get => db.Passengers.GetList().Where(i=>i.UserId == currentUser.Id).Select(i => new PassengerViewModel(i, true)).ToList();
         }
     }
 }

@@ -6,6 +6,7 @@ using DLL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,9 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         IProcesserDoUndo<Train> processerDoUndo;
         public event Action<Train> ProcessComplete;
         public static event Action StartProcessVans;
+        public static event Action<TypeOfVanModel> SelectedVanChanged;
         ObservableCollection<VanModel> vans = new ObservableCollection<VanModel>();
+        
         List<TypeOfVanModel> typeOfVanModels;
         Train trainForEdit;
         bool active = false;
@@ -88,15 +91,28 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             get => !active && processerDoUndo != null ? processerDoUndo.DoProcess : new RelayCommand((obj) =>
             {
-                vans.Add(new VanModel());
+                VanModel vanModelForAdd = new VanModel() { NumberInTrain = vans.Count != 0 ? vans[vans.Count - 1].NumberInTrain + 1 : 1 };
+                vans.Add(vanModelForAdd);
+                vanModelForAdd.PropertyChanged += ChangeViewOfVan;
             });
+        }
+        void ChangeViewOfVan(object e, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName == "TypeOfVanId")
+            {
+                SelectedVanChanged?.Invoke(new TypeOfVanModel() { Id = (e as VanModel).TypeOfVanId });
+            }
         }
         public ICommand UndoProcess
         {
             get => !active && processerDoUndo != null ? processerDoUndo.UndoProcess : new RelayCommand((obj) =>
             {
                 if (obj is VanModel vanForRemove)
+                {
                     vans.Remove(vanForRemove);
+                    for (int i = vanForRemove.NumberInTrain - 1; i < vans.Count; i++)
+                        vans[i].NumberInTrain--;
+                }
             });
         }
         public ICommand СompleteProcess

@@ -14,23 +14,10 @@ namespace CourseProject.ViewModel.Interfaces
 {
     public interface IEditorTrain
     {
-        void EditTrain(TrainModel trainModel);
-        void GetUser(UserModel user);
-        void SetDataWhenUserEnterPage(Page page);
-        void SetDataWhenUserLeavePage(Page page);
-        void RemoveTrain(TrainModel trainModel);
+        void SetCreatorTrain(IProcesserDoUndo<Train> processer);
+        void SetUser(UserModel user);
         event Action TrainSaved;
-        event Action<TypeOfVanModel> VanChoosen;
-        ButtonInfoTrainEditPage ButtonInfo { get; }
-        List<TypeOfVanModel> TypeOfVanModels { get; }
-        ObservableCollection<VanModel> Vans { get; }
-        List<StationModel> StationModels { get; }
-        ObservableCollection<ModelForEditingSchedule> ModelForEditingScheduleCollection { get; }
-        ObservableCollection<TimesForStationModel> TimesForDeparture { get; }
-        ICommand AddStartTripDateTime { get; }
-        ICommand RemoveStartTripDateTime { get; }
-        ICommand AddVan { get; }
-        ICommand RemoveVan { get; }
-        ICommand AddTrain { get; }
+        IProcesserDoUndo<Train> ProcesserTrain { get; }
+        ICommand StartProcess { get; }
     }
 }

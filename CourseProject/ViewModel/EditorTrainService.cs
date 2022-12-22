@@ -23,13 +23,31 @@ namespace CourseProject.ViewModel
     {
         private UserModel currentUser;
         public event Action TrainSaved;
+        IProcesserDoUndo<Train> processerTrain;
+        public IProcesserDoUndo<Train> ProcesserTrain { get => processerTrain; }  
+        public void SetCreatorTrain(IProcesserDoUndo<Train> processer)
+        {
+            processerTrain = processer;
+            processerTrain.ProcessComplete += SaveTrain;
+        }
+        public void SetUser(UserModel user) => this.currentUser = user;
+        void SaveTrain(Train train)
+        {
+            int sdfs = 2342;
+        }
+        public ICommand StartProcess
+        {
+            get => new RelayCommand(obj =>
+            {
+                processerTrain.StartProcess(new Train());
+            });
+        }
         public event Action<TypeOfVanModel> VanChoosen;
         private IUnitOfWork db;
         public EditorTrainService(IUnitOfWork db)
         {
             this.db = db;
         }
-        public void GetUser(UserModel user) => this.currentUser = user;
         List<TypeOfVanModel> typeOfVanModels = null;
         public List<TypeOfVanModel> TypeOfVanModels
         {

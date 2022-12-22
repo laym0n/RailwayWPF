@@ -1,5 +1,7 @@
 ﻿using CourseProject.Model.Enumerations;
 using CourseProject.View;
+using CourseProject.ViewModel.EditorsTrainDecorators;
+using CourseProject.ViewModel.Fabrics;
 using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,7 +22,10 @@ namespace CourseProject.ViewModel
             ISearcherWaysService searcherWays, 
             IBuyTicket buyTicket, 
             IMainMenuController mainMenuController,
-            IReportService reportService)
+            IReportService reportService,
+
+        IGetCollectionsService GetCollectionsService,
+        FabricEditTrain fabricEditTrain)
         {
             this.SignInService = signIn;
             this.InfoProfileService = infoProfile;
@@ -31,6 +36,9 @@ namespace CourseProject.ViewModel
             this.BuyTicketService = buyTicket;
             this.MainMenuControllerService = mainMenuController;
             this.ReportService = reportService;
+            this.GetCollectionsService = GetCollectionsService;
+
+            EditorTrainService.SetCreatorTrain(fabricEditTrain.GetProcesser(TypeProcesser.EditAllTrain));
 
             #region SignIn
 
@@ -57,7 +65,8 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region ShowerStructureVan
-            EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
+            EditorVan.SelectedVanChanged += ShowerStructureVan.SetStructureVanWithoutSeats;
+            //EditorTrainService.VanChoosen += ShowerStructureVan.SetStructureVanWithoutSeats;
             ChooseTicketService.ShowNewWay += ShowerStructureVan.SetStrucureWithSeats;
             #endregion
 
@@ -77,6 +86,7 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region NavigationService
+            EditorVan.StartProcessVans += () => NavigationService.LoadPage(TypePage.EditVanPage);
             ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
             ReportService.ShowReportEnded += () => NavigationService.LoadPreviousPage();
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
@@ -96,9 +106,9 @@ namespace CourseProject.ViewModel
 
             #region EditorTrain
             //InfoProfileService.EditExistTrain += EditorTrainService.EditTrain;
-            SignInService.UserSignIn += EditorTrainService.GetUser;
-            NavigationService.Leave += EditorTrainService.SetDataWhenUserLeavePage;
-            NavigationService.Enter += EditorTrainService.SetDataWhenUserEnterPage;
+            SignInService.UserSignIn += EditorTrainService.SetUser;
+            //NavigationService.Leave += EditorTrainService.SetDataWhenUserLeavePage;
+            //NavigationService.Enter += EditorTrainService.SetDataWhenUserEnterPage;
             #endregion
 
             #region MainMenuController
@@ -115,5 +125,6 @@ namespace CourseProject.ViewModel
         public IBuyTicket BuyTicketService { get; }
         public IMainMenuController MainMenuControllerService { get; }
         public IReportService ReportService { get; }
+        public IGetCollectionsService GetCollectionsService { get; }
     }
 }
