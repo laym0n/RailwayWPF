@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CourseProject.ViewModel.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace CourseProject.View
     /// </summary>
     public partial class ReportPage : Page
     {
-        public ReportPage()
+        IMediator mediator;
+        public ReportPage(IMediator mediator)
         {
             InitializeComponent();
+            this.mediator = mediator;
+
+            DataContext = mediator;
         }
     }
 }

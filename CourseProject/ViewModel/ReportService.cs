@@ -19,15 +19,25 @@ namespace CourseProject.ViewModel
         public ReportService(IUnitOfWork db)
         {
             this.db = db;
+            this.strategy = FabricStrategyCompileReport.GetDefault(db);
         }
         public ICommand SetStrategy
         {
             get => new RelayCommand((obj) =>
             {
                 if (obj is FiltersForStrategyCompileReport filters)
+                {
                     strategy = FabricStrategyCompileReport.GetStrateguy(filters, db);
+                    if(wayForReport != null)
+                    {
+                        ReportModel newReport = strategy.CompileReport(wayForReport);
+                        report.Tickets.Clear();
+                        newReport.Tickets.ToList().ForEach(i => report.Tickets.Add(i));
+                    }
+                }
             });
         }
+        ConcreteWayFromStationToStation wayForReport;
         ReportModel report;
         public ReportModel Report { get => report; }
         public ICommand MakeReport
@@ -36,6 +46,7 @@ namespace CourseProject.ViewModel
             {
                 if(obj is ConcreteWayFromStationToStation way)
                 {
+                    wayForReport = way;
                     report = strategy.CompileReport(way);
                     ReportReady?.Invoke();
                 }
@@ -46,6 +57,8 @@ namespace CourseProject.ViewModel
             get => new RelayCommand((obj) =>
             {
                 ShowReportEnded?.Invoke();
+                report.Tickets.Clear();
+                wayForReport = null;
             });
         }
     }

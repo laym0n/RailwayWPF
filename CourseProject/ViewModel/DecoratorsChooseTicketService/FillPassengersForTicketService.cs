@@ -73,11 +73,14 @@ namespace CourseProject.ViewModel
                 int index = 0;
                 int count = tickets[0].Count;
                 List<Ticket> UdatedTickets = new List<Ticket>();
+                List<Passenger> PassengersForAddToTicket = new List<Passenger>(passengers.Count);
+                for(int i = 0;i < passengers.Count;i++)
+                    PassengersForAddToTicket.Add(passengers[i].LoadedInDB ? db.Passengers.GetItem(passengers[i].Id) : passengers[i].GetPassanger());
                 tickets.ForEach(i =>
                 {
                     i.ForEach(ticket =>
                     {
-                        Passenger passengerForTicket = passengers[index].LoadedInDB ? db.Passengers.GetItem(passengers[index].Id) : passengers[index].GetPassanger();
+                        Passenger passengerForTicket = PassengersForAddToTicket[index];
                         if (!passengers[index].LoadedInDB)
                             passengerForTicket.UserId = null;
                         ticket.Passenger = passengerForTicket;

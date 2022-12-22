@@ -21,5 +21,9 @@ namespace CourseProject.ViewModel
                 strategy = new StrategyIncludesAnyTicketsInWay(db);
             return strategy;
         }
+        public static IReportCompileStrategy GetDefault(IUnitOfWork db)
+        {
+            return new StrategyIncludesAnyTicketsInWay(db);
+        }
     }
 }

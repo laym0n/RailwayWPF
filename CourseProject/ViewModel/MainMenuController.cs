@@ -41,7 +41,7 @@ namespace CourseProject.ViewModel
         }
         public ICommand LoadSearchWay
         {
-            get => new RelayCommand((obj) => UserChoosePage(TypePage.SearchWayPage));
+            get => new RelayCommand((obj) => UserChoosePage(TypePage.SearchWayPageBuyTicket));
         }
         public ICommand LoadEditTrain
         {
@@ -49,7 +49,7 @@ namespace CourseProject.ViewModel
         }
         public ICommand LoadReports
         {
-            get => new RelayCommand((obj) => UserChoosePage(TypePage.ReportPage));
+            get => new RelayCommand((obj) => UserChoosePage(TypePage.SearchWayPageReport));
         }
     }
 }

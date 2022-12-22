@@ -19,19 +19,23 @@ namespace CourseProject.ViewModel
         }
         public Page GetPage(TypePage typePage)
         {
-            Page PageForCreate;
+            Page PageForCreate = null;
             if (typePage == TypePage.ProfilePage)
                 PageForCreate = new Profile(mediator);
             else if (typePage == TypePage.EditTrainPage)
                 PageForCreate = new TrainEditPage(mediator);
             else if (typePage == TypePage.ChooseTicketPage)
                 PageForCreate = new ChooseSeatsPage(mediator);
-            else if (typePage == TypePage.SearchWayPage)
+            else if (typePage == TypePage.SearchWayPageBuyTicket)
                 PageForCreate = new SearchWaysForBuyTicketPage(mediator);
             else if (typePage == TypePage.FillPassengerForBuyTicketPage)
                 PageForCreate = new FillPassengerForTickets(mediator);
-            else
+            else if (typePage == TypePage.FinalPageBuyTicket)
                 PageForCreate = new FinalPageBuyTicket(mediator);
+            else if (typePage == TypePage.SearchWayPageReport)
+                PageForCreate = new SearchWaysForReportPage(mediator);
+            else if (typePage == TypePage.ReportPage)
+                PageForCreate = new ReportPage(mediator);
             return PageForCreate;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using CourseProject.Model.Enumerations;
+using CourseProject.View;
 using CourseProject.ViewModel.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -36,13 +37,17 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region ReportService
-            ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
             #endregion
 
             #region SearcherWaysService
             NavigationService.Leave += (page) =>
             {
                 if (page is SearchWaysForBuyTicketPage)
+                    SearcherWaysService.ClearResults();
+            };
+            NavigationService.Leave += (page) =>
+            {
+                if (page is SearchWaysForReportPage)
                     SearcherWaysService.ClearResults();
             };
             #endregion
@@ -64,6 +69,8 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region NavigationService
+            ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
+            ReportService.ShowReportEnded += () => NavigationService.LoadPreviousPage();
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
             InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
             EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);

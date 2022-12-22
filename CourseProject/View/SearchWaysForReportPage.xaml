@@ -205,7 +205,7 @@
                                     </Expander>
                                 </materialDesign:Card>
                                 <Button Grid.Column="1" Grid.Row="3"
-  Command="{Binding ElementName=SearchPage, Path=DataContext.BuyTicketService.}"
+  Command="{Binding ElementName=SearchPage, Path=DataContext.ReportService.MakeReport}"
                                         CommandParameter="{Binding}"
   Content="Посмотреть отчет" />
 

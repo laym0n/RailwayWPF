@@ -40,6 +40,7 @@ namespace CourseProject.Util
             Bind<ISearchWayStrategy>().To<SearchWayStrategyWithMaxTransfer>().WithConstructorArgument(6);
             Bind<IChooseTicketService>().To<ChooseTicketService>();
             Bind<IDecoratorChooseTicketService>().To<FillPassengersForTicketService>();
+            Bind<IReportService>().To<ReportService>();
         }
     }
 }

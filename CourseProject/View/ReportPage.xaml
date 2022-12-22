@@ -51,7 +51,7 @@
 
             <RadioButton
   Content="Искать пассажиров, проехавших весь путь"
-  IsChecked="{Binding Source={StaticResource Filter}, Path=SearchPassengersMadeAllWays}"
+  IsChecked="{Binding Source={StaticResource Filter}, Path=SearchPassengersMadeAllWay}"
 
                 GroupName="Filter"
   Style="{StaticResource MaterialDesignRadioButton}"
@@ -73,13 +73,14 @@
         <ScrollViewer Grid.Row="1">
             <StackPanel>
                 <TextBlock Text="Найдено билетов "/>
-                <TextBlock Text="{Binding Path=ReportService.Report.CountTickets}"/>
+                <TextBlock Text="{Binding Path=ReportService.Report.Tickets.Count}"/>
                 <ListView ItemsSource="{Binding Path=ReportService.Report.Tickets}">
                     <ListView.View>
                         <GridView>
+                            <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Path=Passenger.Id}"/>
                             <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Passenger.Name}"/>
-                            <GridViewColumn Header="Откуда" DisplayMemberBinding="{Binding Path=Way.EndStationModel.Name}"/>
-                            <GridViewColumn Header="Куда" DisplayMemberBinding="{Binding Path=Way.StartStationModel.Name}"/>
+                            <GridViewColumn Header="Откуда" DisplayMemberBinding="{Binding Path=Way.StartStationModel.Name}"/>
+                            <GridViewColumn Header="Куда" DisplayMemberBinding="{Binding Path=Way.EndStationModel.Name}"/>
                             <GridViewColumn Header="Время прибытия поезда на станцию отправки" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.ArrivalTime}"/>
                             <GridViewColumn Header="Время отправления поезда на станции отправления" DisplayMemberBinding="{Binding Path=Way.StartTimesForStationModel.DepartureTime}"/>
                             <GridViewColumn Header="Время прибытия поезда на станцию прибытия" DisplayMemberBinding="{Binding Path=Way.EndTimesForStationModel.ArrivalTime}"/>
