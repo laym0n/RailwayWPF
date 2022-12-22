@@ -1,0 +1,114 @@
+﻿<Page x:Class="CourseProject.View.EditVanPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProject.View"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditVanPage"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="184*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="22*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <localModel:SeatViewCollection x:Key="Seats"/>
+                <DataTemplate x:Key="LabelRowTemplate" DataType="{x:Type localModel:CellStrucureVanModel}">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="{Binding CostPerStation}"/>
+                        <TextBlock Text="{Binding NumberOfSeatInVan}"/>
+                    </StackPanel>
+                </DataTemplate>
+
+                <DataTemplate x:Key="AlternativeAddressTemplate" DataType="{x:Type localModel:SeatViewCollection}">
+                    <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding}" ItemTemplate="{StaticResource LabelRowTemplate}" />
+                    </StackPanel>
+                </DataTemplate>
+
+                <DataTemplate x:Key="TemplateForStructureVans">
+                    <StackPanel>
+                        <TextBlock Text="{Binding NumberInTrain}" />
+                        <ComboBox
+                                    SelectedValue="{Binding TypeOfVanId}"
+                                    ItemsSource="{Binding Source={StaticResource CollectionForComboBox}, Path=TypeOfVanModels}"
+                                    DisplayMemberPath="Name"
+                                    SelectedValuePath="Id"
+                                    
+  materialDesign:ComboBoxAssist.MaxLength="2"
+  materialDesign:HintAssist.Hint="Search"
+  materialDesign:HintAssist.HintOpacity=".26"/>
+
+                        <Button
+                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrain.RemoveVan}"
+    Content="Удалить вагон"
+                                    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
+
+                    </StackPanel>
+                </DataTemplate>
+            </Grid.Resources>
+            <ScrollViewer Grid.Column="0">
+                    <StackPanel>
+                    <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
+     ItemsSource="{Binding Source={StaticResource CollectionForVans}, Path=VanCollection}"         >
+                        
+                        <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <Button
+            Command="{Binding Path=EditorTrain.AddVan}"
+    Content="Добавить вагон"
+    Style="{StaticResource MaterialDesignRaisedLightButton}">
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+                <ItemsControl Grid.Column="1" x:Name="rad" ItemTemplate="{StaticResource AlternativeAddressTemplate}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button
+ Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowLeft" />
+            </Button>
+            <Button
+ Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowRight" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

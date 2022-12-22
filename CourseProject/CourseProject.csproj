@@ -109,6 +109,7 @@
     <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\ReportModel.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToChooseTicketPage.cs" />
+    <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToEditVanPage.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToFillPassengersPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\InfoButtonsOnTrainEditPage.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\ChooseTicketService.cs" />
+    <Compile Include="ViewModel\EditorsTrainDecorators\EditorVan.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />
     <Compile Include="ViewModel\FabricChooseTicket.cs" />
     <Compile Include="ViewModel\FabricPages.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="ViewModel\Interfaces\IInfoProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IMainMenuController.cs" />
     <Compile Include="ViewModel\Interfaces\INavigateService.cs" />
+    <Compile Include="ViewModel\Interfaces\IProcesserDoUndo.cs" />
     <Compile Include="ViewModel\Interfaces\IReportCompileStrategy.cs" />
     <Compile Include="ViewModel\Interfaces\IReportService.cs" />
     <Compile Include="ViewModel\Interfaces\ISearcherWays.cs" />
@@ -186,6 +189,9 @@
     <Compile Include="View\ChooseSeatsPage.xaml.cs">
       <DependentUpon>ChooseSeatsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditVanPage.xaml.cs">
+      <DependentUpon>EditVanPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FillPassengerForTickets.xaml.cs">
       <DependentUpon>FillPassengerForTickets.xaml</DependentUpon>
     </Compile>
@@ -211,6 +217,10 @@
       <DependentUpon>TrainEditPage.xaml</DependentUpon>
     </Compile>
     <Page Include="View\ChooseSeatsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditVanPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
