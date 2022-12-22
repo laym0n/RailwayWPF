@@ -40,8 +40,9 @@ namespace CourseProject.ViewModel
         public void LoadPageWithNotify(TypePage typePage)
         {
             Leave?.Invoke(PageFrame.Content as Page);
-            LoadPage(typePage);
-            Enter?.Invoke(PageFrame.Content as Page);
+            Page NewPage = fabricPages.GetPage(typePage);
+            PageFrame.Navigate(NewPage);
+            Enter?.Invoke(NewPage);
         }
         public void LoadPage(TypePage typePage)
         {

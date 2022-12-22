@@ -9,12 +9,14 @@
       xmlns:localConverters="clr-namespace:CourseProject.Converters"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
       xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
       Title="Page2" Background="White" Height="517" Width="900"
-      Name="ProfilePage">
+      Name="ProfilePage"
+      d:DataContext = "{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
 
     <Page.Resources>
         <localModecol:TrainInProfileModelCollection x:Key="Trains"/>
@@ -103,7 +105,7 @@
   x:Name="CountingBadge"
   BadgeColorZoneMode="PrimaryDark">
                                 <Button
-            Command="{Binding Path=InfoProfile.ChangePassword}"
+            Command="{Binding Path=InfoProfileService.ChangePassword}"
     Content="Обновить пароль"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
                                     <Button.CommandParameter>
@@ -132,14 +134,14 @@
     Content="Добавить пассажира"
     Style="{StaticResource MaterialDesignRaisedLightButton}" />
                                 <ItemsControl 
-               ItemsSource="{Binding Source={StaticResource Passengers}, Path=PassengerCollection}">
+               ItemsSource="{Binding Path=InfoProfileService.PassengerViewModels}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="{x:Type localModel:PassengerViewModel}">
                                             <GroupBox
                                         Margin="16"
   Header="ФИО Пассажира"
@@ -264,8 +266,125 @@
         Margin="24,8,24,16"
         Orientation="Vertical"
         TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                                <ItemsControl ItemsSource="{Binding Path=InfoProfileService.Tickets}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type localModel:TicketModelForProfile}">
+                                            <GroupBox
+                                        Margin="16"
+  Header="ФИО Пассажира"
+  Style="{StaticResource MaterialDesignCardGroupBox}">
+                                                <GroupBox.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition/>
+                                                            </Grid.ColumnDefinitions>
+                                                            <materialDesign:PackIcon
+          Width="32"
+          Height="32"
+          VerticalAlignment="Center"
+          Kind="Ticket" />
+                                                            <TextBlock
+                                            Grid.Column="1"
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="{Binding Path=TicketViewModel.Way.StartStationModel.Name}" />
+                                                            <TextBlock
+                                            Grid.Column="2"
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="Куда" />
+                                                            <TextBlock
+                                            Grid.Column="3"
+          Margin="8,0,0,0"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="{Binding t}" />
+                                                            <TextBlock
+                                            Grid.Column="4"
+          VerticalAlignment="Center"
+          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+          Text="Дата прибытия" />
+                                                        </Grid>
 
-                            <GroupBox
+
+
+                                                    </DataTemplate>
+
+
+                                                </GroupBox.HeaderTemplate>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Passenger.Name}" />
+                                                    <materialDesign:ColorZone
+  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
+                                                        <StackPanel
+    Margin="2"
+    Orientation="Horizontal">
+                                                            <RadioButton
+      Margin="4"
+      Content="Мужской"
+      IsChecked="False"
+      Style="{StaticResource MaterialDesignTabRadioButton}" />
+                                                            <RadioButton
+      Margin="4"
+      Content="Женский"
+      IsChecked="False"
+      Style="{StaticResource MaterialDesignTabRadioButton}" />
+                                                        </StackPanel>
+
+                                                    </materialDesign:ColorZone>
+
+                                                    <TextBlock Grid.Column="1" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Passenger.Birthday}" />
+                                                    <TextBlock Grid.Column="0" Grid.Row="1"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Passenger.Passport}" />
+
+                                                    <TextBlock Grid.Column="0" Grid.Row="2"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Way.StartStationModel.Name}" />
+                                                    <TextBlock Grid.Column="1" Grid.Row="2"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Way.EndStationModel.Name}" />
+                                                    <TextBlock Grid.Column="0" Grid.Row="3"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Way.StartTimesForStationModel.DepartureTime}" />
+                                                    <TextBlock Grid.Column="1" Grid.Row="3"
+  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+  Text="{Binding Path=TicketViewModel.Way.EndTimesForStationModel.ArrivalTime}" />
+
+
+                                                </Grid>
+
+                                            </GroupBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            <!--<GroupBox
                                         Margin="16"
   Header="ФИО Пассажира"
   Style="{StaticResource MaterialDesignCardGroupBox}">
@@ -283,7 +402,7 @@
           Width="32"
           Height="32"
           VerticalAlignment="Center"
-          Kind="CardAccountDetails" />
+          Kind="Ticket" />
                                             <TextBlock
                                             Grid.Column="1"
           Margin="8,0,0,0"
@@ -371,7 +490,7 @@
 
                                 </Grid>
 
-                            </GroupBox>
+                            </GroupBox>-->
                         </StackPanel>
                         </Expander>
                         <Border
@@ -384,7 +503,7 @@
         Orientation="Vertical"
         TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                                 <ItemsControl 
-               ItemsSource="{Binding Source={StaticResource Trains}, Path=Collection}">
+               ItemsSource="{Binding Path=InfoProfileService.TrainInProfileModels}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
                                             <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>

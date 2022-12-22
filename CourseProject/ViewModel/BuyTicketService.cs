@@ -40,7 +40,10 @@ namespace CourseProject.ViewModel
         void AddTicketsToUser(List<Ticket> tickets)
         {
             foreach (Ticket ticket in tickets)
+            {
+                ticket.UserId = user.Id;
                 db.Ticket.Create(ticket);
+            }
             db.Save();
             this.tickets = tickets.Select(i =>
             {

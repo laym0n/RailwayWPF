@@ -62,17 +62,25 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region InfoProfile
-            SignInService.UserSignOut += InfoProfileService.CurrentUserSignOut;
+            //SignInService.UserSignOut += InfoProfileService.CurrentUserSignOut;
             SignInService.UserSignIn += InfoProfileService.SetCurrentUser;
-            NavigationService.Leave += InfoProfileService.ClearDataWhenLeavePage;
-            NavigationService.Enter += InfoProfileService.LoadDataWhenEnteringPage;
+            NavigationService.Leave += (page) =>
+            {
+                if (page is Profile)
+                    InfoProfileService.ClearDate();
+            };
+            NavigationService.Enter += (page)=> 
+            {
+                if (page is Profile)
+                    InfoProfileService.LoadDataForProfile();
+            };
             #endregion
 
             #region NavigationService
             ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
             ReportService.ShowReportEnded += () => NavigationService.LoadPreviousPage();
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
-            InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
+            //InfoProfileService.EditExistTrain += obj => NavigationService.LoadPage(TypePage.EditTrainPage);
             EditorTrainService.TrainSaved += () => NavigationService.LoadPageWithNotify(TypePage.ProfilePage);
             ChooseTicketService.ShowNewWay += (obj) => NavigationService.LoadNextPage(TypePage.ChooseTicketPage);
             FillPassengersForTicketService.UserStartFillPassenger += () => NavigationService.LoadNextPage(TypePage.FillPassengerForBuyTicketPage);
@@ -87,7 +95,7 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region EditorTrain
-            InfoProfileService.EditExistTrain += EditorTrainService.EditTrain;
+            //InfoProfileService.EditExistTrain += EditorTrainService.EditTrain;
             SignInService.UserSignIn += EditorTrainService.GetUser;
             NavigationService.Leave += EditorTrainService.SetDataWhenUserLeavePage;
             NavigationService.Enter += EditorTrainService.SetDataWhenUserEnterPage;

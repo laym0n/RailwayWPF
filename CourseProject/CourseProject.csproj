@@ -124,6 +124,7 @@
     <Compile Include="Model\StationModel.cs" />
     <Compile Include="Model\StationTrainScheduleModel.cs" />
     <Compile Include="Model\Test.cs" />
+    <Compile Include="Model\TicketModelForProfile.cs" />
     <Compile Include="Model\TicketViewModel.cs" />
     <Compile Include="Model\TimesForStationModel.cs" />
     <Compile Include="Model\TrainInProfileModel.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="ViewModel\Interfaces\ISearchWayStrategy.cs" />
     <Compile Include="ViewModel\Interfaces\IShowerStructureVan.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
+    <Compile Include="ViewModel\Interfaces\IStrategyAddPassengerForProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
     <Compile Include="ViewModel\MainMenuController.cs" />
     <Compile Include="ViewModel\NavigationService.cs" />

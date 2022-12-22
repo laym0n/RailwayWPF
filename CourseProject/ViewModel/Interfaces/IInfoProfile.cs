@@ -16,11 +16,12 @@ namespace CourseProject.ViewModel.Interfaces
         void SetCurrentUser(UserModel user);
         ObservableCollection<PassengerViewModel> PassengerViewModels { get; }
         ObservableCollection<TrainInProfileModel> TrainInProfileModels { get; }
-        event Action<TrainModel> EditExistTrain;
-        event Action<TrainModel> RemoveExistTrain;
-        void LoadDataWhenEnteringPage(Page page);
-        void ClearDataWhenLeavePage(Page page);
-        void CurrentUserSignOut();
+        ObservableCollection<TicketModelForProfile> Tickets { get; }
+        void ClearDate();
+        void LoadDataForProfile();
+        //void LoadDataWhenEnteringPage(Page page);
+        //void ClearDataWhenLeavePage(Page page);
+        //void CurrentUserSignOut();
         ICommand EditTrain { get; }
         ICommand RemoveTrain { get; }
         ICommand ChangePassword { get; }
