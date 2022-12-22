@@ -21,17 +21,21 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
-            <RowDefinition/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
 
-        <ScrollViewer Grid.Column="1">
-            <StackPanel >
+        <ScrollViewer Grid.Column="1" Margin="10"
+                    MaxWidth="600">
+            <StackPanel 
+                    MaxWidth="600">
                 <StackPanel.Resources>
 
                     <DataTemplate x:Key="TemplateForDateTimesStartTrip" DataType="{x:Type localModel:TimesForStationModel}">
-                        <StackPanel>
+                        <StackPanel
+                                           Margin="10">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Center"
+                                           Margin="10"
                        FontSize="24"
                                            Text="{Binding Path=DepartureTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
                                 <materialDesign:DialogHost>
@@ -78,6 +82,7 @@
                                 </materialDesign:DialogHost>
                             </StackPanel>
                             <Button
+                                           Margin="10"
                                     Command="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.UndoProcess}"
     Content="Удалить время отправления"
                                     CommandParameter="{Binding}"
@@ -86,7 +91,8 @@
                         </StackPanel>
                     </DataTemplate>
                 </StackPanel.Resources>
-                <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForDateTimesStartTrip}"
+                <ItemsControl
+                    MaxWidth="600" ItemTemplate="{StaticResource ResourceKey=TemplateForDateTimesStartTrip}"
                ItemsSource="{Binding Path=EditorTrainService.ProcesserTrain.InfoForView.timesForStationModels }">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -95,31 +101,31 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
                 <Button
+                    Margin="10"
+                    MaxWidth="600"
             Command="{Binding Path=EditorTrainService.ProcesserTrain.DoProcess}"
     Content="Добавить время отправления поезда"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
                 </Button>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button
+        <Button Grid.Row="1"
  Command="{Binding Path=EditorTrainService.GoBack}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
-                <materialDesign:PackIcon
+  ToolTip="Назад" HorizontalAlignment="Left" Margin="10">
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowLeft" />
-            </Button>
-            <Button
+        </Button>
+        <Button Grid.Row="1"
  Command="{Binding Path=EditorTrainService.ProcesserTrain.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
-                <materialDesign:PackIcon
+  ToolTip="Назад" HorizontalAlignment="Right" Margin="10">
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowRight" />
-            </Button>
-        </StackPanel>
+        </Button>
     </Grid>
 </Page>

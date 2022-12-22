@@ -14,23 +14,13 @@
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
-      Title="Page2" Background="White" Height="517" Width="900"
+      Title="Page2" Background="White" d:Height="517" d:Width="900"
       Name="ProfilePage"
       d:DataContext = "{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
 
     <Page.Resources>
         <localModecol:TrainInProfileModelCollection x:Key="Trains"/>
         <localModel:PassengerProfileCollection x:Key="Passengers"/>
-        <Style x:Key="HorizontalExpanderContentTextBlock" TargetType="{x:Type TextBlock}">
-            <Setter Property="Opacity" Value=".68" />
-            <Setter Property="Text" Value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-        <Style x:Key="VerticalExpanderContentTextBlock"
-           TargetType="{x:Type TextBlock}"
-           BasedOn="{StaticResource HorizontalExpanderContentTextBlock}">
-            <Setter Property="MaxWidth" Value="180" />
-        </Style>
         <Style x:Key="HorizontalDividerBorder" TargetType="{x:Type Border}">
             <Setter Property="Background" Value="{DynamicResource MaterialDesignDivider}" />
             <Setter Property="Height" Value="1" />
@@ -38,25 +28,21 @@
             <Setter Property="UseLayoutRounding" Value="True" />
         </Style>
 
-        <Style x:Key="VerticalDividerBorder"
-           TargetType="{x:Type Border}"
-           BasedOn="{StaticResource HorizontalDividerBorder}">
-            <Setter Property="Height" Value="Auto" />
-            <Setter Property="VerticalAlignment" Value="Stretch" />
-            <Setter Property="Width" Value="1" />
-        </Style>
     </Page.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <ScrollViewer>
             <StackPanel>
-                
-        <GroupBox
+
+                <GroupBox MaxWidth="600"
   Margin="16"
   materialDesign:ColorZoneAssist.Background="Black"
   materialDesign:ColorZoneAssist.Foreground="White"
   materialDesign:ColorZoneAssist.Mode="Custom"
-  Header="Данные аккаунта"
-  Style="{StaticResource MaterialDesignCardGroupBox}">
+            HorizontalAlignment="Stretch"
+  Header="Данные аккаунта">
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
                     <StackPanel
@@ -74,55 +60,62 @@
                     </StackPanel>
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
-            <WrapPanel>
-                <materialDesign:PackIcon Kind="Account"/>
-                    <StackPanel>
-                        <StackPanel.Resources>
-                         <localConverters:ConverterToPasswordChangeModel x:Key="ConverterToPasswordChangeModel"/>
+            <WrapPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Account" Height="150" Width="150" VerticalAlignment="Stretch"/>
+                        <Border Margin="10" BorderThickness="1" BorderBrush="Black">
+                            <StackPanel>
 
-                         </StackPanel.Resources>
-                        <TextBlock Text="Сменить пароль" />
-                            <PasswordBox
+                                <StackPanel.Resources>
+                                    <localConverters:ConverterToPasswordChangeModel x:Key="ConverterToPasswordChangeModel"/>
+
+                                </StackPanel.Resources>
+                                <TextBlock Margin="10" Text="Сменить пароль" />
+                                <PasswordBox
+                                Margin="10"
                                 Name="OldPasswordBox"
     VerticalAlignment="Top"
     materialDesign:HintAssist.Hint="Старый пароль"
     Style="{StaticResource MaterialDesignFilledPasswordBox}" >
 
-                                <i:Interaction.Behaviors>
-                                    <localModel:BehaviourPasswordBox x:Name="OldPasswordBehavior"/>
-                                </i:Interaction.Behaviors>
-                            </PasswordBox>
-                            <PasswordBox
+                                    <i:Interaction.Behaviors>
+                                        <localModel:BehaviourPasswordBox x:Name="OldPasswordBehavior"/>
+                                    </i:Interaction.Behaviors>
+                                </PasswordBox>
+                                <PasswordBox
+                                Margin="10"
                                 Name="NewPasswordBox"
     VerticalAlignment="Top"
     materialDesign:HintAssist.Hint="Новый пароль"
     Style="{StaticResource MaterialDesignFilledPasswordBox}" >
-                                <i:Interaction.Behaviors>
-                                    <localModel:BehaviourPasswordBox x:Name="NewPasswordBehavior"/>
-                                </i:Interaction.Behaviors>
-                            </PasswordBox>
-                            <materialDesign:Badged
+                                    <i:Interaction.Behaviors>
+                                        <localModel:BehaviourPasswordBox x:Name="NewPasswordBehavior"/>
+                                    </i:Interaction.Behaviors>
+                                </PasswordBox>
+                                <materialDesign:Badged
   x:Name="CountingBadge"
   BadgeColorZoneMode="PrimaryDark">
-                                <Button
+                                    <Button
+                                    Margin="10"
             Command="{Binding Path=InfoProfileService.ChangePassword}"
     Content="Обновить пароль"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
-                                    <Button.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource ConverterToPasswordChangeModel}">
-                                            <Binding ElementName="NewPasswordBehavior"/>
-                                            <Binding ElementName="OldPasswordBehavior"/>
-                                        </MultiBinding>
-                                    </Button.CommandParameter>
-                                </Button>
-                            </materialDesign:Badged>
-                </StackPanel>
+                                        <Button.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource ConverterToPasswordChangeModel}">
+                                                <Binding ElementName="NewPasswordBehavior"/>
+                                                <Binding ElementName="OldPasswordBehavior"/>
+                                            </MultiBinding>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </materialDesign:Badged>
+                            </StackPanel>
+
+                        </Border>
             </WrapPanel>
         </GroupBox>
         <materialDesign:Card>
             <StackPanel>
-                    <Expander
-      HorizontalAlignment="Stretch"
+                        <Expander MaxWidth="600"
+      
       Header="Пассажиры">
                             <StackPanel>
                                 <StackPanel.Resources>
@@ -142,7 +135,7 @@
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="{x:Type localModel:PassengerViewModel}">
-                                            <GroupBox
+                                            <GroupBox MaxWidth="600"
                                         Margin="16"
   Header="ФИО Пассажира"
   Style="{StaticResource MaterialDesignCardGroupBox}">
@@ -155,12 +148,6 @@
           Height="32"
           VerticalAlignment="Center"
           Kind="CardAccountDetails" />
-                                                            <TextBlock
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding}" />
-
 
                                                         </StackPanel>
 
@@ -180,6 +167,7 @@
                                                     </Grid.RowDefinitions>
                                                     <TextBox
                                                         Text="{Binding Name}"
+                                                        Margin="10"
                                             Grid.Row ="0"
     MaxWidth="400"
     VerticalAlignment="Top"
@@ -189,7 +177,8 @@
     Style="{StaticResource MaterialDesignFilledTextBox}"
     TextWrapping="Wrap" />
                                                     <materialDesign:ColorZone
-  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
+  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"
+                                                        Margin="10">
                                                         <StackPanel
     Margin="2"
     Orientation="Horizontal">
@@ -210,12 +199,14 @@
                                                     <DatePicker
                                             SelectedDate="{Binding Birthday}"
                                             Grid.Row="1"
+                                                        Margin="10"
                                             Grid.Column="1"
   Width="140"
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
                                                     <TextBox
+                                                        Margin="10"
                                                         Text="{Binding Passport}"
                                             Grid.Row ="1"
     MaxWidth="400"
@@ -226,6 +217,7 @@
     Style="{StaticResource MaterialDesignFilledTextBox}"
     TextWrapping="Wrap" />
                                                     <Button
+                                                        Margin="10"
                                             Grid.Row="2"
                                             Grid.Column="1"
   Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.SavePassenger}"
@@ -243,6 +235,7 @@
     Kind="ContentSave" />
                                                     </Button>
                                                     <Button
+                                                        Margin="10"
                                                         Grid.Column="0"
                                                         Grid.Row="2"
     Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemovePassenger}"
@@ -259,13 +252,17 @@
                         </Expander>
                     <Border
       Style="{StaticResource HorizontalDividerBorder}" />
-                    <Expander
-      HorizontalAlignment="Stretch"
+                        <Expander MaxWidth="600"
+      
       Header="Билеты">
                         <StackPanel
         Margin="24,8,24,16"
         Orientation="Vertical"
         TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+
+                                <StackPanel.Resources>
+                                    <localConverters:ConverterForPassengerGender x:Key="ConverterForPassengerGender"/>
+                                </StackPanel.Resources>
                                 <ItemsControl ItemsSource="{Binding Path=InfoProfileService.Tickets}">
                                     <ItemsControl.ItemsPanel>
                                         <ItemsPanelTemplate>
@@ -293,36 +290,8 @@
           Height="32"
           VerticalAlignment="Center"
           Kind="Ticket" />
-                                                            <TextBlock
-                                            Grid.Column="1"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding Path=TicketViewModel.Way.StartStationModel.Name}" />
-                                                            <TextBlock
-                                            Grid.Column="2"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="Куда" />
-                                                            <TextBlock
-                                            Grid.Column="3"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding t}" />
-                                                            <TextBlock
-                                            Grid.Column="4"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="Дата прибытия" />
                                                         </Grid>
-
-
-
                                                     </DataTemplate>
-
-
                                                 </GroupBox.HeaderTemplate>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
@@ -337,22 +306,29 @@
                                                         <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <TextBlock
+                                                        Margin="10"
+                                                        TextWrapping="Wrap"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
   Text="{Binding Path=TicketViewModel.Passenger.Name}" />
                                                     <materialDesign:ColorZone
-  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
+  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0"
+                                                                Margin="10">
                                                         <StackPanel
     Margin="2"
     Orientation="Horizontal">
                                                             <RadioButton
       Margin="4"
       Content="Мужской"
-      IsChecked="False"
+                                                                IsEnabled="False"
+      IsChecked="{Binding Path=TicketViewModel.Passenger.Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:Peoplegender.man}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                             <RadioButton
       Margin="4"
       Content="Женский"
-      IsChecked="False"
+                                                                IsEnabled="False"
+      IsChecked="{Binding Path=TicketViewModel.Passenger.Gender, Converter={StaticResource ConverterForPassengerGender}, 
+      ConverterParameter={x:Static localModel:Peoplegender.woman}}"
       Style="{StaticResource MaterialDesignTabRadioButton}" />
                                                         </StackPanel>
 
@@ -360,27 +336,40 @@
 
                                                     <TextBlock Grid.Column="1" Grid.Row="1"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        TextWrapping="Wrap"
+                                                        Margin="10"
   Text="{Binding Path=TicketViewModel.Passenger.Birthday}" />
                                                     <TextBlock Grid.Column="0" Grid.Row="1"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        Margin="10"
+                                                        TextWrapping="Wrap"
   Text="{Binding Path=TicketViewModel.Passenger.Passport}" />
 
                                                     <TextBlock Grid.Column="0" Grid.Row="2"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        TextWrapping="Wrap"
+                                                        Margin="10"
   Text="{Binding Path=TicketViewModel.Way.StartStationModel.Name}" />
                                                     <TextBlock Grid.Column="1" Grid.Row="2"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        TextWrapping="Wrap"
+                                                        Margin="10"
   Text="{Binding Path=TicketViewModel.Way.EndStationModel.Name}" />
                                                     <TextBlock Grid.Column="0" Grid.Row="3"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        TextWrapping="Wrap"
+                                                        Margin="10"
   Text="{Binding Path=TicketViewModel.Way.StartTimesForStationModel.DepartureTime}" />
                                                     <TextBlock Grid.Column="1" Grid.Row="3"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                                        TextWrapping="Wrap"
+                                                        Margin="10"
   Text="{Binding Path=TicketViewModel.Way.EndTimesForStationModel.ArrivalTime}" />
-                                                    <Button Grid.Row="4" Grid.Column="1" 
+                                                    <Button Grid.Row="4" Grid.Column="1"
+                 HorizontalAlignment="Right"
                 Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemoveTicket}"
   CommandParameter="{Binding}" Content="Удалить билет">
-                                                        
+
                                                     </Button>
 
                                                 </Grid>
@@ -389,119 +378,12 @@
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
                                 </ItemsControl>
-                            <!--<GroupBox
-                                        Margin="16"
-  Header="ФИО Пассажира"
-  Style="{StaticResource MaterialDesignCardGroupBox}">
-                                <GroupBox.HeaderTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                                <ColumnDefinition/>
-                                            </Grid.ColumnDefinitions>
-                                            <materialDesign:PackIcon
-          Width="32"
-          Height="32"
-          VerticalAlignment="Center"
-          Kind="Ticket" />
-                                            <TextBlock
-                                            Grid.Column="1"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="Откуда" />
-                                            <TextBlock
-                                            Grid.Column="2"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="Куда" />
-                                            <TextBlock
-                                            Grid.Column="3"
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding t}" />
-                                            <TextBlock
-                                            Grid.Column="4"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="Дата прибытия" />
-                                        </Grid>
-
-
-
-                                    </DataTemplate>
-
-
-                                </GroupBox.HeaderTemplate>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="ФИО" />
-                                    <materialDesign:ColorZone
-  Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
-                                        <StackPanel
-    Margin="2"
-    Orientation="Horizontal">
-                                            <RadioButton
-      Margin="4"
-      Content="Мужской"
-      IsChecked="False"
-      Style="{StaticResource MaterialDesignTabRadioButton}" />
-                                            <RadioButton
-      Margin="4"
-      Content="Женский"
-      IsChecked="False"
-      Style="{StaticResource MaterialDesignTabRadioButton}" />
-                                        </StackPanel>
-
-                                    </materialDesign:ColorZone>
-
-                                    <TextBlock Grid.Column="1" Grid.Row="1"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="День рождения" />
-                                    <TextBlock Grid.Column="0" Grid.Row="1"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="Пасспорт" />
-
-                                    <TextBlock Grid.Column="0" Grid.Row="2"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="Откуда" />
-                                    <TextBlock Grid.Column="1" Grid.Row="2"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="Куда" />
-                                    <TextBlock Grid.Column="0" Grid.Row="3"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="Дата отправления" />
-                                    <TextBlock Grid.Column="1" Grid.Row="3"
-  Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-  Text="Дата прибытия" />
-
-
-                                </Grid>
-
-                            </GroupBox>-->
-                        </StackPanel>
+                            </StackPanel>
                         </Expander>
                         <Border
       Style="{StaticResource HorizontalDividerBorder}" />
-                        <Expander
-      HorizontalAlignment="Stretch"
+                        <Expander MaxWidth="600"
+      
       Header="Поезда">
                             <StackPanel
         Margin="24,8,24,16"
@@ -529,7 +411,7 @@
           Width="32"
           Height="32"
           VerticalAlignment="Center"
-          Kind="CardAccountDetails" />
+          Kind="Train" />
 
                                                         </StackPanel>
 
@@ -540,35 +422,43 @@
 
 
                                                 </GroupBox.HeaderTemplate>
-                                                <StackPanel>
-                                                    <ItemsControl 
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel Grid.Row="0">
+                                                        <ItemsControl 
                ItemsSource="{Binding Path=Stations}">
-                                                        <ItemsControl.ItemsPanel>
-                                                            <ItemsPanelTemplate>
-                                                                <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                                            </ItemsPanelTemplate>
-                                                        </ItemsControl.ItemsPanel>
-                                                        <ItemsControl.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding}"/>
-                                                            </DataTemplate>
-                                                        </ItemsControl.ItemTemplate>
-                                                    </ItemsControl>
-                                                    <Button
-                                                        Grid.Column="0"
-                                                        Grid.Row="2"
+                                                            <ItemsControl.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ItemsControl.ItemsPanel>
+                                                            <ItemsControl.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Margin="10" HorizontalAlignment="Center" Text="{Binding}"/>
+                                                                </DataTemplate>
+                                                            </ItemsControl.ItemTemplate>
+                                                        </ItemsControl>
+                                                    </StackPanel>
+                                                        <Button
+                                                            Width="auto"
+                                                        Grid.Row="1"
     Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemoveTrain}"
     Content="Удалить поезд"
+                                                            HorizontalAlignment="Left"
     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>
                                                     <Button
-                                                        Grid.Column="0"
-                                                        Grid.Row="2"
+                                                            Width="auto"
+                                                            HorizontalAlignment="Right"
+                                                        Grid.Row="1"
     Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.EditTrain}"
     Content="Редактировать поезд"
     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>
-                                                </StackPanel>
+                                                </Grid>
                                             </GroupBox>
                                             
                                         </DataTemplate>

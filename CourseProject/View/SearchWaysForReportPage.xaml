@@ -26,10 +26,10 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="19*"></RowDefinition>
-            <RowDefinition Height="71*"></RowDefinition>
+            <RowDefinition Height="129"></RowDefinition>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
+        <StackPanel Grid.Row="0" Margin="10,10,10,10">
             <Grid Margin="0,0,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="25*"></ColumnDefinition>
@@ -38,37 +38,38 @@
                     <ColumnDefinition Width="25*"/>
                 </Grid.ColumnDefinitions>
                 <DatePicker
+                    Margin="10"
                 SelectedDate="{Binding Source={StaticResource InfoAboutWay}, Path=DateTimeArriving}"
                 DisplayDateStart="{x:Static system:DateTime.Now}"
                 DisplayDate="{x:Static system:DateTime.Now}"
                 Grid.Column="2"
-  Width="140"
   materialDesign:HintAssist.HelperText="Helper text"
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
                 <Button Command="{Binding Path=SearcherWaysService.FindWays}"
+                    Margin="10"
                     CommandParameter="{StaticResource InfoAboutWay}"
-                    Content="Find"
+                    Content="Найти"
                     Grid.Column="3"/>
                 <ComboBox
+                    Margin="10"
                 SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdStartStation}"
                 ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
                 SelectedValuePath="Id"
                 DisplayMemberPath="Name"
                 Grid.Column="0"
-  Width="256"
   materialDesign:HintAssist.Hint="Откуда"
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
   Style="{StaticResource MaterialDesignFilledComboBox}">
                 </ComboBox>
                 <ComboBox
+                    Margin="10"
                 SelectedValue="{Binding Source={StaticResource InfoAboutWay}, Path=IdEndStation}"
                 ItemsSource="{Binding Source={StaticResource Stations}, Path=Collection}"
                 SelectedValuePath="Id"
                 DisplayMemberPath="Name"
                 Grid.Column="1"
-  Width="256"
   materialDesign:HintAssist.Hint="Куда"
   materialDesign:TextFieldAssist.HasClearButton="True"
   IsEditable="True"
@@ -89,10 +90,10 @@
                     </x:Array>
                 </StackPanel.Resources>
                 <ComboBox
+                    Margin="10"
                 SelectedValue="{Binding Source={StaticResource InfoAboutFiltersSearch}, Path=MaxCountTransfers}"
                     SelectedIndex="6"
                 Grid.Column="0"
-  Width="283"
   materialDesign:HintAssist.Hint="Максималльное количество пересадок"
   ItemsSource="{StaticResource ResourceKey=CountTransfers}"
   Style="{StaticResource MaterialDesignFilledComboBox}">

@@ -31,8 +31,8 @@
                 <DataTemplate x:Key="TemplateForPassengers" DataType="{x:Type localModel:PassengerViewModel}">
                     <StackPanel>
                         <CheckBox
+            Margin="10"
                     Name="UseLoadedProfilesPassengers"
-      Margin="0,0,0,8"
       Content="Использовать сохраненные профили пассжиров"
       IsChecked="{Binding Path=LoadedInDB}" />
                         <StackPanel>
@@ -63,11 +63,6 @@
           Height="32"
           VerticalAlignment="Center"
           Kind="CardAccountDetails" />
-                                            <TextBlock
-          Margin="8,0,0,0"
-          VerticalAlignment="Center"
-          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
-          Text="{Binding}" />
 
 
                                         </StackPanel>
@@ -86,6 +81,7 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBox
+            Margin="10"
                                                         Text="{Binding Name}"
                                             Grid.Row ="0"
     MaxWidth="400"
@@ -96,6 +92,7 @@
     Style="{StaticResource MaterialDesignFilledTextBox}"
     TextWrapping="Wrap" />
                                     <materialDesign:ColorZone
+            Margin="10"
   Mode="PrimaryMid" VerticalAlignment="Center" Grid.Column="1" Grid.Row="0">
                                         <StackPanel
     Margin="2"
@@ -115,6 +112,7 @@
                                         </StackPanel>
                                     </materialDesign:ColorZone>
                                     <DatePicker
+            Margin="10"
                                             SelectedDate="{Binding Birthday}"
                                             Grid.Row="1"
                                             Grid.Column="1"
@@ -123,6 +121,7 @@
   materialDesign:HintAssist.Hint="Pick Date"
   Style="{StaticResource MaterialDesignFilledDatePicker}" />
                                     <TextBox
+            Margin="10"
                                                         Text="{Binding Passport}"
                                             Grid.Row ="1"
     MaxWidth="400"
@@ -173,8 +172,10 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button
+        <Button
+            Margin="10"
+            Grid.Row="1"
+            HorizontalAlignment="Left"
  Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
@@ -183,15 +184,17 @@
     VerticalAlignment="Stretch"
     Kind="ArrowLeft" />
             </Button>
-            <Button
+        <Button
+            Margin="10"
+            HorizontalAlignment="Right"
+            Grid.Row="1"
  Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
-                <materialDesign:PackIcon
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowRight" />
-            </Button>
-        </StackPanel>
+        </Button>
     </Grid>
 </Page>

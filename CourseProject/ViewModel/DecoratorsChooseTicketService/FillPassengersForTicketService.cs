@@ -21,6 +21,7 @@ namespace CourseProject.ViewModel
         List<PassengerViewModel> passengers = new List<PassengerViewModel>();
         public event Action<List<Ticket>> ProcessComplete;
         public static event Action UserStartFillPassenger;
+        List<Passenger> passengersInProfile = new List<Passenger>();
         public FillPassengersForTicketService(IUnitOfWork db, UserModel userModel, IChooseTicketService chooseTicketService)
         {
             this.db = db;
@@ -36,6 +37,7 @@ namespace CourseProject.ViewModel
             int count = this.tickets[0].Count;
             for(int i = 0;i < count;i++)
                 passengers.Add(new PassengerViewModel(currentUser.Id, false));
+            passengersInProfile = db.Passengers.GetList().Where(i => i.UserId == currentUser.Id).ToList();
             active = true;
             SetInfoForPage();
         }
@@ -56,6 +58,7 @@ namespace CourseProject.ViewModel
         }
         void ClearDate()
         {
+            passengersInProfile.Clear();
             tickets.Clear();
             InfoForPassToFillPassengersPage.PassengersInProfile.Clear();
             InfoForPassToFillPassengersPage.Stations.Clear();
@@ -91,7 +94,8 @@ namespace CourseProject.ViewModel
                 ProcessComplete(UdatedTickets);
             }, (obj =>
             {
-                return true;
+                return (!passengers.Any(i => i.Name == null && i.LoadedInDB == false 
+                || i.LoadedInDB && passengersInProfile.FirstOrDefault(j=>j.Id == i.Id) == null));
             }));
         }
     }

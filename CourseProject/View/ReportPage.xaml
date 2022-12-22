@@ -24,12 +24,14 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="59*"/>
+            <RowDefinition Height="59"/>
             <RowDefinition Height="312*"/>
-            <RowDefinition Height="79*"/>
+            <RowDefinition Height="79"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <RadioButton
+                Margin="10"
+                FontSize="18"
   Content="Искать любые билеты в пути"
                 GroupName="Filter"
                 IsChecked="{Binding Source={StaticResource Filter}, Path=SearchAllTickets}"
@@ -50,6 +52,8 @@
             </RadioButton>
 
             <RadioButton
+                Margin="10"
+                FontSize="18"
   Content="Искать пассажиров, проехавших весь путь"
   IsChecked="{Binding Source={StaticResource Filter}, Path=SearchPassengersMadeAllWay}"
 
@@ -70,11 +74,15 @@
                 </i:Interaction.Triggers>
             </RadioButton>
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
+        <ScrollViewer Grid.Row="1" 
+                Margin="10">
             <StackPanel>
-                <TextBlock Text="Найдено билетов "/>
-                <TextBlock Text="{Binding Path=ReportService.Report.Tickets.Count}"/>
-                <ListView ItemsSource="{Binding Path=ReportService.Report.Tickets}">
+                <TextBlock
+                Margin="10" Text="Найдено билетов " FontSize="15"/>
+                <TextBlock
+                Margin="10" FontSize="15" Text="{Binding Path=ReportService.Report.Tickets.Count}"/>
+                <ListView 
+                Margin="10" ItemsSource="{Binding Path=ReportService.Report.Tickets}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Path=Passenger.Id}"/>
@@ -89,8 +97,10 @@
                 </ListView>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button
+        <Button
+                Grid.Row="2"
+                Margin="10"
+            HorizontalAlignment="Left"
  Command="{Binding Path=ReportService.GoBack}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
@@ -99,7 +109,6 @@
     VerticalAlignment="Stretch"
     Kind="ArrowLeft" />
             </Button>
-        </StackPanel>
 
     </Grid>
 </Page>

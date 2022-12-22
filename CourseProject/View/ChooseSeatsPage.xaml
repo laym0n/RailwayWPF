@@ -62,24 +62,30 @@
 
             <DataTemplate x:Key="AlternativeAddressTemplate"
                                       DataType="{x:Type localModel:WayModelForChooseTicket}">
-                <StackPanel Orientation="Vertical" Name="Way" DataContext="{Binding}"  >
-                    <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
-               ItemsSource="{Binding Path=StructureVanModels}">
-                        <ItemsControl.ItemsPanel>
 
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
+                <StackPanel Orientation="Vertical" Name="Way" DataContext="{Binding}"  >
+                    <ScrollViewer HorizontalScrollBarVisibility="Visible" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemTemplate="{StaticResource LabelRowTemplate}"
+               ItemsSource="{Binding Path=StructureVanModels}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Предыдущий вагон"
+                                Margin="10"
                                             CommandParameter="{Binding}"
                         Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowPreviousVan}"
                                             />
 
 
                         <Button Content="Следующий вагон"
+                                Margin="10"
             CommandParameter="{Binding}"
             Command="{Binding ElementName=PageBuyTicket, Path=DataContext.ShowerStructureVan.ShowNextVan}"/>
 
@@ -88,7 +94,7 @@
                 </StackPanel>
             </DataTemplate>
         </Grid.Resources>
-        <ScrollViewer Grid.Row="0">
+        <ScrollViewer Grid.Row="0" Margin="10">
             <ItemsControl
                                       Grid.Column="1" 
                                       x:Name="rad" 
@@ -100,25 +106,23 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button
+        <Button Grid.Row="1"
  Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
+  ToolTip="Назад" Margin="10" HorizontalAlignment="Left">
                 <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowLeft" />
             </Button>
-            <Button
+        <Button Grid.Row="1"
  Command="{Binding Path=BuyTicketService.ChooseTicketService.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
-                <materialDesign:PackIcon
+  ToolTip="Назад" Margin="10" HorizontalAlignment="Right">
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowRight" />
-            </Button>
-        </StackPanel>
+        </Button>
     </Grid>
 </Page>

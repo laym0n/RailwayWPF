@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CourseProject.Model"
         xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
         mc:Ignorable="d"
+
       xmlns:system="clr-namespace:System;assembly=mscorlib"
       xmlns:localModel="clr-namespace:CourseProject.Model"
       xmlns:localModelEnum="clr-namespace:CourseProject.Model.Enumerations"
@@ -37,22 +38,22 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="29*"></RowDefinition>
-            <RowDefinition Height="188*"></RowDefinition>
+            <RowDefinition Height="62"></RowDefinition>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="711*"/>
-            <ColumnDefinition Width="89*"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="65"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <materialDesign:PopupBox Grid.Column ="2"
+        <materialDesign:PopupBox Grid.Column="1"
                                 
   x:Name="MainMenu"                         
   PlacementMode="BottomAndAlignCentres"
   Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
   ToolTip="PopupBox, Style MaterialDesignMultiFloatingActionPopupBox" 
-  ToolTipService.Placement="Right" Cursor="Hand" StaysOpen="True" Background="#FF8052D4">
+  ToolTipService.Placement="Right" Cursor="Hand" StaysOpen="True" Background="#FF8052D4" HorizontalAlignment="Center" Margin="0,2,0,4" Width="56">
             <materialDesign:PopupBox.Resources>
-                
+
             </materialDesign:PopupBox.Resources>
             <materialDesign:PopupBox.ToggleContent>
                 <materialDesign:PackIcon 
@@ -165,7 +166,7 @@
                 </Button>
             </StackPanel>
         </materialDesign:PopupBox>
-        <Frame x:FieldModifier="public" NavigationUIVisibility="Hidden" x:Name ="NavigableFrame" Margin="0,0,0,0" Grid.RowSpan="2" Grid.Row="0"/>
+        <Frame x:FieldModifier="public" NavigationUIVisibility="Hidden" x:Name ="NavigableFrame" Grid.RowSpan="2" Grid.Row="0"/>
     </Grid>
 </Window>
 

@@ -20,11 +20,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="359*"/>
-            <RowDefinition Height="91*"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock>Добавленные билеты</TextBlock>
-            <ListView ItemsSource="{Binding Path=BuyTicketService.Tickets}">
+            <TextBlock
+                Margin="10" FontSize="22" HorizontalAlignment="Center">Добавленные билеты</TextBlock>
+            <ListView
+                Margin="10" ItemsSource="{Binding Path=BuyTicketService.Tickets}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Path=Passenger.Name}"/>

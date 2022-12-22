@@ -137,8 +137,9 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
                 ProcessComplete?.Invoke(trainForEdit);
             }, (obj) =>
             {
-                if (schedules.Count <= 1 || schedules.ToList().Any(i => stationModels.FirstOrDefault(j => j.Id == i.StationTrainScheduleModel.IdStation) == null
-                || i.ArrivalTime <= i.PreviousModel.DepartureTime))
+            if (schedules.Count <= 1 || schedules.ToList().Any(i => stationModels.FirstOrDefault(j => j.Id == i.StationTrainScheduleModel.IdStation) == null
+            || i.ArrivalTime <= i.PreviousModel.DepartureTime) || 
+            schedules.Any(i=> schedules.Where(j=> j.StationTrainScheduleModel.IdStation == i.StationTrainScheduleModel.IdStation).Count() > 1))
                     return false;
                 return true;
             });

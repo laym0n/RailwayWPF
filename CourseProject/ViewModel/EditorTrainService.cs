@@ -34,7 +34,6 @@ namespace CourseProject.ViewModel
         public void SetUser(UserModel user) => this.currentUser = user;
         void SaveTrain(Train train)
         {
-            int sdfs = 2342;
             train.IdUserCreator = currentUser.Id;
             db.Train.Create(train);
             db.Save();

@@ -21,14 +21,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
-            <RowDefinition/>
+            <RowDefinition Height="90"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" >
+        <ScrollViewer Grid.Row="0" Margin="10">
 
             <StackPanel>
                 <StackPanel.Resources>
                     <DataTemplate x:Key="TemplateForStationSchedule" DataType="{x:Type localModel:ModelForEditingSchedule}">
-                        <StackPanel>
+                        <StackPanel Margin="10">
                             <TextBlock Text="{Binding Path=StationTrainScheduleModel.NumberInTrip}" />
                             <ComboBox
                                 ItemsSource="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.InfoForView.StationModels}"
@@ -147,47 +147,42 @@
                         </StackPanel>
                     </DataTemplate>
                 </StackPanel.Resources>
-                <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStationSchedule}"
+                <ItemsControl
+                    MaxWidth="600" 
+                    ItemTemplate="{StaticResource ResourceKey=TemplateForStationSchedule}"
                ItemsSource="{Binding Path=EditorTrainService.ProcesserTrain.InfoForView.collection }">
-                    <!--<ItemsControl.Template>
-                                    <ControlTemplate>
-                                        <ScrollViewer>
-                                            <ItemsPresenter />
-                                        </ScrollViewer>
-                                    </ControlTemplate>
-                                </ItemsControl.Template>-->
                     <ItemsControl.ItemsPanel>
 
                         <ItemsPanelTemplate>
-                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                            <StackPanel MaxWidth="600"  Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
                 <Button
+                    Margin="10"
+                    MaxWidth="600"
             Command="{Binding Path=EditorTrainService.ProcesserTrain.DoProcess}"
     Content="Добавить станцию в расписание"
     Style="{StaticResource MaterialDesignRaisedLightButton}" Cursor="Hand"/>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
-            <Button
+        <Button Grid.Row="1"
  Command="{Binding Path=EditorTrainService.GoBack}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
-                <materialDesign:PackIcon
+  ToolTip="Назад" HorizontalAlignment="Left" Margin="10">
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowLeft" />
-            </Button>
-            <Button
+        </Button>
+        <Button Grid.Row="1"
  Command="{Binding Path=EditorTrainService.ProcesserTrain.СompleteProcess}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
-  ToolTip="Назад">
-                <materialDesign:PackIcon
+  ToolTip="Назад" HorizontalAlignment="Right" Margin="10">
+            <materialDesign:PackIcon
                     HorizontalAlignment="Stretch"
     VerticalAlignment="Stretch"
     Kind="ArrowRight" />
-            </Button>
-        </StackPanel>
+        </Button>
     </Grid>
 </Page>
