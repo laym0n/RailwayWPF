@@ -23,7 +23,8 @@ namespace CourseProject.ViewModel.Fabrics
         {
             IProcesserDoUndo<Train> editVans = new EditorVan(UnitOfWork, null);
             IProcesserDoUndo<Train> editSchedule = new EditorStationTrainSchedule(UnitOfWork, editVans);
-            return editSchedule;
+            IProcesserDoUndo<Train> editStartTimes = new EditorStartTime(UnitOfWork, editSchedule);
+            return editStartTimes;
         }
     }
 }

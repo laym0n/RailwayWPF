@@ -17,6 +17,7 @@ namespace CourseProject.Model.Enumerations
         FillPassengerForBuyTicketPage,
         FinalPageBuyTicket,
         EditVanPage,
-        EditScheduleTrain
+        EditScheduleTrain,
+        EditStartTimeTrain
     }
 }

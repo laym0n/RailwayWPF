@@ -35,6 +35,10 @@ namespace CourseProject.ViewModel
         void SaveTrain(Train train)
         {
             int sdfs = 2342;
+            train.IdUserCreator = currentUser.Id;
+            db.Train.Create(train);
+            db.Save();
+            TrainSaved?.Invoke();
         }
         public ICommand StartProcess
         {

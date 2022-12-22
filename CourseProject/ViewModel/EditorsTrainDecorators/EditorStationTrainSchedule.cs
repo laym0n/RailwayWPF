@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DAL.Entities;
 
 namespace CourseProject.ViewModel.EditorsTrainDecorators
 {
@@ -122,7 +123,17 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             get => !active && processerDoUndo != null ? processerDoUndo.СompleteProcess : new RelayCommand((obj) =>
             {
-                schedules.ToList().ForEach(i => trainForEdit.StationTrainSchedule.Add(i.StationTrainScheduleModel.GetStationTrainSchedule()));
+                Track addedTrack = new Track();
+                trainForEdit.Track.Add(addedTrack);
+                schedules.ToList().ForEach(i =>
+                {
+                    trainForEdit.StationTrainSchedule.Add(i.StationTrainScheduleModel.GetStationTrainSchedule());
+                    addedTrack.TimesForStation.Add(new TimesForStation()
+                    {
+                        ArrivalTime = i.ArrivalTime,
+                        DepartureTime = i.DepartureTime
+                    });
+                });
                 ProcessComplete?.Invoke(trainForEdit);
             }, (obj) =>
             {

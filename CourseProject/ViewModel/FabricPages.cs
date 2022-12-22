@@ -40,6 +40,8 @@ namespace CourseProject.ViewModel
                 PageForCreate = new EditVanPage(mediator);
             else if (typePage == TypePage.EditScheduleTrain)
                 PageForCreate = new EditStationTrainSchedulePage(mediator);
+            else if (typePage == TypePage.EditStartTimeTrain)
+                PageForCreate = new EditStartTimePage(mediator);
             return PageForCreate;
         }
     }
