@@ -515,7 +515,7 @@
                                         </ItemsPanelTemplate>
                                     </ItemsControl.ItemsPanel>
                                     <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
+                                        <DataTemplate DataType="{x:Type localModel:TrainInProfileModel}">
 
                                             <GroupBox
                                         Margin="16"
@@ -557,14 +557,14 @@
                                                     <Button
                                                         Grid.Column="0"
                                                         Grid.Row="2"
-    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.RemoveTrain}"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemoveTrain}"
     Content="Удалить поезд"
     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>
                                                     <Button
                                                         Grid.Column="0"
                                                         Grid.Row="2"
-    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.EditTrain}"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.EditTrain}"
     Content="Редактировать поезд"
     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>

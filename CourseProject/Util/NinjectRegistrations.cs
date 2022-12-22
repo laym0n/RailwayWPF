@@ -45,6 +45,7 @@ namespace CourseProject.Util
             Bind<IReportService>().To<ReportService>();
             Bind<IStrategyAddPassengerForProfile>().To<SimpleValidateBeforeAddPassengerStrategy>();
             Bind<ITicketContolStrategyInProfile>().To<SimpleTicketControlStrategy>();
+            Bind<ITrainInProfileStrategy>().To<SimpleTrainControllerStrategy>();
         }
     }
 }

@@ -163,6 +163,7 @@
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
     <Compile Include="ViewModel\Interfaces\IStrategyAddPassengerForProfile.cs" />
     <Compile Include="ViewModel\Interfaces\ITicketContolStrategyInProfile.cs" />
+    <Compile Include="ViewModel\Interfaces\ITrainInProfileStrategy.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
     <Compile Include="ViewModel\MainMenuController.cs" />
     <Compile Include="ViewModel\NavigationService.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
     <Compile Include="ViewModel\StrategyForProfile\SimpleTicketControlStrategy.cs" />
+    <Compile Include="ViewModel\StrategyForProfile\SimpleTrainControllerStrategy.cs" />
     <Compile Include="ViewModel\StrategyForProfile\SimpleValidateBeforeAddPassengerStrategy.cs" />
     <Compile Include="ViewModel\StrategyCompileReport\StrategyFindPassengersThatMadeAllWay.cs" />
     <Compile Include="ViewModel\StrategyCompileReport\StrategyIncludesAnyTicketsInWay.cs" />
