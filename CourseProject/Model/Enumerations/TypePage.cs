@@ -16,6 +16,7 @@ namespace CourseProject.Model.Enumerations
         SearchWayPageReport,
         FillPassengerForBuyTicketPage,
         FinalPageBuyTicket,
-        EditVanPage
+        EditVanPage,
+        EditScheduleTrain
     }
 }

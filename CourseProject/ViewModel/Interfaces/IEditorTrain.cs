@@ -17,7 +17,9 @@ namespace CourseProject.ViewModel.Interfaces
         void SetCreatorTrain(IProcesserDoUndo<Train> processer);
         void SetUser(UserModel user);
         event Action TrainSaved;
+        event Action CancelCurrentProcess;
         IProcesserDoUndo<Train> ProcesserTrain { get; }
+        ICommand GoBack { get; }
         ICommand StartProcess { get; }
     }
 }

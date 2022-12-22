@@ -1,5 +1,5 @@
-﻿using CourseProject.Model;
-using CourseProject.Model.StaticModelsForPassInfo;
+﻿using CourseProject.Model.StaticModelsForPassInfo;
+using CourseProject.Model;
 using CourseProject.ViewModel.Interfaces;
 using DAL;
 using DLL.Interfaces;
@@ -14,27 +14,25 @@ using System.Windows.Input;
 
 namespace CourseProject.ViewModel.EditorsTrainDecorators
 {
-    public class EditorVan : IProcesserDoUndo<Train>
+    public class EditorStationTrainSchedule : IProcesserDoUndo<Train>
     {
         IUnitOfWork db;
         IProcesserDoUndo<Train> processerDoUndo;
         public event Action<Train> ProcessComplete;
         public static event Action StartProcessVans;
-        public static event Action<TypeOfVanModel> SelectedVanChanged;
-        ObservableCollection<VanModel> vans = new ObservableCollection<VanModel>();
-        
-        List<TypeOfVanModel> typeOfVanModels;
+        ObservableCollection<ModelForEditingSchedule> schedules = new ObservableCollection<ModelForEditingSchedule>();
+
+        List<StationModel> stationModels;
         Train trainForEdit;
         bool active = false;
-        public EditorVan(IUnitOfWork db, IProcesserDoUndo<Train> processerDoUndo)
+        public EditorStationTrainSchedule(IUnitOfWork db, IProcesserDoUndo<Train> processerDoUndo)
         {
             this.db = db;
-            this.trainForEdit = trainForEdit;
             SetProcesserDoUndo(processerDoUndo);
         }
         void SetProcesserDoUndo(IProcesserDoUndo<Train> processerDoUndo)
         {
-            if(processerDoUndo != null)
+            if (processerDoUndo != null)
             {
                 this.processerDoUndo = processerDoUndo;
                 this.processerDoUndo.ProcessComplete += SetStartDataAndStartProcess;
@@ -48,19 +46,19 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         void SetStartData(Train trainForEdit)
         {
             this.trainForEdit = trainForEdit;
-            vans = new ObservableCollection<VanModel>();
-            typeOfVanModels = db.TypeOfVan.GetList().Select(i => new TypeOfVanModel(i)).ToList();
+            schedules = new ObservableCollection<ModelForEditingSchedule>();
+            stationModels = db.Station.GetList().Select(i => new StationModel(i)).ToList();
             active = true;
         }
         void ClearData()
         {
-            vans.Clear();
-            typeOfVanModels.Clear();
+            schedules.Clear();
+            stationModels.Clear();
             trainForEdit = null;
         }
         public void StartProcess(Train train)
         {
-            if(processerDoUndo != null)
+            if (processerDoUndo != null)
             {
                 active = false;
                 processerDoUndo.StartProcess(train);
@@ -72,10 +70,10 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             get
             {
-                return !active && processerDoUndo != null ? processerDoUndo.InfoForView : (new InfoForPassToEditVanPage()
+                return !active && processerDoUndo != null ? processerDoUndo.InfoForView : (new InfoForPassToEditStationTrainSchedulePage()
                 {
-                    TypeOfvanModels = typeOfVanModels,
-                    VanModels = vans
+                    StationModels = stationModels,
+                    collection = schedules
                 });
             }
         }
@@ -89,31 +87,34 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
             else if (processerDoUndo != null)
                 processerDoUndo.CancelCurrentProcess();
         }
-        public ICommand DoProcess 
+        public ICommand DoProcess
         {
             get => !active && processerDoUndo != null ? processerDoUndo.DoProcess : new RelayCommand((obj) =>
             {
-                VanModel vanModelForAdd = new VanModel() { NumberInTrain = vans.Count != 0 ? vans[vans.Count - 1].NumberInTrain + 1 : 1 };
-                vans.Add(vanModelForAdd);
-                vanModelForAdd.PropertyChanged += ChangeViewOfVan;
+                ModelForEditingSchedule vanModelForAdd = new ModelForEditingSchedule()
+                {
+                    ArrivalTime = DateTime.Now,
+                    DepartureTime = DateTime.Now,
+                    StationTrainScheduleModel = new StationTrainScheduleModel()
+                    {
+                        NumberInTrip = schedules.Count + 1
+                    },
+                    PreviousModel = schedules.Count != 0? schedules.Last() : new ModelForEditingSchedule() { DepartureTime = DateTime.Now},
+                };
+                schedules.Add(vanModelForAdd);
             });
-        }
-        void ChangeViewOfVan(object e, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            if (propertyChangedEventArgs.PropertyName == "TypeOfVanId")
-            {
-                SelectedVanChanged?.Invoke(new TypeOfVanModel() { Id = (e as VanModel).TypeOfVanId });
-            }
         }
         public ICommand UndoProcess
         {
             get => !active && processerDoUndo != null ? processerDoUndo.UndoProcess : new RelayCommand((obj) =>
             {
-                if (obj is VanModel vanForRemove)
+                if (obj is ModelForEditingSchedule model)
                 {
-                    vans.Remove(vanForRemove);
-                    for (int i = vanForRemove.NumberInTrain - 1; i < vans.Count; i++)
-                        vans[i].NumberInTrain--;
+                    schedules.Remove(model);
+                    if (schedules.Count >= model.StationTrainScheduleModel.NumberInTrip)
+                        schedules[model.StationTrainScheduleModel.NumberInTrip - 1].PreviousModel = model.PreviousModel;
+                    for (int i = model.StationTrainScheduleModel.NumberInTrip - 1; i < schedules.Count; i++)
+                        schedules[i].StationTrainScheduleModel.NumberInTrip--;
                 }
             });
         }
@@ -121,11 +122,12 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             get => !active && processerDoUndo != null ? processerDoUndo.СompleteProcess : new RelayCommand((obj) =>
             {
-                vans.ToList().ForEach(i => trainForEdit.Van.Add(i.GetVan()));
+                schedules.ToList().ForEach(i => trainForEdit.StationTrainSchedule.Add(i.StationTrainScheduleModel.GetStationTrainSchedule()));
                 ProcessComplete?.Invoke(trainForEdit);
             }, (obj) =>
             {
-                if (vans.Count <= 0 || vans.ToList().Any(i => typeOfVanModels.FirstOrDefault(j => j.Id == i.TypeOfVanId) == null))
+                if (schedules.Count <= 1 || schedules.ToList().Any(i => stationModels.FirstOrDefault(j => j.Id == i.StationTrainScheduleModel.IdStation) == null
+                || i.ArrivalTime <= i.PreviousModel.DepartureTime))
                     return false;
                 return true;
             });

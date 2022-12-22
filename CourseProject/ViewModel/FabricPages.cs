@@ -36,8 +36,10 @@ namespace CourseProject.ViewModel
                 PageForCreate = new SearchWaysForReportPage(mediator);
             else if (typePage == TypePage.ReportPage)
                 PageForCreate = new ReportPage(mediator);
-            else if(typePage == TypePage.EditVanPage)
+            else if (typePage == TypePage.EditVanPage)
                 PageForCreate = new EditVanPage(mediator);
+            else if (typePage == TypePage.EditScheduleTrain)
+                PageForCreate = new EditStationTrainSchedulePage(mediator);
             return PageForCreate;
         }
     }

@@ -23,6 +23,7 @@ namespace CourseProject.ViewModel
     {
         private UserModel currentUser;
         public event Action TrainSaved;
+        public event Action CancelCurrentProcess;
         IProcesserDoUndo<Train> processerTrain;
         public IProcesserDoUndo<Train> ProcesserTrain { get => processerTrain; }  
         public void SetCreatorTrain(IProcesserDoUndo<Train> processer)
@@ -40,6 +41,14 @@ namespace CourseProject.ViewModel
             get => new RelayCommand(obj =>
             {
                 processerTrain.StartProcess(new Train());
+            });
+        }
+        public ICommand GoBack
+        {
+            get => new RelayCommand((obj) =>
+            {
+                processerTrain.CancelCurrentProcess();
+                CancelCurrentProcess?.Invoke();
             });
         }
         public event Action<TypeOfVanModel> VanChoosen;

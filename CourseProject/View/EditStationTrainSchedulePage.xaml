@@ -1,0 +1,193 @@
+﻿<Page x:Class="CourseProject.View.EditStationTrainSchedulePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProject.View"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
+      xmlns:localModel="clr-namespace:CourseProject.Model"
+      xmlns:localViewModel="clr-namespace:CourseProject.ViewModel.Interfaces"
+      xmlns:localConverters="clr-namespace:CourseProject.Converters"
+      xmlns:localModelcol="clr-namespace:CourseProject.Model.Collections"
+      xmlns:localModelEditing="clr-namespace:CourseProject.Model.ModelsForEditingViewStyle"
+      mc:Ignorable="d" 
+      Name="Page"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="EditStationTrainSchedulePage"
+      d:DataContext="{d:DesignInstance localViewModel:IMediator, IsDesignTimeCreatable=False}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" >
+
+            <StackPanel>
+                <StackPanel.Resources>
+                    <DataTemplate x:Key="TemplateForStationSchedule" DataType="{x:Type localModel:ModelForEditingSchedule}">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=StationTrainScheduleModel.NumberInTrip}" />
+                            <ComboBox
+                                ItemsSource="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.InfoForView.StationModels}"
+                                    SelectedValue="{Binding Path=StationTrainScheduleModel.IdStation}"
+
+                                    DisplayMemberPath="Name"
+                                    SelectedValuePath="Id"
+                                    
+  materialDesign:ComboBoxAssist.MaxLength="2"
+  materialDesign:HintAssist.Hint="Search"
+  materialDesign:HintAssist.HintOpacity=".26"/>
+                            <TextBlock Text="Время прибытия" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center"
+                       FontSize="24"
+                                           Text="{Binding Path=ArrivalTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                <materialDesign:DialogHost>
+                                    <Button Margin="8,0,0,0"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                    Content="Изменить">
+                                        <Button.CommandParameter>
+
+                                            <Grid Margin="-1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                                    <Calendar x:Name="CombinedCalendar" 
+                                   SelectedDate="{Binding Path=ArrivalTime}" 
+                                   Margin="-1,-4,-1,0"
+                                   DisplayDateStart="{Binding Path=PreviousModel.DepartureTime}"/>
+
+                                                    <materialDesign:Clock x:Name="CombinedClock"
+                                                                                     
+                                          Time="{Binding Path=ArrivalTime}"
+                                          DisplayAutomation ="ToMinutesOnly"
+                                          Is24Hours="True" />
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="1"
+                              Margin="8"
+                              HorizontalAlignment="Right"
+                              Orientation="Horizontal">
+                                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="0"
+                            Content="CANCEL"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+
+                                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="1"
+                            Content="OK"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </materialDesign:DialogHost>
+                            </StackPanel>
+                            <TextBlock Text="Время отправления" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock VerticalAlignment="Center"
+                       FontSize="24"
+                                           Text="{Binding Path=DepartureTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}" />
+                                <materialDesign:DialogHost>
+                                    <Button Margin="8,0,0,0"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                    Content="Изменить">
+                                        <Button.CommandParameter>
+
+                                            <Grid Margin="-1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                                    <Calendar 
+                                   SelectedDate="{Binding Path=DepartureTime}" 
+                                   Margin="-1,-4,-1,0"
+                                   DisplayDateStart="{Binding Path=ArrivalTime}"/>
+
+                                                    <materialDesign:Clock
+                                                                                     
+                                          Time="{Binding Path=DepartureTime}"
+                                          DisplayAutomation ="ToMinutesOnly"
+                                          Is24Hours="True" />
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Row="1"
+                              Margin="8"
+                              HorizontalAlignment="Right"
+                              Orientation="Horizontal">
+                                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="0"
+                            Content="CANCEL"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+
+                                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                            CommandParameter="1"
+                            Content="OK"
+                            Style="{StaticResource MaterialDesignFlatButton}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </materialDesign:DialogHost>
+                            </StackPanel>
+                            <Button
+                                    Command="{Binding ElementName=Page, Path=DataContext.EditorTrainService.ProcesserTrain.UndoProcess}"
+    Content="Удалить станцию"
+                                    CommandParameter="{Binding}"
+    Style="{StaticResource MaterialDesignRaisedLightButton}"/>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </StackPanel.Resources>
+                <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStationSchedule}"
+               ItemsSource="{Binding Path=EditorTrainService.ProcesserTrain.InfoForView.collection }">
+                    <!--<ItemsControl.Template>
+                                    <ControlTemplate>
+                                        <ScrollViewer>
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </ControlTemplate>
+                                </ItemsControl.Template>-->
+                    <ItemsControl.ItemsPanel>
+
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <Button
+            Command="{Binding Path=EditorTrainService.ProcesserTrain.DoProcess}"
+    Content="Добавить станцию в расписание"
+    Style="{StaticResource MaterialDesignRaisedLightButton}" Cursor="Hand"/>
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button
+ Command="{Binding Path=EditorTrainService.GoBack}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowLeft" />
+            </Button>
+            <Button
+ Command="{Binding Path=EditorTrainService.ProcesserTrain.СompleteProcess}"
+  Style="{StaticResource MaterialDesignFloatingActionLightButton}"
+  ToolTip="Назад">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch"
+    Kind="ArrowRight" />
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

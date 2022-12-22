@@ -25,8 +25,8 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="22*"/>
+                <ColumnDefinition Width="171*"/>
+                <ColumnDefinition Width="629*"/>
             </Grid.ColumnDefinitions>
             <Grid.Resources>
                 <localModel:SeatViewCollection x:Key="Seats"/>
@@ -66,34 +66,34 @@
                 </DataTemplate>
             </Grid.Resources>
             <ScrollViewer Grid.Column="0">
-                    <StackPanel>
+                <StackPanel>
                     <ItemsControl ItemTemplate="{StaticResource ResourceKey=TemplateForStructureVans}"
      ItemsSource="{Binding Path=EditorTrainService.ProcesserTrain.InfoForView.VanModels}"         >
-                        
+
                         <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                        <Button
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical"  ScrollViewer.IsDeferredScrollingEnabled="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <Button
             Command="{Binding Path=EditorTrainService.ProcesserTrain.DoProcess}"
     Content="Добавить вагон"
     Style="{StaticResource MaterialDesignRaisedLightButton}">
-                        </Button>
-                    </StackPanel>
-                </ScrollViewer>
-                <ItemsControl Grid.Column="1" x:Name="rad" ItemTemplate="{StaticResource AlternativeAddressTemplate}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                </ItemsControl>
-            </Grid>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+            <ItemsControl Grid.Column="1" x:Name="rad" ItemTemplate="{StaticResource AlternativeAddressTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Button
- Command="{Binding Path=BuyTicketService.CancelCurrentProcess}"
+ Command="{Binding Path=EditorTrainService.GoBack}"
   Style="{StaticResource MaterialDesignFloatingActionLightButton}"
   ToolTip="Назад">
                 <materialDesign:PackIcon

@@ -111,6 +111,7 @@
     <Compile Include="Model\ModelForEditingSchedule.cs" />
     <Compile Include="Model\ReportModel.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToChooseTicketPage.cs" />
+    <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToEditStationTrainSchedulePage.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToEditVanPage.cs" />
     <Compile Include="Model\StaticModelsForPassInfo\InfoForPassToFillPassengersPage.cs" />
     <Compile Include="Model\ModelsForEditingViewStyle\ButtonInfoTrainEditPage.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Util\NinjectRegistrations.cs" />
     <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\ChooseTicketService.cs" />
+    <Compile Include="ViewModel\EditorsTrainDecorators\EditorStationTrainSchedule.cs" />
     <Compile Include="ViewModel\EditorsTrainDecorators\EditorVan.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />
     <Compile Include="ViewModel\FabricChooseTicket.cs" />
@@ -192,6 +194,9 @@
     <Compile Include="View\ChooseSeatsPage.xaml.cs">
       <DependentUpon>ChooseSeatsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditStationTrainSchedulePage.xaml.cs">
+      <DependentUpon>EditStationTrainSchedulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditVanPage.xaml.cs">
       <DependentUpon>EditVanPage.xaml</DependentUpon>
     </Compile>
@@ -220,6 +225,10 @@
       <DependentUpon>TrainEditPage.xaml</DependentUpon>
     </Compile>
     <Page Include="View\ChooseSeatsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditStationTrainSchedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

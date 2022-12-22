@@ -21,7 +21,9 @@ namespace CourseProject.ViewModel.Fabrics
         }
         public IProcesserDoUndo<Train> GetProcesser(TypeProcesser type)
         {
-            return new EditorVan(UnitOfWork, null, null);
+            IProcesserDoUndo<Train> editVans = new EditorVan(UnitOfWork, null);
+            IProcesserDoUndo<Train> editSchedule = new EditorStationTrainSchedule(UnitOfWork, editVans);
+            return editSchedule;
         }
     }
 }

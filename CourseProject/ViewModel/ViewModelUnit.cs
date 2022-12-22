@@ -86,7 +86,9 @@ namespace CourseProject.ViewModel
             #endregion
 
             #region NavigationService
-            EditorVan.StartProcessVans += () => NavigationService.LoadPage(TypePage.EditVanPage);
+            EditorStationTrainSchedule.StartProcessVans += () => NavigationService.LoadNextPage(TypePage.EditScheduleTrain);
+            EditorVan.StartProcessVans += () => NavigationService.LoadNextPage(TypePage.EditVanPage);
+            EditorTrainService.CancelCurrentProcess += NavigationService.LoadPreviousPage;
             ReportService.ReportReady += () => NavigationService.LoadNextPage(TypePage.ReportPage);
             ReportService.ShowReportEnded += () => NavigationService.LoadPreviousPage();
             MainMenuControllerService.UserChoosePage += NavigationService.LoadPageWithNotify;
