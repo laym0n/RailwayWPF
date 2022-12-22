@@ -19,14 +19,12 @@ namespace CourseProject.ViewModel.Interfaces
         ObservableCollection<TicketModelForProfile> Tickets { get; }
         void ClearDate();
         void LoadDataForProfile();
-        //void LoadDataWhenEnteringPage(Page page);
-        //void ClearDataWhenLeavePage(Page page);
-        //void CurrentUserSignOut();
         ICommand EditTrain { get; }
         ICommand RemoveTrain { get; }
         ICommand ChangePassword { get; }
         ICommand AddPassenger { get; }
         ICommand RemovePassenger { get; }
         ICommand SavePassenger { get; }
+        ICommand RemoveTicket { get; }
     }
 }

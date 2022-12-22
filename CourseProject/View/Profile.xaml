@@ -130,7 +130,7 @@
                                 </StackPanel.Resources>
 
                                 <Button
-            Command="{Binding Path=InfoProfile.AddPassenger}"
+            Command="{Binding Path=InfoProfileService.AddPassenger}"
     Content="Добавить пассажира"
     Style="{StaticResource MaterialDesignRaisedLightButton}" />
                                 <ItemsControl 
@@ -228,7 +228,7 @@
                                                     <Button
                                             Grid.Row="2"
                                             Grid.Column="1"
-  Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.SavePassenger}"
+  Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.SavePassenger}"
   CommandParameter="{Binding}"
                                                         Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
   ToolTip="MaterialDesignFloatingActionDarkButton">
@@ -245,7 +245,7 @@
                                                     <Button
                                                         Grid.Column="0"
                                                         Grid.Row="2"
-    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfile.RemovePassenger}"
+    Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemovePassenger}"
     Content="Удалить пассажира"
     CommandParameter="{Binding}"
     Style="{StaticResource MaterialDesignRaisedLightButton}"/>
@@ -334,6 +334,7 @@
                                                         <RowDefinition/>
                                                         <RowDefinition/>
                                                         <RowDefinition/>
+                                                        <RowDefinition/>
                                                     </Grid.RowDefinitions>
                                                     <TextBlock
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
@@ -376,7 +377,11 @@
                                                     <TextBlock Grid.Column="1" Grid.Row="3"
   Style="{StaticResource MaterialDesignHeadline5TextBlock}"
   Text="{Binding Path=TicketViewModel.Way.EndTimesForStationModel.ArrivalTime}" />
-
+                                                    <Button Grid.Row="4" Grid.Column="1" 
+                Command="{Binding ElementName=ProfilePage, Path=DataContext.InfoProfileService.RemoveTicket}"
+  CommandParameter="{Binding}" Content="Удалить билет">
+                                                        
+                                                    </Button>
 
                                                 </Grid>
 

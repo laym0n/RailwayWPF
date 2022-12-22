@@ -144,6 +144,7 @@
     <Compile Include="ViewModel\FabricPages.cs" />
     <Compile Include="ViewModel\DecoratorsChooseTicketService\FillPassengersForTicketService.cs" />
     <Compile Include="ViewModel\FabricStrategyCompileReport.cs" />
+    <Compile Include="ViewModel\Fabrics\FabricStrategyAddPassengerInProfile.cs" />
     <Compile Include="ViewModel\GetCollectionsService.cs" />
     <Compile Include="ViewModel\Interfaces\IBuyTicket.cs" />
     <Compile Include="ViewModel\Interfaces\IChooseTicketService.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="ViewModel\Interfaces\IShowerStructureVan.cs" />
     <Compile Include="ViewModel\Interfaces\ISignIn.cs" />
     <Compile Include="ViewModel\Interfaces\IStrategyAddPassengerForProfile.cs" />
+    <Compile Include="ViewModel\Interfaces\ITicketContolStrategyInProfile.cs" />
     <Compile Include="ViewModel\Interfaces\IViewModel.cs" />
     <Compile Include="ViewModel\MainMenuController.cs" />
     <Compile Include="ViewModel\NavigationService.cs" />
@@ -173,6 +175,8 @@
     <Compile Include="ViewModel\ShowStrucureVanService.cs" />
     <Compile Include="ViewModel\SignInService.cs" />
     <Compile Include="ViewModel\StrategiesSearchWay\SearchWayStrategyWithLessOrEqualSixTransfer.cs" />
+    <Compile Include="ViewModel\StrategyForProfile\SimpleTicketControlStrategy.cs" />
+    <Compile Include="ViewModel\StrategyForProfile\SimpleValidateBeforeAddPassengerStrategy.cs" />
     <Compile Include="ViewModel\StrategyCompileReport\StrategyFindPassengersThatMadeAllWay.cs" />
     <Compile Include="ViewModel\StrategyCompileReport\StrategyIncludesAnyTicketsInWay.cs" />
     <Compile Include="ViewModel\Tests\SignInTest.cs" />

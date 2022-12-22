@@ -92,6 +92,14 @@ namespace CourseProject.Model
             this.loadedInDB = loadedInDB;
             this.userId = UserId;
         }
+        public void SetPassenger(Passenger passenger)
+        {
+            passenger.UserId = this.userId;
+            passenger.Gender = this.Gender == Peoplegender.man;
+            passenger.Birthday = this.Birthday;
+            passenger.Name = this.Name;
+            passenger.Passport = this.Passport;
+        }
         public Passenger GetPassanger()=>new Passenger() { Birthday = this.birthday, Id = this.id, Passport = this.passport, Name = this.name, UserId = this.userId, Gender = this.Gender == Peoplegender.man };
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

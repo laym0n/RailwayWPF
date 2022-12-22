@@ -8,6 +8,8 @@ using System.Windows.Controls;
 using CourseProject.ViewModel;
 using CourseProject.ViewModel.Interfaces;
 using CourseProject.ViewModel.StrategiesSearchWay;
+using CourseProject.ViewModel.StrategyAddPassengerForProfile;
+using CourseProject.ViewModel.StrategyForProfile;
 using CourseProject.ViewModel.Tests;
 using DAL.Realizations;
 using DLL.Interfaces;
@@ -41,6 +43,8 @@ namespace CourseProject.Util
             Bind<IChooseTicketService>().To<ChooseTicketService>();
             Bind<IDecoratorChooseTicketService>().To<FillPassengersForTicketService>();
             Bind<IReportService>().To<ReportService>();
+            Bind<IStrategyAddPassengerForProfile>().To<SimpleValidateBeforeAddPassengerStrategy>();
+            Bind<ITicketContolStrategyInProfile>().To<SimpleTicketControlStrategy>();
         }
     }
 }

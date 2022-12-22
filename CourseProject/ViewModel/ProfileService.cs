@@ -19,7 +19,28 @@ namespace CourseProject.ViewModel
     {
         private UserModel currentUser;
         private IUnitOfWork unitOfWork;
-        public void SetCurrentUser(UserModel user) => currentUser = user;
+        IStrategyAddPassengerForProfile strategyAddPassengerForProfile;
+        ITicketContolStrategyInProfile ticketContolStrategyInProfile;
+        public void SetCurrentUser(UserModel user) 
+        { 
+            currentUser = user; 
+            if(strategyAddPassengerForProfile != null)
+                this.strategyAddPassengerForProfile.SetUser(currentUser);
+            if (this.ticketContolStrategyInProfile != null)
+                this.ticketContolStrategyInProfile.SetUser(currentUser);
+        }
+        public void SetStrategyAddPassenger(IStrategyAddPassengerForProfile strategyAddPassengerForProfile)
+        {
+            this.strategyAddPassengerForProfile = strategyAddPassengerForProfile;
+            if(currentUser != null)
+                this.strategyAddPassengerForProfile.SetUser(currentUser);
+        }
+        public void SetStrategyTikcetControl(ITicketContolStrategyInProfile ticketContolStrategy)
+        {
+            this.ticketContolStrategyInProfile = ticketContolStrategy;
+            if (currentUser != null)
+                this.ticketContolStrategyInProfile.SetUser(currentUser);
+        }
         public void ClearDate()
         {
             tickets.Clear();
@@ -31,7 +52,11 @@ namespace CourseProject.ViewModel
             if (currentUser == null)
                 return;
             ClearDate();
-            unitOfWork.Passengers.GetList().Where(i => i?.UserId == currentUser.Id).ToList().ForEach(i => passengers.Add(new PassengerViewModel(i, true)));
+            List<PassengerViewModel> loadedPassengers = strategyAddPassengerForProfile.LoadPassengers();
+            loadedPassengers.ForEach(i=> passengers.Add(i));
+            List<TicketModelForProfile> loadedTickets = ticketContolStrategyInProfile.LoadTickets();
+            loadedTickets.ForEach(i => tickets.Add(i));
+
             (
             from train in unitOfWork.Train.GetList()
             where train.IdUserCreator == currentUser.Id
@@ -45,35 +70,6 @@ namespace CourseProject.ViewModel
                             orderby stationtrainschedule.NumberInTrip
                             select station.Name).ToList()
             }).ToList().ForEach(i => trainInProfileModels.Add(i));
-            (from tickets in unitOfWork.Ticket.GetList()
-             where tickets.UserId == currentUser.Id
-             select tickets).ToList().ForEach(i => LoadTicket(i));
-        }
-        private void LoadTicket(Ticket ticket)
-        {
-            PassengerViewModel passengerForTicket = new PassengerViewModel(unitOfWork.Passengers.GetItem(ticket.PassengerId), true);
-            TimesForStation startTimesForStation = unitOfWork.TimesForStation.GetItem(ticket.IdTimesForStationSource);
-            TimesForStation endTimesForStation = unitOfWork.TimesForStation.GetItem(ticket.IdTimesForStationDestiny);
-            StationTrainSchedule startStationTrainSchedule = unitOfWork.StationTrainSchedule.GetList().Where(i => i.NumberInTrip ==
-            unitOfWork.TimesForStation.GetList().Where(j => j.TrackId == startTimesForStation.TrackId && j.DepartureTime < startTimesForStation.ArrivalTime).Count() + 1).First();
-            StationTrainSchedule endStationTrainSchedule = unitOfWork.StationTrainSchedule.GetList().Where(i => i.NumberInTrip ==
-            unitOfWork.TimesForStation.GetList().Where(j => j.TrackId == endTimesForStation.TrackId && j.DepartureTime < endTimesForStation.ArrivalTime).Count() + 1).First();
-            Station startStation = unitOfWork.Station.GetList().Where(i => i.Id == startStationTrainSchedule.IdStation).First();
-            Station endStation = unitOfWork.Station.GetList().Where(i => i.Id == endStationTrainSchedule.IdStation).First();
-            TicketViewModel ticketViewModel = new TicketViewModel()
-            {
-                Passenger = passengerForTicket,
-                Way = new ConcreteWayTrainModel()
-                {
-                    EndStationModel = new StationModel(endStation),
-                    StartStationModel = new StationModel(startStation),
-                    EndStationTrainScheduleModel = new StationTrainScheduleModel(endStationTrainSchedule),
-                    StartStationTrainScheduleModel = new StationTrainScheduleModel(startStationTrainSchedule),
-                    StartTimesForStationModel = new TimesForStationModel(startTimesForStation),
-                    EndTimesForStationModel = new TimesForStationModel(endTimesForStation)
-                }
-            };
-            tickets.Add(new TicketModelForProfile(ticketViewModel, ticket));
         }
         private ObservableCollection<PassengerViewModel> passengers = new ObservableCollection<PassengerViewModel>();
         private ObservableCollection<TicketModelForProfile> tickets = new ObservableCollection<TicketModelForProfile>();
@@ -94,9 +90,11 @@ namespace CourseProject.ViewModel
                 //когда буду переходить на другую страницу не забыть удалить из PassengerViewModels не добавленные профии пассажиров
             }
         }
-        public ProfileService(IUnitOfWork unityOfWork)
+        public ProfileService(IUnitOfWork unityOfWork, IStrategyAddPassengerForProfile strategyAddPassengerForProfile, ITicketContolStrategyInProfile tickeStrategy)
         {
             this.unitOfWork = unityOfWork;
+            SetStrategyAddPassenger(strategyAddPassengerForProfile);
+            SetStrategyTikcetControl(tickeStrategy);
         }
         public ICommand EditTrain
         {
@@ -114,7 +112,7 @@ namespace CourseProject.ViewModel
         {
             get => new RelayCommand((obj) =>
             {
-                passengers.Add(new PassengerViewModel(currentUser.Id, false));
+                strategyAddPassengerForProfile.AddPassenger(passengers);
             });
         }
         public ICommand RemovePassenger 
@@ -123,11 +121,7 @@ namespace CourseProject.ViewModel
             {
                 if (obj is PassengerViewModel PassangerForRemove)
                 {
-                    passengers.Remove(PassangerForRemove);
-                    //сделать запрос на проверку есть ли билеты на этого пассажира
-                    
-                    unitOfWork.Passengers.Delete(PassangerForRemove.Id);
-                    unitOfWork.Save();
+                    strategyAddPassengerForProfile.Remove(passengers, PassangerForRemove);
                 }
             });
         }
@@ -137,13 +131,13 @@ namespace CourseProject.ViewModel
             {
                 if (obj is PassengerViewModel PassangerForSave)
                 {
-                    if (PassangerForSave.LoadedInDB)
-                        unitOfWork.Passengers.Update(PassangerForSave.GetPassanger());
-                    else
-                        unitOfWork.Passengers.Create(PassangerForSave.GetPassanger());
-                    PassangerForSave.LoadedInDB = true;
-                    unitOfWork.Save();
+                    strategyAddPassengerForProfile.Save(PassangerForSave);
                 }
+            }, (obj) =>
+            {
+                if (obj is PassengerViewModel PassangerForSave)
+                    return strategyAddPassengerForProfile.Validate(PassangerForSave);
+                return false;
             });
         }
         public ICommand ChangePassword
@@ -178,6 +172,16 @@ namespace CourseProject.ViewModel
             },
                 (obj) =>
                 (obj is PasswordChangeModel passwordChangeModel && passwordChangeModel.NewPassword != null && passwordChangeModel.OldPassword != null));
+        }
+        public ICommand RemoveTicket
+        {
+            get => new RelayCommand((obj) =>
+            {
+                if (obj is TicketModelForProfile ticketModel)
+                {
+                    ticketContolStrategyInProfile.RemoveTicket(tickets, ticketModel);
+                }
+            });
         }
     }
 }
