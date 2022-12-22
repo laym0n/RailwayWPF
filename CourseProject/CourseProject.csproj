@@ -145,6 +145,7 @@
     <Compile Include="ViewModel\BuyTicketService.cs" />
     <Compile Include="ViewModel\ChooseTicketService.cs" />
     <Compile Include="ViewModel\EditorsTrainDecorators\EditorStartTime.cs" />
+    <Compile Include="ViewModel\EditorsTrainDecorators\EditorStartTimeExistTrain.cs" />
     <Compile Include="ViewModel\EditorsTrainDecorators\EditorStationTrainSchedule.cs" />
     <Compile Include="ViewModel\EditorsTrainDecorators\EditorVan.cs" />
     <Compile Include="ViewModel\EditorTrainService.cs" />

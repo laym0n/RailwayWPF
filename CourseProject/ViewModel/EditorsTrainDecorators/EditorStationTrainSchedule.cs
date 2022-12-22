@@ -94,16 +94,30 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
             {
                 ModelForEditingSchedule vanModelForAdd = new ModelForEditingSchedule()
                 {
-                    ArrivalTime = DateTime.Now,
-                    DepartureTime = DateTime.Now,
+                    ArrivalTime = (schedules.Count == 0? DateTime.Now : schedules.Last().DepartureTime) + new TimeSpan(0, 2, 0),
+                    DepartureTime = (schedules.Count == 0 ? DateTime.Now : schedules.Last().DepartureTime) + new TimeSpan(0, 2, 0),
                     StationTrainScheduleModel = new StationTrainScheduleModel()
                     {
                         NumberInTrip = schedules.Count + 1
                     },
                     PreviousModel = schedules.Count != 0? schedules.Last() : new ModelForEditingSchedule() { DepartureTime = DateTime.Now},
                 };
+                vanModelForAdd.PropertyChanged += ChangeTimeInSchedule;
                 schedules.Add(vanModelForAdd);
             });
+        }
+        void ChangeTimeInSchedule(object e, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            ModelForEditingSchedule model = e as ModelForEditingSchedule;
+            if (propertyChangedEventArgs.PropertyName == "ArrivalTime")
+            {
+                if(model.ArrivalTime > model.DepartureTime)
+                    model.DepartureTime = model.ArrivalTime;
+            }else if(propertyChangedEventArgs.PropertyName == "DepartureTime")
+            {
+                if (schedules.Count > model.StationTrainScheduleModel.NumberInTrip && schedules[model.StationTrainScheduleModel.NumberInTrip].ArrivalTime <= model.DepartureTime)
+                    schedules[model.StationTrainScheduleModel.NumberInTrip].ArrivalTime = model.DepartureTime + new TimeSpan(0, 2, 0);
+            }
         }
         public ICommand UndoProcess
         {
@@ -139,7 +153,8 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
             {
             if (schedules.Count <= 1 || schedules.ToList().Any(i => stationModels.FirstOrDefault(j => j.Id == i.StationTrainScheduleModel.IdStation) == null
             || i.ArrivalTime <= i.PreviousModel.DepartureTime) || 
-            schedules.Any(i=> schedules.Where(j=> j.StationTrainScheduleModel.IdStation == i.StationTrainScheduleModel.IdStation).Count() > 1))
+            schedules.Any(i=> schedules.Where(j=> j.StationTrainScheduleModel.IdStation == i.StationTrainScheduleModel.IdStation).Count() > 1)||
+            schedules.Any(i=>i.ArrivalTime > i.DepartureTime))
                     return false;
                 return true;
             });

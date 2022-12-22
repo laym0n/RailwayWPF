@@ -3,6 +3,7 @@ using CourseProject.View;
 using CourseProject.ViewModel.EditorsTrainDecorators;
 using CourseProject.ViewModel.Fabrics;
 using CourseProject.ViewModel.Interfaces;
+using DAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,5 +130,6 @@ namespace CourseProject.ViewModel
         public IMainMenuController MainMenuControllerService { get; }
         public IReportService ReportService { get; }
         public IGetCollectionsService GetCollectionsService { get; }
+        public IProcesserDoUndo<Train> EditorStrategy { get; }
     }
 }

@@ -2,6 +2,7 @@
 using CourseProject.Model;
 using CourseProject.ViewModel.Interfaces;
 using DAL;
+using DAL.Entities;
 using DLL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using DAL.Entities;
 
 namespace CourseProject.ViewModel.EditorsTrainDecorators
 {
-    public class EditorStartTime : IProcesserDoUndo<Train>
+    public class EditorStartTimeExistTrain : IProcesserDoUndo<Train>
     {
         IUnitOfWork db;
         IProcesserDoUndo<Train> processerDoUndo;
@@ -22,9 +22,10 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         public static event Action StartProcessVans;
         ObservableCollection<TimesForStationModel> startTimes = new ObservableCollection<TimesForStationModel>();
 
+        
         Train trainForEdit;
         bool active = false;
-        public EditorStartTime(IUnitOfWork db, IProcesserDoUndo<Train> processerDoUndo)
+        public EditorStartTimeExistTrain(IUnitOfWork db, IProcesserDoUndo<Train> processerDoUndo)
         {
             this.db = db;
             SetProcesserDoUndo(processerDoUndo);
@@ -46,6 +47,17 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             this.trainForEdit = trainForEdit;
             startTimes = new ObservableCollection<TimesForStationModel>();
+            (from tracks in trainForEdit.Track
+             join times in db.TimesForStation.GetList()
+             on tracks.Id equals times.TrackId
+             group times by tracks.Id into ways
+             from tickets in db.Ticket.GetList()
+             where ways.FirstOrDefault(i => i.Id == tickets.IdTimesForStationSource) == null
+             select ways).ToList().ForEach(i => 
+             {
+                 TimesForStation time = i.Where(j => j.DepartureTime == i.Min(k => k.DepartureTime)).First();
+                 startTimes.Add(new TimesForStationModel(time) { loadedInDb = true });
+             });
             active = true;
         }
         public void CancelCurrentProcess()
@@ -104,10 +116,19 @@ namespace CourseProject.ViewModel.EditorsTrainDecorators
         {
             get => !active && processerDoUndo != null ? processerDoUndo.СompleteProcess : new RelayCommand((obj) =>
             {
+                List<Track> tracksForRemove = new List<Track>();
+                trainForEdit.Track.ToList().ForEach(i =>
+                {
+                    if(startTimes.FirstOrDefault(j=> j.loadedInDb && j.TrackId == i.Id) == null)
+                        tracksForRemove.Add(i);
+                });
+                tracksForRemove.ForEach(i => trainForEdit.Track.Remove(i));
                 TimesForStation firstTime = trainForEdit.Track.First().TimesForStation.First();
                 List<TimesForStation> times = trainForEdit.Track.First().TimesForStation.ToList().Where(i => i.TrackId == firstTime.TrackId).OrderBy(i => i.DepartureTime).ToList();
                 startTimes.ToList().ForEach(i =>
                 {
+                    if (i.loadedInDb)
+                        return;
                     Track addedTrack = new Track();
                     trainForEdit.Track.Add(addedTrack);
                     var sub = times[0].DepartureTime - i.DepartureTime;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL;
+using DAL.Entities;
 
 namespace CourseProject.ViewModel.Interfaces
 {
@@ -18,5 +20,6 @@ namespace CourseProject.ViewModel.Interfaces
         IMainMenuController MainMenuControllerService { get; }
         IReportService ReportService { get; }
         IGetCollectionsService GetCollectionsService { get; }
+        IProcesserDoUndo<Train> EditorStrategy { get; }
     }
 }
